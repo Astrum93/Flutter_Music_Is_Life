@@ -1,10 +1,11 @@
+import 'package:MusicIsLife/screen/mypage/mypage.dart';
 import 'package:flutter/material.dart';
-import 'package:naspace/Screen/mypage.dart';
-import 'package:naspace/Screen/welcome.dart';
-import 'package:naspace/Widget/InvisibleBox_Basic.dart';
-import 'package:naspace/Widget/InvisibleBox_Hot.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../widget/InvisibleBox_Basic.dart';
+import '../../widget/InvisibleBox_Hot.dart';
+import '../welcome.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

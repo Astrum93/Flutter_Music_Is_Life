@@ -1,14 +1,15 @@
+import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
+import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
+import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
 import 'package:flutter/material.dart';
-import 'package:naspace/Profile_Edit/edit_profile_image.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:naspace/Profile_Edit/edit_profileBG%20.dart';
-import 'package:naspace/Profile_Edit/edit_profile_introduce.dart';
-import 'package:naspace/Screen/contents.dart';
-import 'package:naspace/Screen/create.dart';
-import 'package:naspace/Screen/home.dart';
-import 'package:naspace/Screen/post.dart';
+
+import '../contents/contents.dart';
+import '../contents/create/create.dart';
+import '../contents/create/post.dart';
+import '../home/home.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});
@@ -36,7 +37,7 @@ class _MyScreenState extends State<MyScreen> {
 
   // Contents 데이터 불러오는 함수
   getContents() async {
-    var usercontents = FirebaseFirestore.instance
+    var userContents = FirebaseFirestore.instance
         .collection('Contents')
         .doc(_uid)
         .collection('UserContents')
@@ -47,7 +48,7 @@ class _MyScreenState extends State<MyScreen> {
   }
 
   // 이미지 수정 팝업창
-  void showAlert_profile(BuildContext context) {
+  void showAlertProfile(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -60,7 +61,7 @@ class _MyScreenState extends State<MyScreen> {
   }
 
   // 프로필 배경 화면 수정
-  void showAlert_profileBG(BuildContext context) {
+  void showAlertProfileBackground(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -73,7 +74,7 @@ class _MyScreenState extends State<MyScreen> {
   }
 
   // 프로필 소개 수정
-  void showAlert_profile_introduce(BuildContext context) {
+  void showAlertProfileIntroduce(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -112,7 +113,7 @@ class _MyScreenState extends State<MyScreen> {
                             // 프로필 배경
                             GestureDetector(
                               onTap: () {
-                                showAlert_profileBG(context);
+                                showAlertProfileBackground(context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -135,7 +136,7 @@ class _MyScreenState extends State<MyScreen> {
                               bottom: -50,
                               child: GestureDetector(
                                 onTap: () {
-                                  showAlert_profile(context);
+                                  showAlertProfile(context);
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.transparent,
@@ -229,7 +230,7 @@ class _MyScreenState extends State<MyScreen> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                showAlert_profile_introduce(context);
+                                showAlertProfileIntroduce(context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width - 10,
@@ -490,7 +491,7 @@ class _MyScreenState extends State<MyScreen> {
                                             builder: (context) =>
                                                 ContentsScreen(
                                                     contents: contents,
-                                                    contents_image:
+                                                    contentsImage:
                                                         contentsImage,
                                                     id: id,
                                                     formattedDateTime:

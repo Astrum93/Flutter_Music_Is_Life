@@ -1,17 +1,16 @@
+import 'package:MusicIsLife/widget/MusicPlayer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:naspace/Widget/MusicPlayer.dart';
-
 import '../../Widget/ShortContainerLine.dart';
 
 class ContentsScreen extends StatefulWidget {
-  final String contents, contents_image, id, formattedDateTime;
+  final String contents, contentsImage, id, formattedDateTime;
 
   const ContentsScreen(
       {super.key,
       required this.contents,
-      required this.contents_image,
+      required this.contentsImage,
       required this.id,
       required this.formattedDateTime});
 
@@ -39,7 +38,7 @@ class _ContentsScreenState extends State<ContentsScreen> {
     // TODO: implement initState
     super.initState();
     _getUserInfo();
-    show_more;
+    showMore;
   }
 
   // 좋아요 상태
@@ -49,7 +48,7 @@ class _ContentsScreenState extends State<ContentsScreen> {
   var likecount = 0;
 
   // 댓글 더보기
-  var show_more = true;
+  var showMore = true;
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +117,12 @@ class _ContentsScreenState extends State<ContentsScreen> {
 
           // 게시물 이미지
           Hero(
-            tag: widget.contents_image,
+            tag: widget.contentsImage,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 300,
               child: Image.network(
-                widget.contents_image,
+                widget.contentsImage,
                 fit: BoxFit.cover,
               ),
             ),
@@ -154,10 +153,10 @@ class _ContentsScreenState extends State<ContentsScreen> {
                         children: [
                           Text(
                             widget.contents,
-                            overflow: show_more
+                            overflow: showMore
                                 ? TextOverflow.fade
                                 : TextOverflow.visible,
-                            maxLines: show_more ? 1 : 100,
+                            maxLines: showMore ? 1 : 100,
                             style: const TextStyle(
                               color: Colors.white,
                             ),
@@ -169,34 +168,32 @@ class _ContentsScreenState extends State<ContentsScreen> {
                 ),
 
                 // 댓글 더 보기 버튼
-                Container(
-                  child: Row(
-                    children: [
-                      Row(
-                        children: [
-                          const Text(
-                            "댓글 더보기",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                show_more = show_more == true ? false : true;
-                              });
-                              print('test');
-                            },
-                            icon: show_more
-                                ? const Icon(Icons.arrow_drop_down)
-                                : const Icon(Icons.arrow_drop_up),
-                            color: Colors.grey,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                Row(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "댓글 더보기",
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              showMore = showMore == true ? false : true;
+                            });
+                            print('test');
+                          },
+                          icon: showMore
+                              ? const Icon(Icons.arrow_drop_down)
+                              : const Icon(Icons.arrow_drop_up),
+                          color: Colors.grey,
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ],
             ),

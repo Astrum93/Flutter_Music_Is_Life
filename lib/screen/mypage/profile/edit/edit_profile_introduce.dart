@@ -3,7 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/mypage.dart';
+
+import '../../mypage.dart';
 
 class EditProfileIntroduce extends StatefulWidget {
   const EditProfileIntroduce({super.key});
@@ -110,26 +111,30 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
                         .doc(currentUser!.uid)
                         .update({'userProfileInfo': profileInfo});
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyScreen(),
-                      ),
-                    );
+                    if (mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyScreen(),
+                        ),
+                      );
+                    }
                     setState(() {
                       _loading = false;
                     });
                   } catch (e) {
                     print(e);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          '프로필이 정상적으로 수정되지 않았습니다.\n입력하신 정보 또는 로그인을 확인해 주세요.',
-                          textAlign: TextAlign.center,
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            '프로필이 정상적으로 수정되지 않았습니다.\n입력하신 정보 또는 로그인을 확인해 주세요.',
+                            textAlign: TextAlign.center,
+                          ),
+                          backgroundColor: Colors.red,
                         ),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
+                      );
+                    }
                   }
                 },
                 icon: const Icon(Icons.save_alt_rounded),

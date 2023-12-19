@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/login.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:naspace/common/constants.dart';
+
+import '../../common/constants.dart';
+import '../login/login.dart';
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});

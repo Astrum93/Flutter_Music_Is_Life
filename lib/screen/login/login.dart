@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/home.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:naspace/common/constants.dart';
+
+import '../../common/constants.dart';
+import '../home/home.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
