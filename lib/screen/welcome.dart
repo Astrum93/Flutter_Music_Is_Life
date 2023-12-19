@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:naspace/Screen/JoinScreen.dart';
-import 'package:naspace/Screen/LogInScreen.dart';
+import 'package:naspace/Screen/join.dart';
+import 'package:naspace/Screen/login.dart';
+import 'package:naspace/common/constants.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -17,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fill,
-          image: AssetImage('lib/Image/Background/WelcomeImage.png'),
+          image: AssetImage('$basePath/background/WelcomeImage.png'),
         ),
       ),
       child: Scaffold(

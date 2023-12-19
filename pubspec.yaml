@@ -74,36 +74,36 @@ flutter:
     
 
     # Background
-    - lib/Image/Background/WelcomeImage.png
-    - lib/Image/Background/background.png
-    - lib/Image/Background/universe1.jpg
-    - lib/Image/Background/universe2.jpg
-    - lib/Image/Background/universe3.jpg
-    - lib/Image/Background/universe4.jpg
+    - assets/background/WelcomeImage.png
+    - assets/background/background.png
+    - assets/background/universe1.jpg
+    - assets/background/universe2.jpg
+    - assets/background/universe3.jpg
+    - assets/background/universe4.jpg
     
     # Icon
-    - lib/Image/Icon/dancing.png
-    - lib/Image/Icon/davids-head.png
-    - lib/Image/Icon/gummy-ipod.png
-    - lib/Image/Icon/Login.png
-    - lib/Image/Icon/tape-recorder.png
-    - lib/Image/Icon/vr-headset.png
+    - assets/icon/dancing.png
+    - assets/icon/davids-head.png
+    - assets/icon/gummy-ipod.png
+    - assets/icon/Login.png
+    - assets/icon/tape-recorder.png
+    - assets/icon/vr-headset.png
 
     # Logo
-    - lib/Image/Logo/NA1.png
-    - lib/Image/Logo/NA2.png
-    - lib/Image/Logo/NAspace.png
-    - lib/Image/Logo/NAspace2.png
+    - assets/logo/NA1.png
+    - assets/logo/NA2.png
+    - assets/logo/NAspace.png
+    - assets/logo/NAspace2.png
     
     # profile
-    - lib/Image/profile/pikachu.png
-    - lib/Image/profile/homer.gif
-    - lib/Image/profile/metamong.gif
-    - lib/Image/profile/fire_dog.gif
-    - lib/Image/profile/fire_cat.gif
+    - assets/profile/pikachu.png
+    - assets/profile/homer.gif
+    - assets/profile/metamong.gif
+    - assets/profile/fire_dog.gif
+    - assets/profile/fire_cat.gif
 
     # Thumb
-    - lib/Image/Thumb/Thumb_Test.jpeg
+    - assets/thumb/Thumb_Test.jpeg
     
   # To add assets to your application, add an assets section, like this:
   # assets:

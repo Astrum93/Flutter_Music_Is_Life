@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:naspace/Screen/MyScreen.dart';
+import 'package:naspace/Screen/mypage.dart';
 
 class EditProfileImage extends StatefulWidget {
   const EditProfileImage({super.key});
 
   @override
-  State<EditProfileImage> createState() => _nameState();
+  State<EditProfileImage> createState() => _EditProfileImageState();
 }
 
-class _nameState extends State<EditProfileImage> {
+class _EditProfileImageState extends State<EditProfileImage> {
   // Image 저장 변수
   File? pickedImage;
 

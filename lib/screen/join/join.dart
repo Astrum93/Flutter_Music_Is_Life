@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/LogInScreen.dart';
+import 'package:naspace/Screen/login.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:naspace/common/constants.dart';
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});
@@ -58,7 +59,7 @@ class _JoinScreenState extends State<JoinScreen> {
               children: [
                 Center(
                   child: Image(
-                    image: const AssetImage('lib/Image/Icon/vr-headset.png'),
+                    image: const AssetImage('$basePath/icon/vr-headset.png'),
                     // 화면 크기의 -10만큼의 가로 길이
                     width: MediaQuery.of(context).size.width - 10,
                   ),
@@ -353,7 +354,7 @@ class _JoinScreenState extends State<JoinScreen> {
                                   });
 
                                   // User 등록이 됬을 경우
-                                  if (joinedUser.user != null) {
+                                  if (joinedUser.user != null && mounted) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -364,15 +365,17 @@ class _JoinScreenState extends State<JoinScreen> {
                                   }
                                 } catch (e) {
                                   print(e);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        '회원가입이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                        textAlign: TextAlign.center,
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          '회원가입이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        backgroundColor: Colors.red,
                                       ),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
+                                    );
+                                  }
                                 }
                               },
                               child: Container(

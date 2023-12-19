@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:naspace/Screen/MyScreen.dart';
-import 'package:naspace/Screen/WelcomScreen.dart';
+import 'package:naspace/Screen/mypage.dart';
+import 'package:naspace/Screen/welcome.dart';
 import 'package:naspace/Widget/InvisibleBox_Basic.dart';
 import 'package:naspace/Widget/InvisibleBox_Hot.dart';
 import 'package:firebase_auth/firebase_auth.dart';

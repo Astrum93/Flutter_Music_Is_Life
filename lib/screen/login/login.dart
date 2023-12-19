@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/HomeScreen.dart';
+import 'package:naspace/Screen/home.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:naspace/common/constants.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -58,7 +59,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 // 로그인 메인 이미지
                 const Center(
                   child: Image(
-                    image: AssetImage('lib/Image/Icon/Login.png'),
+                    image: AssetImage('$basePath/icon/Login.png'),
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -208,7 +209,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     password: userPassword,
                                   );
                                   // User 등록이 됬을 경우
-                                  if (newUser.user != null) {
+                                  if (newUser.user != null && mounted) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -222,15 +223,17 @@ class _LogInScreenState extends State<LogInScreen> {
                                   }
                                 } catch (e) {
                                   print(e);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                        textAlign: TextAlign.center,
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        backgroundColor: Colors.red,
                                       ),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
+                                    );
+                                  }
                                 }
                               },
                               child: Container(

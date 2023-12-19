@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:naspace/Screen/WelcomScreen.dart';
+import 'package:naspace/Screen/welcome.dart';
 import 'package:naspace/firebase_options.dart';
 
 void main() async {

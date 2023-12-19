@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:naspace/Profile_Edit/edit_profile.dart';
+import 'package:naspace/Profile_Edit/edit_profile_image.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:naspace/Profile_Edit/edit_profileBG%20.dart';
 import 'package:naspace/Profile_Edit/edit_profile_introduce.dart';
-import 'package:naspace/Screen/ContentsScreen.dart';
-import 'package:naspace/Screen/CreateScreen.dart';
-import 'package:naspace/Screen/HomeScreen.dart';
-import 'package:naspace/Screen/PostScreen.dart';
+import 'package:naspace/Screen/contents.dart';
+import 'package:naspace/Screen/create.dart';
+import 'package:naspace/Screen/home.dart';
+import 'package:naspace/Screen/post.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});

@@ -3,16 +3,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:naspace/Screen/MyScreen.dart';
+import 'package:naspace/Screen/mypage.dart';
 
 class EditProfileIntroduce extends StatefulWidget {
   const EditProfileIntroduce({super.key});
 
   @override
-  State<EditProfileIntroduce> createState() => _nameState();
+  State<EditProfileIntroduce> createState() => _EditProfileIntroduceState();
 }
 
-class _nameState extends State<EditProfileIntroduce> {
+class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
   // 로딩 스피너 상태 변수
   bool _loading = false;
 

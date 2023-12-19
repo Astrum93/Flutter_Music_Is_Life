@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:naspace/Screen/MyScreen.dart';
+import 'package:naspace/Screen/mypage.dart';
 
 class EditProfileBgImage extends StatefulWidget {
   const EditProfileBgImage({super.key});

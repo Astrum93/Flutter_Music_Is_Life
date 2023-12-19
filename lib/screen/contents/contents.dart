@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:naspace/Widget/MusicPlayer.dart';
 
-import '../Widget/ShortContainerLine.dart';
+import '../../Widget/ShortContainerLine.dart';
 
 class ContentsScreen extends StatefulWidget {
   final String contents, contents_image, id, formattedDateTime;
