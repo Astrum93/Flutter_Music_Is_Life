@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../widget/InvisibleBox_Basic.dart';
-import '../../widget/InvisibleBox_Hot.dart';
+import '../../widget/invisible_box_basic.dart';
+import '../../widget/invisible_box_hot.dart';
 import '../welcome.dart';
 
 class HomeScreen extends StatefulWidget {

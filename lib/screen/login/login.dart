@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/widget/easy_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -15,6 +16,7 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   // 로딩 스피너 상태 변수
   bool _loading = false;
+
 //////////////////////////////////         FirebaseAuth           //////////////////////////////////////////////////////
 
   // Firebase Authentication Instance
@@ -88,49 +90,27 @@ class _LogInScreenState extends State<LogInScreen> {
                             const SizedBox(height: 15),
 
                             // 아이디 입력
-                            TextFormField(
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                              key: const ValueKey(1),
-                              validator: (value) {
-                                if (value!.isEmpty || !value.contains('@')) {
-                                  return '올바른 메일을 입력해 주세요.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                userMail = value!;
-                              },
-                              onChanged: (value) {
-                                userMail = value;
-                              },
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(
+                            EasyTextFormField(
+                                keyboardType: TextInputType.text,
+                                obscureText: false,
+                                validator: (value) {
+                                  if (value!.isEmpty || !value.contains('@')) {
+                                    return '올바른 메일을 입력해 주세요.';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  userMail = value!;
+                                },
+                                onChanged: (value) {
+                                  userMail = value;
+                                },
+                                prefixIcon: const Icon(
                                   Icons.mail,
                                   color: Colors.grey,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(35),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(35),
-                                  ),
-                                ),
-                                hintText: "메일 주소",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                contentPadding: EdgeInsets.all(10),
-                              ),
-                            ),
+                                hintText: "메일 주소"),
+
                             const SizedBox(height: 15),
 
                             const Row(
@@ -146,51 +126,26 @@ class _LogInScreenState extends State<LogInScreen> {
                             const SizedBox(height: 15),
 
                             // 비밀번호 입력
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              style: const TextStyle(
-                                color: Colors.white,
-                              ),
-                              key: const ValueKey(2),
-                              validator: (value) {
-                                if (value!.isEmpty || value.length < 6) {
-                                  return '최소 6자리 이상을 입력해주세요.';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {
-                                userPassword = value!;
-                              },
-                              onChanged: (value) {
-                                userPassword = value;
-                              },
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(
+                            EasyTextFormField(
+                                keyboardType: TextInputType.text,
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length < 6) {
+                                    return '최소 6자리 이상을 입력해주세요.';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  userPassword = value!;
+                                },
+                                onChanged: (value) {
+                                  userPassword = value;
+                                },
+                                prefixIcon: const Icon(
                                   Icons.lock_outline_rounded,
                                   color: Colors.grey,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(35),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(35),
-                                  ),
-                                ),
-                                hintText: "비밀번호",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                contentPadding: EdgeInsets.all(10),
-                              ),
-                            ),
+                                hintText: "비밀번호"),
 
                             const SizedBox(height: 35),
 

@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/widget/MusicPlayer.dart';
+import 'package:MusicIsLife/widget/music_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../Widget/ShortContainerLine.dart';
+import '../../Widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
   final String contents, contentsImage, id, formattedDateTime;
@@ -130,7 +130,7 @@ class _ContentsScreenState extends State<ContentsScreen> {
           const SizedBox(height: 20),
 
           // 음악 플레이어
-          const music_player(),
+          const MusicPlayer(),
 
           const SizedBox(height: 15),
 

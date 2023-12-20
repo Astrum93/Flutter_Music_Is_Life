@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/widget/HashTagWidget.dart';
+import 'package:MusicIsLife/widget/hash_tag.dart';
 import 'package:flutter/material.dart';
 
 class InvisibleBoxHot extends StatelessWidget {
@@ -129,13 +129,13 @@ class InvisibleBoxHot extends StatelessWidget {
         ),
         const Row(
           children: [
-            HashTagWidget(tagname: '기분좋음'),
+            HashTag(tagname: '기분좋음'),
             SizedBox(width: 8),
-            HashTagWidget(tagname: '신남'),
+            HashTag(tagname: '신남'),
             SizedBox(width: 8),
-            HashTagWidget(tagname: '쇼미11'),
+            HashTag(tagname: '쇼미11'),
             SizedBox(width: 8),
-            HashTagWidget(tagname: 'GEMINI'),
+            HashTag(tagname: 'GEMINI'),
           ],
         ),
       ],

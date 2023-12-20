@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HashTagWidget extends StatelessWidget {
-  const HashTagWidget({super.key, required this.tagname});
+class HashTag extends StatelessWidget {
+  const HashTag({super.key, required this.tagname});
 
   final String tagname;
 

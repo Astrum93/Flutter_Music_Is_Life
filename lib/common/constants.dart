@@ -1,1 +1,1 @@
-const basePath = 'assets/';
+const basePath = 'assets';

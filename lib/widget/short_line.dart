@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class shortContainerLine extends StatelessWidget {
-  const shortContainerLine({super.key, required this.color});
+class ShortLine extends StatelessWidget {
+  const ShortLine({super.key, required this.color});
 
   final Color color;
 

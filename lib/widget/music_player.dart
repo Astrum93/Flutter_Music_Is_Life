@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class music_player extends StatelessWidget {
-  const music_player({
+class MusicPlayer extends StatelessWidget {
+  const MusicPlayer({
     super.key,
   });
 
