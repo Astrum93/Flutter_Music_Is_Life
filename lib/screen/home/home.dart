@@ -129,14 +129,14 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? Drawer(
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Colors.black.withOpacity(0.8),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(1),
+                                  color: Colors.black.withOpacity(0.8),
                                 ),
                                 child: Column(
                                   children: [

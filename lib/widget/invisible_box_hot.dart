@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constants.dart';
 import 'package:MusicIsLife/widget/hash_tag.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class InvisibleBoxHot extends StatelessWidget {
           children: [
             Container(
               width: 350,
-              height: 400,
+              height: 410,
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 color: Colors.transparent,
@@ -37,7 +38,7 @@ class InvisibleBoxHot extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         image: const DecorationImage(
-                          image: AssetImage('lib/Image/Thumb/Thumb_Test.jpeg'),
+                          image: AssetImage('$basePath/thumb/Thumb_Test.jpeg'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -71,7 +72,7 @@ class InvisibleBoxHot extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.asset(
-                                    'lib/Image/profile/pikachu.png'),
+                                    '$basePath/profile/pikachu.png'),
                               ),
                             ),
                             const SizedBox(width: 10),

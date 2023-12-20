@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constants.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
@@ -290,7 +291,7 @@ class _MyScreenState extends State<MyScreen> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
                                         child: Image.asset(
-                                            'lib/Image/Thumb/Thumb_Test.jpeg'),
+                                            '$basePath/thumb/Thumb_Test.jpeg'),
                                       ),
                                     ),
                                     const SizedBox(width: 20),

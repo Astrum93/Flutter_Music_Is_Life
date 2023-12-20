@@ -2,7 +2,8 @@ import 'package:MusicIsLife/widget/music_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../Widget/short_line.dart';
+
+import '../../widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
   final String contents, contentsImage, id, formattedDateTime;
@@ -199,7 +200,7 @@ class _ContentsScreenState extends State<ContentsScreen> {
             ),
           ),
           const SizedBox(height: 25),
-          const shortContainerLine(color: Colors.blue),
+          const ShortLine(color: Colors.blue),
           const SizedBox(height: 5),
         ],
       ),

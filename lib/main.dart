@@ -17,9 +17,12 @@ class NAspace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      home: const WelcomeScreen(),
     );
   }
 }

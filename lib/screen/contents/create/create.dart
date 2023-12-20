@@ -1,8 +1,8 @@
 // ignore_for_file: unused_field
 
 import 'dart:io';
-import 'package:MusicIsLife/Widget/short_line.dart';
 import 'package:MusicIsLife/screen/mypage/mypage.dart';
+import 'package:MusicIsLife/widget/short_line.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -184,9 +184,10 @@ class _CreateScreenState extends State<CreateScreen> {
     setState(() {
       pickedImage = null;
     });
-
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const MyScreen()));
+    if (mounted) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const MyScreen()));
+    }
   }
 
   // Form Key
@@ -295,7 +296,7 @@ class _CreateScreenState extends State<CreateScreen> {
                               ],
                             ),
                             const SizedBox(height: 20),
-                            const shortContainerLine(color: Colors.amber),
+                            const ShortLine(color: Colors.amber),
                             const SizedBox(height: 10),
 
                             // 게시물 작성
@@ -312,7 +313,7 @@ class _CreateScreenState extends State<CreateScreen> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            const shortContainerLine(color: Colors.amber),
+                            const ShortLine(color: Colors.amber),
                             const SizedBox(height: 30),
 
                             // 게시물 이미지
