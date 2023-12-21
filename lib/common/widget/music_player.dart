@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constants.dart';
 import 'package:flutter/material.dart';
 
 class MusicPlayer extends StatelessWidget {
@@ -15,7 +16,7 @@ class MusicPlayer extends StatelessWidget {
             radius: 40,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: Image.asset('lib/Image/Thumb/Thumb_Test.jpeg'),
+              child: Image.asset('$basePath/thumb/Thumb_Test.jpeg'),
             ),
           ),
           const SizedBox(width: 20),

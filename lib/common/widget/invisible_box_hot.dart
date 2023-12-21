@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/common/constants.dart';
-import 'package:MusicIsLife/widget/hash_tag.dart';
+import 'package:MusicIsLife/common/widget/hash_tag.dart';
 import 'package:flutter/material.dart';
 
 class InvisibleBoxHot extends StatelessWidget {
@@ -19,7 +19,7 @@ class InvisibleBoxHot extends StatelessWidget {
               height: 410,
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: Colors.grey.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(

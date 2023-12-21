@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../widget/invisible_box_basic.dart';
-import '../../widget/invisible_box_hot.dart';
+import '../../common/widget/invisible_box_basic.dart';
+import '../../common/widget/invisible_box_hot.dart';
 import '../welcome.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // 배경 색상
-  Color homebgc = const Color.fromARGB(255, 0, 3, 28);
+  Color homebgc = Colors.black;
 
   // Firebase Authentication Instance
   final _authentication = FirebaseAuth.instance;
@@ -109,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                    '${(snapshot.data as Map)['userProfileImage']}'),
+                                  '${(snapshot.data as Map)['userProfileImage']}',
+                                ),
                               ),
                             )
                           : const Center(

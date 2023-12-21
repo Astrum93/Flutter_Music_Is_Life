@@ -108,71 +108,73 @@ class _MyScreenState extends State<MyScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            // 프로필 배경
-                            GestureDetector(
-                              onTap: () {
-                                showAlertProfileBackground(context);
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        '${(snapshot.data as Map)['userProfileBgImage']}'),
-                                  ),
-                                ),
-                                child: const Text(' '),
-                              ),
-                            ),
-
-                            // 프로필 사진
-                            Positioned(
-                              left: 0,
-                              right: 0,
-                              bottom: -50,
-                              child: GestureDetector(
+                        SafeArea(
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              // 프로필 배경
+                              GestureDetector(
                                 onTap: () {
-                                  showAlertProfile(context);
+                                  showAlertProfileBackground(context);
                                 },
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Image.network(
-                                      '${(snapshot.data as Map)['userProfileImage']}',
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      alignment: Alignment.center,
+                                      image: NetworkImage(
+                                          '${(snapshot.data as Map)['userProfileBgImage']}'),
+                                    ),
+                                  ),
+                                  child: const Text(' '),
+                                ),
+                              ),
+
+                              // 프로필 사진
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                bottom: -50,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showAlertProfile(context);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        '${(snapshot.data as Map)['userProfileImage']}',
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment.center,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
 
-                            // Home 버튼
-                            Positioned(
-                              top: 0,
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomeScreen()));
-                                },
-                                icon: const Icon(
-                                  Icons.home,
-                                  color: Colors.white,
-                                  size: 30,
+                              // Home 버튼
+                              Positioned(
+                                top: 0,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  },
+                                  icon: const Icon(
+                                    Icons.home,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 60),
 
@@ -507,6 +509,10 @@ class _MyScreenState extends State<MyScreen> {
                                           width: 250,
                                           height: 250,
                                           decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.grey
+                                                    .withOpacity(0.05),
+                                                width: 1),
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image:

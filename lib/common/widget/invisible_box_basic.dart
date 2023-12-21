@@ -10,7 +10,7 @@ class InvisibleBoxBasic extends StatelessWidget {
       height: 380,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        color: Colors.transparent,
+        color: Colors.grey.withOpacity(0.05),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
