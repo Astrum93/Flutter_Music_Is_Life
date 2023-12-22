@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../common/constants.dart';
-import '../../common/widget/easy_textformfield.dart';
+import '../../common/widget/easy_text_form_field.dart';
 import '../home/home.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -91,6 +91,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
                             // 아이디 입력
                             EasyTextFormField(
+                                key: const ValueKey(1),
                                 keyboardType: TextInputType.text,
                                 obscureText: false,
                                 validator: (value) {
@@ -126,6 +127,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
                             // 비밀번호 입력
                             EasyTextFormField(
+                                key: const ValueKey(2),
                                 keyboardType: TextInputType.text,
                                 obscureText: true,
                                 validator: (value) {
