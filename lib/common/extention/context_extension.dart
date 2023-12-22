@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/color/abstract_theme_colors.dart';
+
 extension ContextExtension on BuildContext {
   double width(double widthSize) {
     return MediaQuery.of(this).size.width * widthSize;
@@ -32,12 +34,4 @@ extension ContextExtension on BuildContext {
   Brightness get platformBrightness {
     return MediaQuery.of(this).platformBrightness;
   }
-
-// AbstractThemeColors get appColors => CustomThemeHolder.of(this).appColors;
-
-// AbsThemeShadows get appShadows => CustomThemeHolder.of(this).appShadows;
-
-// CustomTheme get themeType => CustomThemeHolder.of(this).theme;
-
-// Function(CustomTheme) get changeTheme => CustomThemeHolder.of(this).changeTheme;
 }
