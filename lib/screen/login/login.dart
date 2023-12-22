@@ -110,7 +110,6 @@ class _LogInScreenState extends State<LogInScreen> {
                                   color: Colors.grey,
                                 ),
                                 hintText: "메일 주소"),
-
                             const SizedBox(height: 15),
 
                             const Row(
@@ -146,7 +145,6 @@ class _LogInScreenState extends State<LogInScreen> {
                                   color: Colors.grey,
                                 ),
                                 hintText: "비밀번호"),
-
                             const SizedBox(height: 35),
 
                             // 체크 버튼
@@ -159,13 +157,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                 tryValidation();
 
                                 try {
-                                  final newUser = await _authentication
+                                  final loginUser = await _authentication
                                       .signInWithEmailAndPassword(
                                     email: userMail,
                                     password: userPassword,
                                   );
                                   // User 등록이 됬을 경우
-                                  if (newUser.user != null && mounted) {
+                                  if (loginUser.user != null && mounted) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
