@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Scaffold(
             backgroundColor: Colors.black,
 
-            // AppBar
+            /// AppBar
             appBar: AppBar(
               backgroundColor:
                   const Color.fromARGB(255, 15, 15, 15).withOpacity(0.3),
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: const Icon(Icons.search_rounded),
                 ),
 
-                // 개인 프로필
+                /// 개인 프로필
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
 
-            // Drawer
+            /// Drawer
             drawer: const HomeDrawer(),
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,13 +127,14 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                // 메인 컬럼
+
+                /// 메인 컬럼
                 child: Column(
                   children: [
-                    // 메인 컬럼의 SizedBox
+                    /// 메인 컬럼의 SizedBox
                     const SizedBox(height: 10),
 
-                    // 메인 컬럼의 두 번째 행
+                    /// 메인 컬럼의 두 번째 행
                     const SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -151,10 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
 
-                    // 메인 컬럼 SizedBox
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
 
-                    // 메인 컬럼 세 번째 열
+                    /// 메인 컬럼 세 번째 열
                     const Column(
                       children: [
                         Text(
@@ -168,20 +169,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    // 메인 컬럼 SizedBox
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    // 로그인 버튼
+                    /// 로그인 버튼
                     const InvisibleBoxBasic(),
 
                     const SizedBox(height: 20),
 
-                    // 메인 컬럼 네 번째 컨테이너 (Invisible)
+                    /// 메인 컬럼 네 번째 컨테이너 (Invisible)
                     const InvisibleBoxBasic(),
-                    // 메인 컬럼 SizedBox
+
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
 
-                    // 메인 컬럼 네 번째 열
+                    /// 메인 컬럼 네 번째 열
                     const Column(
                       children: [
                         Text(
@@ -195,10 +197,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    // 메인 컬럼 SizedBox
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    // 메인 컬럼 다섯 번째 컨테이너 (Invisible)
+                    /// 메인 컬럼 다섯 번째 컨테이너 (Invisible)
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
@@ -225,10 +227,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    // 메인 컬럼 SizedBox
+
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
 
-                    // 메인 컬럼 다섯 번째 열
+                    /// 메인 컬럼 다섯 번째 열
                     const Column(
                       children: [
                         Text(
@@ -242,10 +245,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
 
-                    // 메인 컬럼 SizedBox
+                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    // 메인 컬럼 여섯 번째 컨테이너 (Invisible)
+                    /// 메인 컬럼 여섯 번째 컨테이너 (Invisible)
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
@@ -277,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // Bottom Navigation Bar
+            /// Bottom Navigation Bar
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Colors.white,
