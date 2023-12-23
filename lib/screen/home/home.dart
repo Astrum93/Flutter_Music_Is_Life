@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../common/widget/invisible_box_basic.dart';
 import '../../common/widget/invisible_box_hot.dart';
+import '../../data/firebase/firebase_auth/firebase_authentication.dart';
 import '../welcome.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,13 +16,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  // Firebase 인증된 현재 유저
-  final User? user = FirebaseAuth.instance.currentUser;
-
-  // Firebase 인증된 uid
-  final _uid = FirebaseAuth.instance.currentUser!.uid;
-
+class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   // Firebase Firestore Instance
   final _firestore = FirebaseFirestore.instance;
 
@@ -57,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
-    var userinfo = await userInfo.doc(_uid).get();
+    var userinfo = await userInfo.doc(currentUid).get();
     return userinfo.data();
   }
 
