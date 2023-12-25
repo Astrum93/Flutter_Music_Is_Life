@@ -257,7 +257,6 @@ class _JoinScreenState extends State<JoinScreen> {
                                     );
                                   }
                                 } catch (e) {
-                                  print(e);
                                   if (mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
