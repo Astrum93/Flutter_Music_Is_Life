@@ -34,17 +34,34 @@ class _LogInScreenState extends State<LogInScreen> {
   String userMail = '';
   String userPassword = '';
 
-  void tryValidation() {
-    final isValid = formKey.currentState!.validate();
-    final notNull = formKey.currentContext;
-
-    if (isValid && notNull != null) {
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void tryLogin() async {
+    final isValied = formKey.currentState!.validate();
+    setState(() {
+      _loading = false;
+    });
+    if (isValied) {
       formKey.currentState!.save();
-    } else {
-      const ColorSnackBar(
-        text: '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-        color: Colors.red,
+      final loginUser = await _authentication.signInWithEmailAndPassword(
+        email: userMail,
+        password: userPassword,
       );
+      // User 등록이 됬을 경우
+      if (loginUser.user != null && mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      } else {
+        const ColorSnackBar(
+          text: '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
+          color: Colors.red,
+        );
+      }
+    } else {
+      print('else @@@@@@@@@@@@@@@@');
     }
   }
 
@@ -160,30 +177,16 @@ class _LogInScreenState extends State<LogInScreen> {
 
                             // 체크 버튼
                             CheckButton(() async {
-                              final loginUser = await _authentication
-                                  .signInWithEmailAndPassword(
-                                email: userMail,
-                                password: userPassword,
-                              );
                               try {
-                                tryValidation();
-
                                 setState(() {
                                   _loading = true;
                                 });
 
-                                // User 등록이 됬을 경우
-                                if (loginUser.user != null && mounted) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
-                                    ),
-                                  );
-                                  setState(() {
-                                    _loading = false;
-                                  });
-                                }
+                                tryLogin();
+
+                                setState(() {
+                                  _loading = false;
+                                });
                               } catch (e) {
                                 if (mounted) {
                                   const ColorSnackBar(
