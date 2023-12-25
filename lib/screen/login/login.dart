@@ -37,31 +37,44 @@ class _LogInScreenState extends State<LogInScreen> {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void tryLogin() async {
     final isValied = formKey.currentState!.validate();
-    setState(() {
-      _loading = false;
-    });
     if (isValied) {
+      setState(() {
+        _loading = true;
+      });
       formKey.currentState!.save();
-      final loginUser = await _authentication.signInWithEmailAndPassword(
-        email: userMail,
-        password: userPassword,
-      );
-      // User 등록이 됬을 경우
-      if (loginUser.user != null && mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
+      try {
+        final signInUser = await _authentication.signInWithEmailAndPassword(
+          email: userMail,
+          password: userPassword,
         );
-      } else {
-        const ColorSnackBar(
-          text: '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-          color: Colors.red,
-        );
+        // User 등록이 됬을 경우
+        if (signInUser.user != null && mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+          setState(() {
+            _loading = false;
+          });
+        } else {
+          setState(() {
+            _loading = false;
+          });
+          print('등록은 되있는데 로그인 안됨');
+        }
+      } catch (e) {
+        setState(() {
+          _loading = false;
+        });
+        print('등록되지 않은 사용자 입니다.');
       }
     } else {
-      print('else @@@@@@@@@@@@@@@@');
+      setState(() {
+        _loading = false;
+      });
+      print('validation에서 걸림');
     }
   }
 
@@ -178,15 +191,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             // 체크 버튼
                             CheckButton(() async {
                               try {
-                                setState(() {
-                                  _loading = true;
-                                });
-
                                 tryLogin();
-
-                                setState(() {
-                                  _loading = false;
-                                });
                               } catch (e) {
                                 if (mounted) {
                                   const ColorSnackBar(
