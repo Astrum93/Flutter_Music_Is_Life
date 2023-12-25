@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/check_button.dart';
 import 'package:MusicIsLife/common/widget/color_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -151,63 +152,46 @@ class _LogInScreenState extends State<LogInScreen> {
                             const SizedBox(height: 35),
 
                             // 체크 버튼
-                            InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  _loading = true;
-                                });
+                            CheckButton(() async {
+                              setState(() {
+                                _loading = true;
+                              });
 
-                                tryValidation();
+                              tryValidation();
 
-                                try {
-                                  final loginUser = await _authentication
-                                      .signInWithEmailAndPassword(
-                                    email: userMail,
-                                    password: userPassword,
+                              try {
+                                final loginUser = await _authentication
+                                    .signInWithEmailAndPassword(
+                                  email: userMail,
+                                  password: userPassword,
+                                );
+                                // User 등록이 됬을 경우
+                                if (loginUser.user != null && mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomeScreen(),
+                                    ),
                                   );
-                                  // User 등록이 됬을 경우
-                                  if (loginUser.user != null && mounted) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const HomeScreen(),
-                                      ),
-                                    );
-                                    setState(() {
-                                      _loading = false;
-                                    });
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                  if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                  }
+                                  setState(() {
+                                    _loading = false;
+                                  });
                                 }
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            )
+                              } catch (e) {
+                                print(e);
+                                if (mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              }
+                            })
                           ],
                         ),
                       ),
