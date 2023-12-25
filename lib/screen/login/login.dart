@@ -36,8 +36,15 @@ class _LogInScreenState extends State<LogInScreen> {
 
   void tryValidation() {
     final isValid = formKey.currentState!.validate();
-    if (isValid) {
+    final notNull = formKey.currentContext;
+
+    if (isValid && notNull != null) {
       formKey.currentState!.save();
+    } else {
+      const ColorSnackBar(
+        text: '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
+        color: Colors.red,
+      );
     }
   }
 
@@ -153,18 +160,18 @@ class _LogInScreenState extends State<LogInScreen> {
 
                             // 체크 버튼
                             CheckButton(() async {
-                              setState(() {
-                                _loading = true;
-                              });
-
-                              tryValidation();
-
+                              final loginUser = await _authentication
+                                  .signInWithEmailAndPassword(
+                                email: userMail,
+                                password: userPassword,
+                              );
                               try {
-                                final loginUser = await _authentication
-                                    .signInWithEmailAndPassword(
-                                  email: userMail,
-                                  password: userPassword,
-                                );
+                                tryValidation();
+
+                                setState(() {
+                                  _loading = true;
+                                });
+
                                 // User 등록이 됬을 경우
                                 if (loginUser.user != null && mounted) {
                                   Navigator.push(
@@ -178,16 +185,11 @@ class _LogInScreenState extends State<LogInScreen> {
                                   });
                                 }
                               } catch (e) {
-                                print(e);
                                 if (mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
+                                  const ColorSnackBar(
+                                    text:
                                         '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      backgroundColor: Colors.red,
-                                    ),
+                                    color: Colors.red,
                                   );
                                 }
                               }
