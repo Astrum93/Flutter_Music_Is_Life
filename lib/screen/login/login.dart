@@ -1,5 +1,4 @@
 import 'package:MusicIsLife/common/widget/check_button.dart';
-import 'package:MusicIsLife/common/widget/color_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -62,19 +61,53 @@ class _LogInScreenState extends State<LogInScreen> {
           setState(() {
             _loading = false;
           });
-          print('등록은 되있는데 로그인 안됨');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  '예상치 못한 오류가 발생되어 로그인에 실패하였습니다.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         }
       } catch (e) {
         setState(() {
           _loading = false;
         });
-        print('등록되지 않은 사용자 입니다.');
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                '등록되지 않은 사용자 입니다.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       }
     } else {
       setState(() {
         _loading = false;
       });
-      print('validation에서 걸림');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              '정보를 올바르게 입력해 주세요.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -189,19 +222,11 @@ class _LogInScreenState extends State<LogInScreen> {
                             const SizedBox(height: 35),
 
                             // 체크 버튼
-                            CheckButton(() async {
-                              try {
+                            CheckButton(
+                              () async {
                                 tryLogin();
-                              } catch (e) {
-                                if (mounted) {
-                                  const ColorSnackBar(
-                                    text:
-                                        '로그인이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                    color: Colors.red,
-                                  );
-                                }
-                              }
-                            })
+                              },
+                            )
                           ],
                         ),
                       ),
