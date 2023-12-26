@@ -87,7 +87,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const JoinScreen(),
+                              builder: (context) => JoinScreen(),
                             ),
                           );
                         },
