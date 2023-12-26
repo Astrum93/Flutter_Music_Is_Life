@@ -33,9 +33,6 @@ class _JoinScreenState extends State<JoinScreen> {
   // Form Key
   final formKey = GlobalKey<FormState>();
 
-  String contentsImage = '';
-  String contents = '내용을 입력해 주세요.';
-
   void tryJoin() async {
     final isValid = formKey.currentState!.validate();
     if (isValid) {
@@ -56,17 +53,11 @@ class _JoinScreenState extends State<JoinScreen> {
             .set({
           'userName': userData.name,
           'userMail': userData.mail,
-          'userPhomeNumber': userData.phone
+          'userPhomeNumber': userData.phone,
+          'userProfileImage': baseProfileImage,
+          'userProfileInfo': '',
+          'userProfileBgImage': baseProfileBgImage,
         });
-
-        // // Firestore의 UserContents에 저장
-        // await FirebaseFirestore.instance
-        //     .collection('UserContents')
-        //     .doc(joinUser.user!.uid)
-        //     .set({
-        //   'userContents': contents,
-        //   'userContentsImage': contentsImage,
-        // });
 
         // User 등록이 됬을 경우
         if (joinUser.user != null && mounted) {
