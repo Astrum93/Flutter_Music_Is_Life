@@ -1,10 +1,13 @@
+import 'package:MusicIsLife/common/widget/check_button.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
+import 'package:MusicIsLife/common/widget/google_join_button.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../common/constants.dart';
+import '../../data/memory/user_data.dart';
 import '../login/login.dart';
 
 class JoinScreen extends StatefulWidget {
@@ -15,31 +18,118 @@ class JoinScreen extends StatefulWidget {
 }
 
 class _JoinScreenState extends State<JoinScreen> {
+  // UserData 생성자
+  UserData userData = UserData('', '', '', '', '');
+
   // 로딩 스피너 상태 변수
-  final bool _loading = false;
+  bool _loading = false;
 
 //////////////////////////////////         FirebaseAuth           ///////////////////////////////////////////////////
   // Firebase Authentication Instance
-  final _authentication = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
 //////////////////////////////////         Validation           //////////////////////////////////////////////////////
 
   // Form Key
   final formKey = GlobalKey<FormState>();
 
-  // 회원가입 Value 저장할 변수
-  String userName = '';
-  String userMail = '';
-  String userPassword = '';
-  String userPasswordCheck = '';
-  String userPhoneNumber = '';
   String contentsImage = '';
   String contents = '내용을 입력해 주세요.';
 
-  void tryValidation() {
+  void tryJoin() async {
     final isValid = formKey.currentState!.validate();
     if (isValid) {
+      setState(() {
+        _loading = true;
+      });
       formKey.currentState!.save();
+      try {
+        final joinUser = await _auth.createUserWithEmailAndPassword(
+          email: userData.mail,
+          password: userData.password,
+        );
+
+        // Firestore의 UserInfo에 저장
+        await FirebaseFirestore.instance
+            .collection('UserInfo')
+            .doc(joinUser.user!.uid)
+            .set({
+          'userName': userData.name,
+          'userMail': userData.mail,
+          'userPhomeNumber': userData.phone
+        });
+
+        // // Firestore의 UserContents에 저장
+        // await FirebaseFirestore.instance
+        //     .collection('UserContents')
+        //     .doc(joinUser.user!.uid)
+        //     .set({
+        //   'userContents': contents,
+        //   'userContentsImage': contentsImage,
+        // });
+
+        // User 등록이 됬을 경우
+        if (joinUser.user != null && mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LogInScreen(),
+            ),
+          );
+          setState(() {
+            _loading = false;
+          });
+        } else {
+          setState(() {
+            _loading = false;
+          });
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'firebase에는 입력 됬으나 로그인 화면으로 안넘어감',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      } catch (e) {
+        setState(() {
+          _loading = false;
+        });
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                '예상치 못한 오류가 발생 했습니다.',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } else {
+      setState(() {
+        _loading = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              '정보를 올바르게 입력해 주세요.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -100,10 +190,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userName = value!;
+                                  userData.name = value!;
                                 },
                                 onChanged: (value) {
-                                  userName = value;
+                                  userData.name = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.account_circle,
@@ -125,10 +215,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userMail = value!;
+                                  userData.mail = value!;
                                 },
                                 onChanged: (value) {
-                                  userMail = value;
+                                  userData.mail = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.mail,
@@ -150,10 +240,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userPassword = value!;
+                                  userData.password = value!;
                                 },
                                 onChanged: (value) {
-                                  userPassword = value;
+                                  userData.password = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_open_rounded,
@@ -175,10 +265,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userPasswordCheck = value!;
+                                  userData.passwordCheck = value!;
                                 },
                                 onChanged: (value) {
-                                  userPasswordCheck = value;
+                                  userData.passwordCheck = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_outline_rounded,
@@ -200,10 +290,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userPhoneNumber = value!;
+                                  userData.phone = value!;
                                 },
                                 onChanged: (value) {
-                                  userPhoneNumber = value;
+                                  userData.phone = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.phone_android_rounded,
@@ -214,77 +304,10 @@ class _JoinScreenState extends State<JoinScreen> {
                             const SizedBox(height: 30),
 
                             // 회원가입 버튼
-                            InkWell(
-                              onTap: () async {
-                                // Validate 실행 함수
-                                tryValidation();
+                            CheckButton(() async {
+                              tryJoin();
+                            }),
 
-                                // Authentication 사용할 함수
-                                try {
-                                  final joinedUser = await _authentication
-                                      .createUserWithEmailAndPassword(
-                                    email: userMail,
-                                    password: userPassword,
-                                  );
-
-                                  // Firestore의 UserInfo에 저장
-                                  await FirebaseFirestore.instance
-                                      .collection('UserInfo')
-                                      .doc(joinedUser.user!.uid)
-                                      .set({
-                                    'userName': userName,
-                                    'userMail': userMail,
-                                    'userPhomeNumber': userPhoneNumber
-                                  });
-
-                                  // Firestore의 UserInfo에 저장
-                                  await FirebaseFirestore.instance
-                                      .collection('UserContents')
-                                      .doc(joinedUser.user!.uid)
-                                      .set({
-                                    'userContents': contents,
-                                    'userContentsImage': contentsImage,
-                                  });
-
-                                  // User 등록이 됬을 경우
-                                  if (joinedUser.user != null && mounted) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LogInScreen(),
-                                      ),
-                                    );
-                                  }
-                                } catch (e) {
-                                  if (mounted) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          '회원가입이 정상적으로 이루어지지 않았습니다.\n입력하신 정보를 확인해 주세요.',
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    );
-                                  }
-                                }
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
                             const SizedBox(height: 20),
                             const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -301,18 +324,7 @@ class _JoinScreenState extends State<JoinScreen> {
                             ),
 
                             // 구글 회원가입 버튼
-                            TextButton.icon(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  minimumSize: const Size(120, 40),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  backgroundColor: Colors.orange.shade900),
-                              icon: const Icon(Icons.add),
-                              label: const Text('Google'),
-                            )
+                            const GoogleJoinButton(),
                           ],
                         ),
                       ),
