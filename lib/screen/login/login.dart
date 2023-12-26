@@ -5,6 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../common/constants.dart';
 import '../../common/widget/easy_text_form_field.dart';
+import '../../data/memory/user_data.dart';
 import '../home/home.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -15,26 +16,24 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
+  // UserData 생성자
+  UserData userData = UserData('', '', '', '', '');
+
   // 로딩 스피너 상태 변수
   bool _loading = false;
 
 //////////////////////////////////         FirebaseAuth           //////////////////////////////////////////////////////
 
   // Firebase Authentication Instance
-  final _authentication = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
 
 //////////////////////////////////         Validation           //////////////////////////////////////////////////////
 
   // Form Key
   final formKey = GlobalKey<FormState>();
 
-  // 회원가입 Value 저장할 변수
-
-  String userMail = '';
-  String userPassword = '';
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void tryLogin() async {
+  void tryLogin(UserData userData) async {
     final isValied = formKey.currentState!.validate();
     if (isValied) {
       setState(() {
@@ -42,9 +41,9 @@ class _LogInScreenState extends State<LogInScreen> {
       });
       formKey.currentState!.save();
       try {
-        final signInUser = await _authentication.signInWithEmailAndPassword(
-          email: userMail,
-          password: userPassword,
+        final signInUser = await _auth.signInWithEmailAndPassword(
+          email: userData.mail,
+          password: userData.password,
         );
         // User 등록이 됬을 경우
         if (signInUser.user != null && mounted) {
@@ -173,10 +172,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userMail = value!;
+                                  userData.mail = value!;
                                 },
                                 onChanged: (value) {
-                                  userMail = value;
+                                  userData.mail = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.mail,
@@ -209,10 +208,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userPassword = value!;
+                                  userData.password = value!;
                                 },
                                 onChanged: (value) {
-                                  userPassword = value;
+                                  userData.password = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_outline_rounded,
@@ -224,7 +223,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             // 체크 버튼
                             CheckButton(
                               () async {
-                                tryLogin();
+                                tryLogin(userData);
                               },
                             )
                           ],
