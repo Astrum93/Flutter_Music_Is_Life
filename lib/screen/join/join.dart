@@ -1,6 +1,7 @@
 import 'package:MusicIsLife/common/widget/check_button.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:MusicIsLife/common/widget/google_join_button.dart';
+import 'package:MusicIsLife/data/firebase/firestore/collection/UserInfo/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -41,26 +42,10 @@ class _JoinScreenState extends State<JoinScreen> {
       });
       formKey.currentState!.save();
       try {
-        final joinUser = await _auth.createUserWithEmailAndPassword(
-          email: userData.mail,
-          password: userData.password,
-        );
-
-        // Firestore의 UserInfo에 저장
-        await FirebaseFirestore.instance
-            .collection('UserInfo')
-            .doc(joinUser.user!.uid)
-            .set({
-          'userName': userData.name,
-          'userMail': userData.mail,
-          'userPhomeNumber': userData.phone,
-          'userProfileImage': baseProfileImage,
-          'userProfileInfo': '',
-          'userProfileBgImage': baseProfileBgImage,
-        });
+        saveUserData(userData);
 
         // User 등록이 됬을 경우
-        if (joinUser.user != null && mounted) {
+        if (mounted) {
           Navigator.push(
             context,
             MaterialPageRoute(
