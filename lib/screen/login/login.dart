@@ -17,7 +17,7 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   // UserData 생성자
-  UserJoinData userData = UserJoinData('', '', '', '', '');
+  UserJoinData userJoinData = UserJoinData('', '', '', '', '');
 
   // 로딩 스피너 상태 변수
   bool _loading = false;
@@ -172,10 +172,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.mail = value!;
+                                  userJoinData.mail = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.mail = value;
+                                  userJoinData.mail = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.mail,
@@ -208,10 +208,10 @@ class _LogInScreenState extends State<LogInScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.password = value!;
+                                  userJoinData.password = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.password = value;
+                                  userJoinData.password = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_outline_rounded,
@@ -223,7 +223,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             // 체크 버튼
                             CheckButton(
                               () async {
-                                tryLogin(userData);
+                                tryLogin(userJoinData);
                               },
                             )
                           ],
