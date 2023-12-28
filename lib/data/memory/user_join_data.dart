@@ -1,11 +1,11 @@
-class UserData {
+class UserJoinData {
   String name;
   String mail;
   String password;
   String passwordCheck;
   String phone;
 
-  UserData(
+  UserJoinData(
     this.name,
     this.mail,
     this.password,

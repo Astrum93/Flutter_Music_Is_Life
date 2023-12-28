@@ -20,17 +20,17 @@ class MyScreen extends StatefulWidget {
 }
 
 class _MyScreenState extends State<MyScreen> {
-  // Firebase 인증된 uid
-  final _uid = FirebaseAuth.instance.currentUser!.uid;
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
   // FireStore collection 참조 변수
-  CollectionReference userInfo =
+  CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
-    var userinfo = await userInfo.doc(_uid).get();
-    return userinfo.data();
+    var userInfo = await userInfoCollection.doc(_displayName).get();
+    return userInfo.data();
   }
 
   // 컨텐츠 담을 변수
@@ -40,7 +40,7 @@ class _MyScreenState extends State<MyScreen> {
   getContents() async {
     var userContents = FirebaseFirestore.instance
         .collection('Contents')
-        .doc(_uid)
+        .doc(_displayName)
         .collection('UserContents')
         .orderBy('id')
         .get();
@@ -443,7 +443,7 @@ class _MyScreenState extends State<MyScreen> {
                         StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('UserContents')
-                              .doc(_uid)
+                              .doc(_displayName)
                               .collection('Contents')
                               .snapshots(),
                           builder:

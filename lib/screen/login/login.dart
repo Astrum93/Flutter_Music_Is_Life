@@ -5,7 +5,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../common/constants.dart';
 import '../../common/widget/easy_text_form_field.dart';
-import '../../data/memory/user_data.dart';
+import '../../data/memory/user_join_data.dart';
 import '../home/home.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   // UserData 생성자
-  UserData userData = UserData('', '', '', '', '');
+  UserJoinData userData = UserJoinData('', '', '', '', '');
 
   // 로딩 스피너 상태 변수
   bool _loading = false;
@@ -33,7 +33,7 @@ class _LogInScreenState extends State<LogInScreen> {
   final formKey = GlobalKey<FormState>();
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void tryLogin(UserData userData) async {
+  void tryLogin(UserJoinData userData) async {
     final isValied = formKey.currentState!.validate();
     if (isValied) {
       setState(() {
