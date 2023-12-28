@@ -145,6 +145,8 @@ class _CreateScreenState extends State<CreateScreen> {
       );
       return;
     }
+
+    final subject = _subjectController.text;
     final content = _contentController.text;
     final hashtag = _hashtagController.text;
 
@@ -166,7 +168,9 @@ class _CreateScreenState extends State<CreateScreen> {
         .collection('UserContents')
         .doc(_displayName)
         .collection('Contents')
-        .add({
+        .doc(subject)
+        .set({
+      'ContentsSubject': subject,
       'ContentsImage': myurl,
       'Contents': content,
       'time': Timestamp.now(),
@@ -190,6 +194,9 @@ class _CreateScreenState extends State<CreateScreen> {
 
   // Form Key
   final formKey = GlobalKey<FormState>();
+
+  // 게시글 제목 컨트롤러
+  final TextEditingController _subjectController = TextEditingController();
 
   // 게시글 내용 컨트롤러
   final TextEditingController _contentController = TextEditingController();
@@ -343,6 +350,27 @@ class _CreateScreenState extends State<CreateScreen> {
                             // 컨텐츠 내용 입력.
                             Column(
                               children: [
+                                // 게시물 제목 입력
+                                DottedBorder(
+                                  borderType: BorderType.RRect,
+                                  radius: const Radius.circular(10),
+                                  dashPattern: const [10, 4],
+                                  strokeCap: StrokeCap.round,
+                                  color: Colors.blue.shade400,
+
+                                  // 입력 창
+                                  child: TextField(
+                                    style: const TextStyle(color: Colors.grey),
+                                    controller: _subjectController,
+                                    decoration: const InputDecoration(
+                                      hintText: ' 게시물 제목을 입력해 주세요.',
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 20),
+
                                 // 게시물 내용 입력
                                 DottedBorder(
                                   borderType: BorderType.RRect,
@@ -398,11 +426,14 @@ class _CreateScreenState extends State<CreateScreen> {
                                       _loading = false;
                                     });
                                   },
-                                  icon:
-                                      const Icon(Icons.arrow_circle_up_rounded),
+                                  icon: const Icon(
+                                    Icons.arrow_circle_up_rounded,
+                                    size: 50,
+                                  ),
                                   label: const Text(
                                     'Create',
-                                    style: TextStyle(color: Colors.grey),
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 20),
                                   ),
                                 ),
                               ],
