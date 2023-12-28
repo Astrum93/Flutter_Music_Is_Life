@@ -21,6 +21,9 @@ class _EditProfileImageState extends State<EditProfileImage> {
   // 현재 인증된 유저
   final currentUser = FirebaseAuth.instance.currentUser;
 
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+
   // Image Picker
   void _pickerImage() async {
     final imagePicker = ImagePicker();
@@ -42,7 +45,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     final refImage = FirebaseStorage.instance
         .ref()
         .child('picked_image')
-        .child('${currentUser!.uid}_profile.png');
+        .child('${_displayName}_profile.png');
     // 클라우드 스토리지 버킷에 저장
     await refImage.putFile(pickedImage!);
 
@@ -53,7 +56,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
       // Firestore의 UserInfo에 저장
       await FirebaseFirestore.instance
           .collection('UserInfo')
-          .doc(currentUser!.uid)
+          .doc(_displayName)
           .update({
         'userProfileImage': myurl,
       });
@@ -64,8 +67,8 @@ class _EditProfileImageState extends State<EditProfileImage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 10),
-      width: 150,
-      height: 300,
+      width: 160,
+      height: 310,
       decoration: BoxDecoration(
         color: Colors.black,
         border: Border.all(color: Colors.grey),

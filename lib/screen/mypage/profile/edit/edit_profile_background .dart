@@ -67,8 +67,8 @@ class _EditProfileBgImageState extends State<EditProfileBgImage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 10),
-      width: 150,
-      height: 300,
+      width: 160,
+      height: 310,
       decoration: BoxDecoration(
         color: Colors.black,
         border: Border.all(color: Colors.grey),

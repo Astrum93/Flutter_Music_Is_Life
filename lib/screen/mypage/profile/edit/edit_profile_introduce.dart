@@ -23,8 +23,10 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
   // Form Key
   final formKey = GlobalKey<FormState>();
 
-  // 회원가입 Value 저장할 변수
   String profileInfo = '';
+
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +110,7 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
                     // Firestore의 UserInfo에 update
                     await FirebaseFirestore.instance
                         .collection('UserInfo')
-                        .doc(currentUser!.uid)
+                        .doc(_displayName)
                         .update({'userProfileInfo': profileInfo});
 
                     if (mounted) {

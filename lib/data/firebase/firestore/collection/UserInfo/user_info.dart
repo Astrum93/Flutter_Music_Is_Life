@@ -45,10 +45,3 @@ void saveUserData(UserJoinData userJoinData) async {
     'userProfileBgImage': baseProfileBgImage,
   });
 }
-
-getUserInfo() async {
-  var userinfo =
-      await userInfoCollection.doc(_auth.currentUser!.displayName).get();
-
-  return userinfo.data();
-}
