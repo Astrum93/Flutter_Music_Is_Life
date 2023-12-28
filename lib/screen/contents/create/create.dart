@@ -34,17 +34,15 @@ class _CreateScreenState extends State<CreateScreen> {
 
   final _store = FirebaseFirestore.instance;
 
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+
   // FireStore collection 참조 변수
-  final CollectionReference _userInfo =
+  CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
-  final getUserData = FirebaseFirestore.instance
-      .collection('UserInfo')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .get();
-
-  // FireStore collection 참조 변수
-  final CollectionReference _userContents =
+  // FireStore UserContents collection 참조 변수
+  CollectionReference userContentsCollection =
       FirebaseFirestore.instance.collection('UserContents');
 
   // Image 저장 변수
@@ -52,14 +50,14 @@ class _CreateScreenState extends State<CreateScreen> {
 
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
-    var userinfo = await _userInfo.doc(_uid).get();
+    var userinfo = await userInfoCollection.doc(_displayName).get();
     return userinfo.data();
   }
 
-  // 현재 유저 정보를 불러오는 함수
+  // Contents 데이터 불러오는 함수
   _getUserContents() async {
-    var usercontents = await _userContents.doc(_uid).get();
-    return usercontents.data();
+    userContentsCollection.doc(_displayName).collection('Contents').get();
+    setState(() {});
   }
 
   // User 정보 불러오기
@@ -155,7 +153,7 @@ class _CreateScreenState extends State<CreateScreen> {
 
     // 클라우드 스토리지 버킷에 경로 생성
     final refContentsImage =
-        _storage.ref().child('${_currentUser!.uid}_Contents').child(fileName);
+        _storage.ref().child('${_displayName}_Contents').child(fileName);
     await refContentsImage.putFile(pickedImage!);
 
     // 게시글 정보를 Firestore에 저장
@@ -166,7 +164,7 @@ class _CreateScreenState extends State<CreateScreen> {
     // Firestore의 UserContents 저장
     await _store
         .collection('UserContents')
-        .doc(_currentUser!.uid)
+        .doc(_displayName)
         .collection('Contents')
         .add({
       'ContentsImage': myurl,
@@ -218,7 +216,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 ? SingleChildScrollView(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [

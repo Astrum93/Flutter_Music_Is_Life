@@ -27,6 +27,10 @@ class _MyScreenState extends State<MyScreen> {
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
+  // FireStore UserContents collection 참조 변수
+  CollectionReference userContentsCollection =
+      FirebaseFirestore.instance.collection('UserContents');
+
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
     var userInfo = await userInfoCollection.doc(_displayName).get();
@@ -38,13 +42,7 @@ class _MyScreenState extends State<MyScreen> {
 
   // Contents 데이터 불러오는 함수
   getContents() async {
-    var userContents = FirebaseFirestore.instance
-        .collection('Contents')
-        .doc(_displayName)
-        .collection('UserContents')
-        .orderBy('id')
-        .get();
-
+    userContentsCollection.doc(_displayName).collection('Contents').get();
     setState(() {});
   }
 
@@ -441,8 +439,7 @@ class _MyScreenState extends State<MyScreen> {
 
                         // User 게시물
                         StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection('UserContents')
+                          stream: userContentsCollection
                               .doc(_displayName)
                               .collection('Contents')
                               .snapshots(),
