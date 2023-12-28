@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/constants.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
-  // Firebase Firestore Instance
-  final _firestore = FirebaseFirestore.instance;
-
   // FireStore collection 참조 변수
-  CollectionReference userInfo =
+  CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
   // 로그인된 유저
@@ -32,28 +28,14 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
-  }
-
-  // 현재 유저 정보를 가져오는 함수
-  void getCurrentUser() async {
-    try {
-      if (user != null) {
-        loggedUser = user;
-        final getUserData =
-            await _firestore.collection('UserInfo').doc(user!.uid).get();
-
-        print(user!.email);
-        print('환영합니다. ${getUserData.data()!['userName']} 님!');
-      }
-    } catch (e) {
-      print(e);
-    }
+    _getUserInfo();
   }
 
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
-    var userinfo = await userInfo.doc(currentUid).get();
+    var userinfo = await userInfoCollection.doc(user!.displayName).get();
+    print(user!.email);
+    print('🔥🔥🔥 환영합니다. ${user!.displayName} 님 🔥🔥🔥');
     return userinfo.data();
   }
 
@@ -76,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               title: const Text('Music is Life'),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //print(_auth.currentUser!.displayName);
+                  },
                   icon: const Icon(Icons.search_rounded),
                 ),
 

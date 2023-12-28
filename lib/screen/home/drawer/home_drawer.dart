@@ -10,17 +10,17 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
-    var userinfo = await userInfo.doc(_uid).get();
+    var userinfo = await userInfoCollection.doc(_displayName).get();
     return userinfo.data();
   }
 
-  // Firebase 인증된 uid
-  final _uid = FirebaseAuth.instance.currentUser!.uid;
-
   // FireStore collection 참조 변수
-  CollectionReference userInfo =
+  CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
   @override

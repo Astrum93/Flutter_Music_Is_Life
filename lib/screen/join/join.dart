@@ -3,12 +3,10 @@ import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:MusicIsLife/common/widget/google_join_button.dart';
 import 'package:MusicIsLife/data/firebase/firestore/collection/UserInfo/user_info.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../common/constants.dart';
-import '../../data/memory/user_data.dart';
+import '../../data/memory/user_join_data.dart';
 import '../login/login.dart';
 
 class JoinScreen extends StatefulWidget {
@@ -20,14 +18,10 @@ class JoinScreen extends StatefulWidget {
 
 class _JoinScreenState extends State<JoinScreen> {
   // UserData 생성자
-  UserData userData = UserData('', '', '', '', '');
+  final UserJoinData _userJoinData = UserJoinData('', '', '', '', '');
 
   // 로딩 스피너 상태 변수
   bool _loading = false;
-
-//////////////////////////////////         FirebaseAuth           ///////////////////////////////////////////////////
-  // Firebase Authentication Instance
-  final _auth = FirebaseAuth.instance;
 
 //////////////////////////////////         Validation           //////////////////////////////////////////////////////
 
@@ -42,7 +36,7 @@ class _JoinScreenState extends State<JoinScreen> {
       });
       formKey.currentState!.save();
       try {
-        saveUserData(userData);
+        saveUserData(_userJoinData);
 
         // User 등록이 됬을 경우
         if (mounted) {
@@ -166,10 +160,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.name = value!;
+                                  _userJoinData.name = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.name = value;
+                                  _userJoinData.name = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.account_circle,
@@ -191,10 +185,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.mail = value!;
+                                  _userJoinData.mail = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.mail = value;
+                                  _userJoinData.mail = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.mail,
@@ -216,10 +210,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.password = value!;
+                                  _userJoinData.password = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.password = value;
+                                  _userJoinData.password = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_open_rounded,
@@ -241,10 +235,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.passwordCheck = value!;
+                                  _userJoinData.passwordCheck = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.passwordCheck = value;
+                                  _userJoinData.passwordCheck = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.lock_outline_rounded,
@@ -266,10 +260,10 @@ class _JoinScreenState extends State<JoinScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  userData.phone = value!;
+                                  _userJoinData.phone = value!;
                                 },
                                 onChanged: (value) {
-                                  userData.phone = value;
+                                  _userJoinData.phone = value;
                                 },
                                 prefixIcon: const Icon(
                                   Icons.phone_android_rounded,
