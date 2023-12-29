@@ -9,4 +9,7 @@ abstract mixin class FirebaseAuthUser {
 
   // Firebase 인증된 uid
   final currentUid = FirebaseAuth.instance.currentUser!.uid;
+
+  // Firebase 인증된 displayName
+  final displayName = FirebaseAuth.instance.currentUser!.displayName;
 }
