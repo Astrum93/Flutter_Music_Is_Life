@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/subject_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,14 +7,16 @@ import '../../../common/widget/music_player.dart';
 import '../../../common/widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
-  final String contents, contentsImage, id, formattedDateTime;
+  final String contentSubject, contents, contentsImage, id, formattedDateTime;
 
-  const ContentsScreen(
-      {super.key,
-      required this.contents,
-      required this.contentsImage,
-      required this.id,
-      required this.formattedDateTime});
+  const ContentsScreen({
+    super.key,
+    required this.contentSubject,
+    required this.contents,
+    required this.contentsImage,
+    required this.id,
+    required this.formattedDateTime,
+  });
 
   @override
   State<ContentsScreen> createState() => _ContentsScreenState();
@@ -116,6 +119,10 @@ class _ContentsScreenState extends State<ContentsScreen> {
                     : const CircularProgressIndicator();
               },
             ),
+            const SizedBox(height: 20),
+
+            SubjectContainer(text: widget.contentSubject),
+
             const SizedBox(height: 10),
 
             // 게시물 이미지

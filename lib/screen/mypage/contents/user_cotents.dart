@@ -51,6 +51,7 @@ class _UserContentsState extends State<UserContents> {
               var doc = subCollectionDocs[index];
 
               // Contents Image 있는 문서 참조.
+              var contentsSubject = doc.get('ContentsSubject');
               var contentsImage = doc.get('ContentsImage');
               var contents = doc.get('Contents');
               var id = doc.get('id');
@@ -69,6 +70,7 @@ class _UserContentsState extends State<UserContents> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ContentsScreen(
+                            contentSubject: contentsSubject,
                             contents: contents,
                             contentsImage: contentsImage,
                             id: id,
