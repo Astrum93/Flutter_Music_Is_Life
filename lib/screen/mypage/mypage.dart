@@ -1,16 +1,15 @@
 import 'package:MusicIsLife/common/constants.dart';
+import 'package:MusicIsLife/screen/mypage/contents/user_cotents.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../contents/contents.dart';
-import '../contents/create/create.dart';
-import '../contents/create/post.dart';
 import '../home/home.dart';
+import 'contents/content.dart';
+import 'contents/create/create.dart';
+import 'contents/create/post.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});
@@ -22,6 +21,9 @@ class MyScreen extends StatefulWidget {
 class _MyScreenState extends State<MyScreen> {
   // 현재 인증된 유저 이름
   final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+
+  // 컨텐츠 담을 변수
+  List allContents = [];
 
   // FireStore collection 참조 변수
   CollectionReference userInfoCollection =
@@ -37,13 +39,13 @@ class _MyScreenState extends State<MyScreen> {
     return userInfo.data();
   }
 
-  // 컨텐츠 담을 변수
-  List allContents = [];
-
   // Contents 데이터 불러오는 함수
   getContents() async {
-    userContentsCollection.doc(_displayName).collection('Contents').get();
-    setState(() {});
+    var userContents = await userContentsCollection
+        .doc(_displayName)
+        .collection('Contents')
+        .get();
+    return userContents.docs;
   }
 
   // 이미지 수정 팝업창
@@ -91,6 +93,7 @@ class _MyScreenState extends State<MyScreen> {
     // TODO: implement initState
     super.initState();
     _getUserInfo();
+    getContents();
   }
 
   @override
@@ -221,21 +224,62 @@ class _MyScreenState extends State<MyScreen> {
                         const SizedBox(height: 20),
 
                         // 프로필 소개
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              '📢 프로필 소개',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: () {
-                                showAlertProfileIntroduce(context);
-                              },
-                              child: Container(
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12, right: 12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                '📢 프로필 소개',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              const SizedBox(height: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  showAlertProfileIntroduce(context);
+                                },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width - 10,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.blueGrey.shade100
+                                            .withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${(snapshot.data as Map)['userProfileInfo']}',
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+
+                        // 음악 플레이어
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12, right: 12),
+                          child: Column(
+                            children: [
+                              const Text(
+                                '🎵 프로필 뮤직',
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              const SizedBox(height: 20),
+                              Container(
                                 width: MediaQuery.of(context).size.width - 10,
-                                height: 100,
                                 decoration: BoxDecoration(
                                   color: Colors.black,
                                   borderRadius: BorderRadius.circular(10),
@@ -248,283 +292,163 @@ class _MyScreenState extends State<MyScreen> {
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    '${(snapshot.data as Map)['userProfileInfo']}',
-                                    style: const TextStyle(color: Colors.white),
-                                    textAlign: TextAlign.justify,
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 40,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.asset(
+                                              '$basePath/thumb/Thumb_Test.jpeg'),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Let Me Leave You',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            '그루비룸 (GroovyRoom), GEMINI (제미나이)',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey.shade600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.play_circle_outline_rounded,
+                                            color: Colors.grey,
+                                            size: 45,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 30),
-
-                        // 음악 플레이어
-                        Column(
-                          children: [
-                            const Text(
-                              '🎵 프로필 뮤직',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            const SizedBox(height: 20),
-                            Container(
-                              width: MediaQuery.of(context).size.width - 10,
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blueGrey.shade100
-                                        .withOpacity(0.2),
-                                    blurRadius: 7,
-                                  )
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 40,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.asset(
-                                            '$basePath/thumb/Thumb_Test.jpeg'),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Let Me Leave You',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        Text(
-                                          '그루비룸 (GroovyRoom), GEMINI (제미나이)',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Expanded(
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.play_circle_outline_rounded,
-                                          color: Colors.grey,
-                                          size: 45,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
 
                         const SizedBox(height: 30),
 
                         // 게시물 생성 버튼 2개
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // 게시물 생성 버튼 ( Music recommand )
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const PostScreen()));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white.withOpacity(0.2),
-                                      blurRadius: 7,
-                                    )
-                                  ],
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.music_note_rounded,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        'Music recommand',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 4, right: 4),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // 게시물 생성 버튼 ( Music recommand )
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PostScreen()));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white.withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
                                     ],
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.music_note_rounded,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Music recommand',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
 
-                            const SizedBox(width: 25),
+                              const SizedBox(width: 25),
 
-                            // Create Contents
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CreateScreen()));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white.withOpacity(0.2),
-                                      blurRadius: 7,
-                                    )
-                                  ],
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.mode_edit_outline_rounded,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(width: 10),
-                                      Text(
-                                        'Create Contents',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                              // Create Contents
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CreateScreen()));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white.withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
                                     ],
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.mode_edit_outline_rounded,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          'Create Contents',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 30),
-                        const Text(
-                          '🔥 게시글',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(height: 20),
 
-                        // User 게시물
-                        StreamBuilder(
-                          stream: userContentsCollection
-                              .doc(_displayName)
-                              .collection('Contents')
-                              .snapshots(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const CircularProgressIndicator();
-                            }
-
-                            // 하위 컬렉션 문서들을 리스트로 표시
-                            var subcollectionDocs = snapshot.data!.docs;
-
-                            // GridView.builder
-                            return SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 10.0,
-                                  mainAxisSpacing: 10.0,
-                                ),
-                                itemCount: snapshot.data!.docs.length,
-                                itemBuilder: (context, index) {
-                                  var doc = subcollectionDocs[index];
-
-                                  // Contents Image 있는 문서 참조.
-                                  var contentsImage = doc.get('ContentsImage');
-                                  var contents = doc.get('Contents');
-                                  var id = doc.get('id');
-                                  var time = doc.get('time');
-                                  // Timestamp를 DateTime으로 변환
-                                  DateTime dateTime = time.toDate();
-
-                                  // DateTime을 포맷팅
-                                  String formattedDateTime =
-                                      dateTime.toString();
-
-                                  return GridTile(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ContentsScreen(
-                                                    contents: contents,
-                                                    contentsImage:
-                                                        contentsImage,
-                                                    id: id,
-                                                    formattedDateTime:
-                                                        formattedDateTime),
-                                          ),
-                                        );
-                                      },
-                                      // 보여줄 이미지 사이즈
-                                      child: Hero(
-                                        tag: contentsImage,
-                                        child: Container(
-                                          width: 250,
-                                          height: 250,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey
-                                                    .withOpacity(0.05),
-                                                width: 1),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image:
-                                                  NetworkImage(contentsImage),
-                                            ),
-                                          ),
-                                          child: const Text(''),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          },
+                        const Padding(
+                          padding: EdgeInsets.only(left: 12, right: 12),
+                          child: UserContents(),
                         ),
                       ],
                     ),

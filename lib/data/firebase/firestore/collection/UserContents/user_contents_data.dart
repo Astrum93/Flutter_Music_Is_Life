@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserContents {
+class UserContentsData {
   final String id;
   final String contentsSubject;
   final String contents;
   final String contentsImage;
   final Timestamp time;
 
-  UserContents(
+  UserContentsData(
     this.id,
     this.contentsSubject,
     this.contents,

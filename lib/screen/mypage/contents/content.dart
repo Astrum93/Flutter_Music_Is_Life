@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/widget/music_player.dart';
-import '../../common/widget/short_line.dart';
+import '../../../common/widget/music_player.dart';
+import '../../../common/widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
   final String contents, contentsImage, id, formattedDateTime;
@@ -20,9 +20,6 @@ class ContentsScreen extends StatefulWidget {
 }
 
 class _ContentsScreenState extends State<ContentsScreen> {
-  // Firebase 인증된 uid
-  final _uid = FirebaseAuth.instance.currentUser!.uid;
-
   // FireStore collection 참조 변수
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
