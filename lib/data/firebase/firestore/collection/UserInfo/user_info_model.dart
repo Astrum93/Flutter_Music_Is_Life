@@ -26,13 +26,6 @@ class UserInfoModel {
     this.userProfileInfo,
   );
 
-  /// UserInfo 데이터 init
-  static Future<void> userInfoInit() async {
-    // FireStore collection 참조 변수
-    CollectionReference userInfoCollection =
-        FirebaseFirestore.instance.collection('UserInfo');
-  }
-
   /// Document 불러오기
   static Future getDocument() async {
     final docs = await userInfoCollection.doc().get();
