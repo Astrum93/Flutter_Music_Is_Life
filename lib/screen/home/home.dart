@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../common/firebase_auth/firebase_auth_user.dart';
 import '../../common/widget/invisible_box_basic.dart';
 import '../../common/widget/invisible_box_hot.dart';
-import '../../data/firebase/firebase_auth/firebase_authentication.dart';
 import '../welcome.dart';
 
 class HomeScreen extends StatefulWidget {

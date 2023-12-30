@@ -1,3 +1,3 @@
-import 'package:MusicIsLife/data/firebase/firebase_auth/firebase_authentication.dart';
+import '../../common/firebase_auth/firebase_auth_user.dart';
 
 class FirebaseUserDataHolder with FirebaseAuthUser {}
