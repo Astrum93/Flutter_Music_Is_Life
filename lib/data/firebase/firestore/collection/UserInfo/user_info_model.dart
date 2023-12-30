@@ -11,14 +11,14 @@ final _auth = FirebaseAuth.instance;
 CollectionReference userInfoCollection =
     FirebaseFirestore.instance.collection('UserInfo');
 
-class UserInfo {
+class UserInfoModel {
   final String userName;
   final String userMail;
   final String userPhoneNumber;
   final String userProfileBgImage;
   final String userProfileInfo;
 
-  UserInfo(
+  UserInfoModel(
     this.userName,
     this.userMail,
     this.userPhoneNumber,
@@ -27,6 +27,7 @@ class UserInfo {
   );
 }
 
+// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
   await _auth.createUserWithEmailAndPassword(
     email: userJoinData.mail,

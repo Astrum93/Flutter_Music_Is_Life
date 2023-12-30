@@ -1,7 +1,7 @@
 import 'package:MusicIsLife/common/widget/check_button.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:MusicIsLife/common/widget/google_join_button.dart';
-import 'package:MusicIsLife/data/firebase/firestore/collection/UserInfo/user_info.dart';
+import 'package:MusicIsLife/data/firebase/firestore/collection/UserInfo/user_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
