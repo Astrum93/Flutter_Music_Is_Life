@@ -25,9 +25,21 @@ class UserInfoModel {
     this.userProfileBgImage,
     this.userProfileInfo,
   );
+
+  /// UserInfo 데이터 init
+  static Future<void> userInfoInit() async {
+    // FireStore collection 참조 변수
+    CollectionReference userInfoCollection =
+        FirebaseFirestore.instance.collection('UserInfo');
+  }
+
+  /// Document 불러오기
+  static Future getDocument() async {
+    final docs = await userInfoCollection.doc().get();
+  }
 }
 
-// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
+/// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
   await _auth.createUserWithEmailAndPassword(
     email: userJoinData.mail,

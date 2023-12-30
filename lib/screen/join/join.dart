@@ -1,11 +1,11 @@
 import 'package:MusicIsLife/common/widget/check_button.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:MusicIsLife/common/widget/google_join_button.dart';
-import 'package:MusicIsLife/data/firebase/firestore/collection/UserInfo/user_info_model.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../common/constants.dart';
+import '../../data/firebase/firestore/collection/UserInfo/user_info_model.dart';
 import '../../data/memory/user_join_data.dart';
 import '../login/login.dart';
 
@@ -22,8 +22,6 @@ class _JoinScreenState extends State<JoinScreen> {
 
   // 로딩 스피너 상태 변수
   bool _loading = false;
-
-//////////////////////////////////         Validation           //////////////////////////////////////////////////////
 
   // Form Key
   final formKey = GlobalKey<FormState>();
