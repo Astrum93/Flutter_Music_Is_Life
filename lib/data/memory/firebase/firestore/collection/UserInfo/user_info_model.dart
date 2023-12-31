@@ -12,7 +12,7 @@ CollectionReference userInfoCollection =
     FirebaseFirestore.instance.collection('UserInfo');
 
 // 현재 인증된 유저 이름
-final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+final _displayName = _auth.currentUser!.displayName;
 
 class UserInfoModel {
   final String userName;
@@ -21,13 +21,35 @@ class UserInfoModel {
   final String userProfileBgImage;
   final String userProfileInfo;
 
-  UserInfoModel(
-    this.userName,
-    this.userMail,
-    this.userPhoneNumber,
-    this.userProfileBgImage,
-    this.userProfileInfo,
-  );
+  UserInfoModel({
+    required this.userName,
+    required this.userMail,
+    required this.userPhoneNumber,
+    required this.userProfileBgImage,
+    required this.userProfileInfo,
+  });
+
+  ///
+  factory UserInfoModel.fromJson(Map<String, dynamic> json) {
+    return UserInfoModel(
+      userName: json['userName'],
+      userMail: json['userMail'],
+      userPhoneNumber: json['userPhoneNumber'],
+      userProfileBgImage: json['userProfileBgImage'],
+      userProfileInfo: json['userProfileInfo'],
+    );
+  }
+
+  ///
+  Map<String, dynamic> toJson() {
+    return {
+      "userName": userName,
+      "userMail": userMail,
+      "userPhoneNumber": userPhoneNumber,
+      "userProfileBgImage": userProfileBgImage,
+      "userProfileInfo": userProfileInfo,
+    };
+  }
 
   /// Document 불러오기
   static Future getDocument() async {
