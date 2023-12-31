@@ -56,6 +56,11 @@ class UserInfoModel {
     final docs = await userInfoCollection.doc(_displayName).get();
     return docs.data();
   }
+
+  /// json 직렬화
+  final userInfoRef = userInfoCollection.withConverter(
+      fromFirestore: (snapshot, _) => UserInfoModel.fromJson(snapshot.data()!),
+      toFirestore: (value, _) => value.toJson());
 }
 
 /// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
