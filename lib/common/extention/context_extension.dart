@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../theme/color/abstract_theme_colors.dart';
-
 extension ContextExtension on BuildContext {
   double width(double widthSize) {
     return MediaQuery.of(this).size.width * widthSize;
