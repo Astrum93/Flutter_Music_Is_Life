@@ -2,7 +2,7 @@ import 'package:MusicIsLife/data/memory/user_join_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../../common/constants.dart';
+import '../../../../../../common/constants.dart';
 
 // Firebase Authentication Instance
 final _auth = FirebaseAuth.instance;
@@ -10,6 +10,9 @@ final _auth = FirebaseAuth.instance;
 // FireStore collection 참조 변수
 CollectionReference userInfoCollection =
     FirebaseFirestore.instance.collection('UserInfo');
+
+// 현재 인증된 유저 이름
+final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
 class UserInfoModel {
   final String userName;
@@ -28,7 +31,8 @@ class UserInfoModel {
 
   /// Document 불러오기
   static Future getDocument() async {
-    final docs = await userInfoCollection.doc().get();
+    final docs = await userInfoCollection.doc(_displayName).get();
+    return docs.data();
   }
 }
 

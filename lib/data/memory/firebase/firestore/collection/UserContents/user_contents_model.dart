@@ -6,6 +6,8 @@ class UserContentsModel {
   final String contents;
   final String contentsImage;
   final Timestamp time;
+  final String hashTag;
+  final int likeCount;
 
   UserContentsModel(
     this.id,
@@ -13,5 +15,7 @@ class UserContentsModel {
     this.contents,
     this.contentsImage,
     this.time,
+    this.hashTag,
+    this.likeCount,
   );
 }
