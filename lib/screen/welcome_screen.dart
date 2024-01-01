@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../common/constants.dart';
-import 'join/join.dart';
-import 'login/login.dart';
+import 'join/join_screen.dart';
+import 'login/login_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

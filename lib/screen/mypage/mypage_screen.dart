@@ -6,9 +6,9 @@ import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.da
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../home/home.dart';
-import 'contents/create/create.dart';
-import 'contents/create/post.dart';
+import '../home/home_screen.dart';
+import 'contents/create/create_screen.dart';
+import 'contents/create/post_screen.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});

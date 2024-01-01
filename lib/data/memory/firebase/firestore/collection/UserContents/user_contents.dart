@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserContentsModel {
+class UserContents {
   final String id;
   final String contentsSubject;
   final String contents;
@@ -9,7 +9,7 @@ class UserContentsModel {
   final String hashTag;
   final int likeCount;
 
-  UserContentsModel(
+  UserContents(
     this.id,
     this.contentsSubject,
     this.contents,

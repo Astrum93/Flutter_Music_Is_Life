@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'content.dart';
+import 'content_screen.dart';
 
 class UserContentsScreen extends StatefulWidget {
   const UserContentsScreen({super.key});

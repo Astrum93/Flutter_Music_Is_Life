@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
-import 'package:MusicIsLife/screen/mypage/mypage.dart';
+import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../common/firebase_auth/firebase_auth_user.dart';
 import '../../common/widget/invisible_box_basic.dart';
 import '../../common/widget/invisible_box_hot.dart';
-import '../welcome.dart';
+import '../welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

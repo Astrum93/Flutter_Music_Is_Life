@@ -2,7 +2,7 @@
 
 import 'dart:io';
 import 'package:MusicIsLife/common/widget/short_line.dart';
-import 'package:MusicIsLife/screen/mypage/mypage.dart';
+import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

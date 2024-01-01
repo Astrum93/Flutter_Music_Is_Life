@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/screen/welcome.dart';
+import 'package:MusicIsLife/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class NAspace extends StatelessWidget {

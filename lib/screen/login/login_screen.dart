@@ -6,7 +6,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../common/constants.dart';
 import '../../common/widget/easy_text_form_field.dart';
 import '../../data/memory/user_join_data.dart';
-import '../home/home.dart';
+import '../home/home_screen.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});

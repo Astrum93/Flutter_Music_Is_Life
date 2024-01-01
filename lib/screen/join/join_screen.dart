@@ -7,7 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../common/constants.dart';
 import '../../data/memory/firebase/firestore/collection/UserInfo/user_info.dart';
 import '../../data/memory/user_join_data.dart';
-import '../login/login.dart';
+import '../login/login_screen.dart';
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});
