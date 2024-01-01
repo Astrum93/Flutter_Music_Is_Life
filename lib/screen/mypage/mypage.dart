@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/common/constants.dart';
-import 'package:MusicIsLife/screen/mypage/contents/user_cotents.dart';
+import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
@@ -447,7 +447,7 @@ class _MyScreenState extends State<MyScreen> {
 
                         const Padding(
                           padding: EdgeInsets.only(left: 12, right: 12),
-                          child: UserContents(),
+                          child: UserContentsScreen(),
                         ),
                       ],
                     ),

@@ -259,11 +259,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 child: Center(
                                   child: TextButton.icon(
                                     onPressed: () {
-                                      // Firebase Authentication Instance
+                                      // FirebaseAuth signOut
                                       FirebaseAuth.instance.signOut();
-                                      // Navigator.of(context).push(MaterialPageRoute(
-                                      //     builder: (context) =>
-                                      //         const WelcomeScreen()));
+
                                       Navigator.pop(context);
                                     },
                                     style: TextButton.styleFrom(
