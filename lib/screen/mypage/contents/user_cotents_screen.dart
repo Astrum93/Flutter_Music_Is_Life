@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'content.dart';
 
-class UserContents extends StatefulWidget {
-  const UserContents({super.key});
+class UserContentsScreen extends StatefulWidget {
+  const UserContentsScreen({super.key});
 
   @override
-  State<UserContents> createState() => _UserContentsState();
+  State<UserContentsScreen> createState() => _UserContentsScreenState();
 }
 
-class _UserContentsState extends State<UserContents> {
+class _UserContentsScreenState extends State<UserContentsScreen> {
   // 현재 인증된 유저 이름
   final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
