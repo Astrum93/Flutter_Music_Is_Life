@@ -34,8 +34,6 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
     var userinfo = await userInfoCollection.doc(user!.displayName).get();
-    print(user!.email);
-    print('🔥🔥🔥 환영합니다. ${user!.displayName} 님 🔥🔥🔥');
     return userinfo.data();
   }
 
@@ -58,9 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               title: const Text('Music is Life'),
               actions: [
                 IconButton(
-                  onPressed: () {
-                    //print(_auth.currentUser!.displayName);
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.search_rounded),
                 ),
 
