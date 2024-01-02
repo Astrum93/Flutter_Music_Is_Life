@@ -1,4 +1,6 @@
 import 'package:MusicIsLife/common/constants.dart';
+import 'package:MusicIsLife/common/widget/mini_button.dart';
+import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
@@ -33,13 +35,13 @@ class _MyScreenState extends State<MyScreen> {
       FirebaseFirestore.instance.collection('UserContents');
 
   // 현재 유저 정보를 불러오는 함수
-  _getUserInfo() async {
+  _getUserInfo() async* {
     var userInfo = await userInfoCollection.doc(_displayName).get();
-    return userInfo.data();
+    yield userInfo.data();
   }
 
   // Contents 데이터 불러오는 함수
-  getContents() async {
+  _getContents() async {
     var userContents = await userContentsCollection
         .doc(_displayName)
         .collection('Contents')
@@ -92,15 +94,15 @@ class _MyScreenState extends State<MyScreen> {
     // TODO: implement initState
     super.initState();
     _getUserInfo();
-    getContents();
+    _getContents();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: FutureBuilder(
-        future: _getUserInfo(),
+      body: StreamBuilder(
+        stream: _getUserInfo(),
         builder: (context, snapshot) {
           return snapshot.hasData
               ? SingleChildScrollView(
@@ -278,69 +280,17 @@ class _MyScreenState extends State<MyScreen> {
                               ),
                               const SizedBox(height: 20),
                               Container(
-                                width: MediaQuery.of(context).size.width - 10,
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blueGrey.shade100
-                                          .withOpacity(0.2),
-                                      blurRadius: 7,
-                                    )
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 40,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          child: Image.asset(
-                                              '$basePath/thumb/Thumb_Test.jpeg'),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Let Me Leave You',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          Text(
-                                            '그루비룸 (GroovyRoom), GEMINI (제미나이)',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey.shade600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.play_circle_outline_rounded,
-                                            color: Colors.grey,
-                                            size: 45,
-                                          ),
-                                        ),
-                                      ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white.withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
                                     ],
                                   ),
-                                ),
-                              ),
+                                  child: const MusicPlayer()),
                             ],
                           ),
                         ),
@@ -354,92 +304,19 @@ class _MyScreenState extends State<MyScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               // 게시물 생성 버튼 ( Music recommand )
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const PostScreen()));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.2),
-                                        blurRadius: 7,
-                                      )
-                                    ],
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.music_note_rounded,
-                                          color: Colors.grey,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          'Music recommand',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              MiniButton(
+                                builder: (context) => const PostScreen(),
+                                text: 'Music recommand',
+                                icon: Icons.music_note_rounded,
                               ),
 
                               const SizedBox(width: 25),
 
                               // Create Contents
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CreateScreen()));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.2),
-                                        blurRadius: 7,
-                                      )
-                                    ],
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.mode_edit_outline_rounded,
-                                          color: Colors.grey,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          'Create Contents',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              MiniButton(
+                                  builder: (context) => const CreateScreen(),
+                                  text: 'Create Contents',
+                                  icon: Icons.mode_edit_outline_rounded),
                             ],
                           ),
                         ),
