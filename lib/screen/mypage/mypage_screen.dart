@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/constants.dart';
 import 'package:MusicIsLife/common/widget/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
