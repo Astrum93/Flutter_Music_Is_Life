@@ -55,12 +55,6 @@ class UserInfo {
     };
   }
 
-  /// Document 불러오기
-  static Future getDocument() async {
-    final docs = await userInfoCollection.doc(_displayName).get();
-    return docs.data();
-  }
-
   /// json 직렬화
   final userInfoRef = userInfoCollection.withConverter(
       fromFirestore: (snapshot, _) => UserInfo.fromJson(snapshot.data()!),
