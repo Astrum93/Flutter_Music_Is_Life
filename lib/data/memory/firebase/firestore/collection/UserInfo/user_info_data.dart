@@ -14,26 +14,26 @@ CollectionReference userInfoCollection =
 // 현재 인증된 유저 이름
 final _displayName = _auth.currentUser!.displayName;
 
-class UserInfo {
-  final String userName;
-  final String userMail;
-  final String userPhoneNumber;
-  final String userProfileBgImage;
-  final String userProfileInfo;
-  final String userProfileImage;
+class UserInfoData {
+  final String? userName;
+  final String? userMail;
+  final String? userPhoneNumber;
+  final String? userProfileBgImage;
+  final String? userProfileInfo;
+  final String? userProfileImage;
 
-  UserInfo({
-    required this.userName,
-    required this.userMail,
-    required this.userPhoneNumber,
-    required this.userProfileBgImage,
-    required this.userProfileInfo,
-    required this.userProfileImage,
+  UserInfoData({
+    this.userName,
+    this.userMail,
+    this.userPhoneNumber,
+    this.userProfileBgImage,
+    this.userProfileInfo,
+    this.userProfileImage,
   });
 
   /// 가져온 정보를 UserInfoModel의 생성자로 정의
-  factory UserInfo.fromJson(Map<String, dynamic> json) {
-    return UserInfo(
+  factory UserInfoData.fromJson(Map<String, dynamic> json) {
+    return UserInfoData(
       userName: json['userName'],
       userMail: json['userMail'],
       userPhoneNumber: json['userPhoneNumber'],
@@ -54,12 +54,12 @@ class UserInfo {
       "userProfileInfo": userProfileInfo,
     };
   }
-
-  /// json 직렬화
-  final userInfoRef = userInfoCollection.withConverter(
-      fromFirestore: (snapshot, _) => UserInfo.fromJson(snapshot.data()!),
-      toFirestore: (value, _) => value.userInfoToJson());
 }
+
+/// json 직렬화
+final userInfoRef = userInfoCollection.withConverter(
+    fromFirestore: (snapshot, _) => UserInfoData.fromJson(snapshot.data()!),
+    toFirestore: (value, _) => value.userInfoToJson());
 
 /// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
