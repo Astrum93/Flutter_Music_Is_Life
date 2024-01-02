@@ -33,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   }
 
   // 현재 유저 정보를 불러오는 함수
-  _getUserInfo() async {
+  _getUserInfo() async* {
     var userinfo = await userInfoCollection.doc(user!.displayName).get();
-    return userinfo.data();
+    yield userinfo.data();
   }
 
   @override
@@ -70,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                       ),
                     );
                   },
-                  child: FutureBuilder(
-                    future: _getUserInfo(),
+                  child: StreamBuilder(
+                    stream: _getUserInfo(),
                     builder: (context, snapshot) {
                       return snapshot.hasData
                           ? CircleAvatar(

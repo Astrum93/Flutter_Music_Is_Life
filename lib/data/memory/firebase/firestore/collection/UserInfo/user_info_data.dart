@@ -57,9 +57,11 @@ class UserInfoData {
 }
 
 /// json 직렬화
-final userInfoRef = userInfoCollection.withConverter(
-    fromFirestore: (snapshot, _) => UserInfoData.fromJson(snapshot.data()!),
-    toFirestore: (value, _) => value.userInfoToJson());
+final userInfoRef = FirebaseFirestore.instance
+    .collection('UserInfo')
+    .withConverter(
+        fromFirestore: (snapshot, _) => UserInfoData.fromJson(snapshot.data()!),
+        toFirestore: (value, _) => value.userInfoToJson());
 
 /// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
