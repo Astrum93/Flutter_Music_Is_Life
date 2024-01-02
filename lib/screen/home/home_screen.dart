@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
                                 child: Image.network(
-                                  '${(snapshot.data as Map)['userProfileImage']}',
+                                  (snapshot.data as Map)['userProfileImage'],
                                 ),
                               ),
                             )
