@@ -130,13 +130,13 @@ class InvisibleBoxHot extends StatelessWidget {
         ),
         const Row(
           children: [
-            HashTag(tagname: '기분좋음'),
+            HashTag(text: '기분좋음'),
             SizedBox(width: 8),
-            HashTag(tagname: '신남'),
+            HashTag(text: '신남'),
             SizedBox(width: 8),
-            HashTag(tagname: '쇼미11'),
+            HashTag(text: '쇼미11'),
             SizedBox(width: 8),
-            HashTag(tagname: 'GEMINI'),
+            HashTag(text: 'GEMINI'),
           ],
         ),
       ],

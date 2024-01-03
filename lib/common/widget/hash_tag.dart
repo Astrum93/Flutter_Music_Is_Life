@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HashTag extends StatelessWidget {
-  const HashTag({super.key, required this.tagname});
+  const HashTag({super.key, required this.text});
 
-  final String tagname;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class HashTag extends StatelessWidget {
               size: 18,
             ),
             Text(
-              tagname,
+              text,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 10,
