@@ -223,11 +223,11 @@ class _ContentsScreenState extends State<ContentsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  HashTag(text: widget.hashTags[0]),
+                  HashTag(text: widget.hashTags[0], width: 10, fontSize: 15),
                   const ExpandedBox(),
-                  HashTag(text: widget.hashTags[1]),
+                  HashTag(text: widget.hashTags[1], width: 10, fontSize: 15),
                   const ExpandedBox(),
-                  HashTag(text: widget.hashTags[2]),
+                  HashTag(text: widget.hashTags[2], width: 10, fontSize: 15),
                 ],
               ),
             ),

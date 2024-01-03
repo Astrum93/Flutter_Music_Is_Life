@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class HashTag extends StatelessWidget {
-  const HashTag({super.key, required this.text});
-
   final String text;
+  final double width;
+  final double fontSize;
+
+  const HashTag(
+      {super.key,
+      required this.text,
+      required this.width,
+      required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +44,8 @@ class HashTag extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.fade,
             ),
           ],
         ),

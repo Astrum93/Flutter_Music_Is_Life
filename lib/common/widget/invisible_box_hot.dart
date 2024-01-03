@@ -2,11 +2,18 @@ import 'package:MusicIsLife/common/constants.dart';
 import 'package:MusicIsLife/common/widget/hash_tag.dart';
 import 'package:flutter/material.dart';
 
-class InvisibleBoxHot extends StatelessWidget {
+import 'expanded_box.dart';
+
+class InvisibleBoxHot extends StatefulWidget {
   const InvisibleBoxHot({
     super.key,
   });
 
+  @override
+  State<InvisibleBoxHot> createState() => _InvisibleBoxHotState();
+}
+
+class _InvisibleBoxHotState extends State<InvisibleBoxHot> {
   @override
   Widget build(BuildContext context) {
     ThemeData(textTheme: const TextTheme());
@@ -15,8 +22,8 @@ class InvisibleBoxHot extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 350,
-              height: 410,
+              width: 380,
+              height: 480,
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.05),
@@ -95,48 +102,51 @@ class InvisibleBoxHot extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            IconButton(
-                              color: Colors.white,
-                              iconSize: 25,
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite_border_outlined,
-                              ),
+                            Column(
+                              children: [
+                                IconButton(
+                                  color: Colors.white,
+                                  iconSize: 25,
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: Colors.pink,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 3),
+                                  child: Text(
+                                    '19650',
+                                    style: TextStyle(
+                                      color: Colors.pinkAccent.shade100,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         )
                       ],
                     ),
+                    const ExpandedBox(),
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(
-                            '19650',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          HashTag(text: '기분 좋음', width: 5, fontSize: 15),
+                          ExpandedBox(),
+                          HashTag(text: '신남', width: 5, fontSize: 15),
+                          ExpandedBox(),
+                          HashTag(text: '쇼미 11', width: 5, fontSize: 15),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
-        const Row(
-          children: [
-            HashTag(text: '기분좋음'),
-            SizedBox(width: 8),
-            HashTag(text: '신남'),
-            SizedBox(width: 8),
-            HashTag(text: '쇼미11'),
-            SizedBox(width: 8),
-            HashTag(text: 'GEMINI'),
           ],
         ),
       ],
