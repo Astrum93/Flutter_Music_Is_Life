@@ -8,6 +8,7 @@ class HashTag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 110,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.2),
@@ -30,11 +31,12 @@ class HashTag extends StatelessWidget {
               color: Colors.amber,
               size: 18,
             ),
+            const SizedBox(width: 10),
             Text(
               text,
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
           ],

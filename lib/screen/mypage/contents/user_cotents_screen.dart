@@ -56,6 +56,7 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
               var contents = doc.get('Contents');
               var id = doc.get('id');
               var time = doc.get('time');
+              var hashTags = doc.get('hashTags');
 
               // Timestamp를 DateTime으로 변환
               DateTime dateTime = time.toDate();
@@ -70,11 +71,13 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ContentsScreen(
-                            contentSubject: contentsSubject,
-                            contents: contents,
-                            contentsImage: contentsImage,
-                            id: id,
-                            formattedDateTime: formattedDateTime),
+                          contentSubject: contentsSubject,
+                          contents: contents,
+                          contentsImage: contentsImage,
+                          id: id,
+                          formattedDateTime: formattedDateTime,
+                          hashTags: hashTags,
+                        ),
                       ),
                     );
                   },

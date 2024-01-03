@@ -13,7 +13,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:path/path.dart' as path;
 
 import '../../../../common/widget/expanded_box.dart';
-import '../../../../common/widget/hashTag_box.dart';
+import '../../../../common/widget/hash_tag_input_box.dart';
 
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
@@ -151,7 +151,11 @@ class _CreateScreenState extends State<CreateScreen> {
 
     final subject = _subjectController.text;
     final content = _contentController.text;
-    final hashtag = _hashtagController.text;
+    final hashtag1 = _hashtagController1.text;
+    final hashtag2 = _hashtagController2.text;
+    final hashtag3 = _hashtagController3.text;
+    final List hashTags = [];
+    hashTags.addAll([hashtag1, hashtag2, hashtag3]);
 
     // 이미지를 Firebase Storage에 업로드
     final fileName = path.basename(pickedImage!.path);
@@ -178,14 +182,16 @@ class _CreateScreenState extends State<CreateScreen> {
       'Contents': content,
       'time': Timestamp.now(),
       'id': _uid,
-      'likecount': likecount,
-      'hashtag': hashtag,
+      'likeCount': likecount,
+      'hashTags': hashTags,
     });
 
     //작성 완료 후 입력 필드 초기화
 
     _contentController.clear();
-    _hashtagController.clear();
+    _hashtagController1.clear();
+    _hashtagController2.clear();
+    _hashtagController3.clear();
     setState(() {
       pickedImage = null;
     });
@@ -205,7 +211,9 @@ class _CreateScreenState extends State<CreateScreen> {
   final TextEditingController _contentController = TextEditingController();
 
   // 해시태그 내용 컨트롤러
-  final TextEditingController _hashtagController = TextEditingController();
+  final TextEditingController _hashtagController1 = TextEditingController();
+  final TextEditingController _hashtagController2 = TextEditingController();
+  final TextEditingController _hashtagController3 = TextEditingController();
 
   // 컨텐츠 내용 저장할 변수
   String contents = '';
@@ -401,23 +409,23 @@ class _CreateScreenState extends State<CreateScreen> {
                                   child: Row(
                                     children: [
                                       // 해시태그
-                                      HashTagBox(
+                                      HashTagInputBox(
                                         text: ' 해시태그',
-                                        controller: _hashtagController,
+                                        controller: _hashtagController1,
                                       ),
 
                                       const ExpandedBox(),
 
-                                      HashTagBox(
+                                      HashTagInputBox(
                                         text: ' 해시태그',
-                                        controller: _hashtagController,
+                                        controller: _hashtagController2,
                                       ),
 
                                       const ExpandedBox(),
 
-                                      HashTagBox(
+                                      HashTagInputBox(
                                         text: ' 해시태그',
-                                        controller: _hashtagController,
+                                        controller: _hashtagController3,
                                       ),
                                     ],
                                   ),

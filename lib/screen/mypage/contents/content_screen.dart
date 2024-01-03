@@ -1,3 +1,5 @@
+import 'package:MusicIsLife/common/widget/expanded_box.dart';
+import 'package:MusicIsLife/common/widget/hash_tag.dart';
 import 'package:MusicIsLife/common/widget/subject_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,6 +10,7 @@ import '../../../common/widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
   final String contentSubject, contents, contentsImage, id, formattedDateTime;
+  final List hashTags;
 
   const ContentsScreen({
     super.key,
@@ -16,6 +19,7 @@ class ContentsScreen extends StatefulWidget {
     required this.contentsImage,
     required this.id,
     required this.formattedDateTime,
+    required this.hashTags,
   });
 
   @override
@@ -215,8 +219,20 @@ class _ContentsScreenState extends State<ContentsScreen> {
               ),
             ),
             const SizedBox(height: 25),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  HashTag(text: widget.hashTags[0]),
+                  const ExpandedBox(),
+                  HashTag(text: widget.hashTags[1]),
+                  const ExpandedBox(),
+                  HashTag(text: widget.hashTags[2]),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
             const ShortLine(color: Colors.blue),
-            const SizedBox(height: 5),
           ],
         ),
       ),
