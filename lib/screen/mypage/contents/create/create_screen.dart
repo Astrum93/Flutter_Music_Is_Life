@@ -226,7 +226,7 @@ class _CreateScreenState extends State<CreateScreen> {
                 ? SingleChildScrollView(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -395,28 +395,32 @@ class _CreateScreenState extends State<CreateScreen> {
 
                                 const SizedBox(height: 20),
 
-                                Row(
-                                  children: [
-                                    // 해시태그
-                                    HashTagBox(
-                                      text: ' 해시태그',
-                                      controller: _hashtagController,
-                                    ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  child: Row(
+                                    children: [
+                                      // 해시태그
+                                      HashTagBox(
+                                        text: ' 해시태그',
+                                        controller: _hashtagController,
+                                      ),
 
-                                    const ExpandedBox(),
+                                      const ExpandedBox(),
 
-                                    HashTagBox(
-                                      text: ' 해시태그',
-                                      controller: _hashtagController,
-                                    ),
+                                      HashTagBox(
+                                        text: ' 해시태그',
+                                        controller: _hashtagController,
+                                      ),
 
-                                    const ExpandedBox(),
+                                      const ExpandedBox(),
 
-                                    HashTagBox(
-                                      text: ' 해시태그',
-                                      controller: _hashtagController,
-                                    ),
-                                  ],
+                                      HashTagBox(
+                                        text: ' 해시태그',
+                                        controller: _hashtagController,
+                                      ),
+                                    ],
+                                  ),
                                 ),
 
                                 const SizedBox(height: 20),

@@ -18,7 +18,7 @@ class _HashTagBoxState extends State<HashTagBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 130,
+      width: 120,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
