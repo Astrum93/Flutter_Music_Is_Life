@@ -20,7 +20,6 @@ class _HashTagBoxState extends State<HashTagBox> {
     return Container(
       width: 130,
       height: 40,
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
