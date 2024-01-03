@@ -12,6 +12,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../../common/widget/expanded_box.dart';
+import '../../../../common/widget/hashTag_box.dart';
+
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
 
@@ -392,23 +395,28 @@ class _CreateScreenState extends State<CreateScreen> {
 
                                 const SizedBox(height: 20),
 
-                                // 해시태그
-                                DottedBorder(
-                                  borderType: BorderType.RRect,
-                                  radius: const Radius.circular(10),
-                                  dashPattern: const [10, 4],
-                                  strokeCap: StrokeCap.round,
-                                  color: Colors.blue.shade400,
-
-                                  // 입력 창
-                                  child: TextField(
-                                    style: const TextStyle(color: Colors.grey),
-                                    controller: _hashtagController,
-                                    decoration: const InputDecoration(
-                                      hintText: ' 해시태그',
-                                      hintStyle: TextStyle(color: Colors.grey),
+                                Row(
+                                  children: [
+                                    // 해시태그
+                                    HashTagBox(
+                                      text: ' 해시태그',
+                                      controller: _hashtagController,
                                     ),
-                                  ),
+
+                                    const ExpandedBox(),
+
+                                    HashTagBox(
+                                      text: ' 해시태그',
+                                      controller: _hashtagController,
+                                    ),
+
+                                    const ExpandedBox(),
+
+                                    HashTagBox(
+                                      text: ' 해시태그',
+                                      controller: _hashtagController,
+                                    ),
+                                  ],
                                 ),
 
                                 const SizedBox(height: 20),
