@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class HashTagBox extends StatefulWidget {
+class HashTagInputBox extends StatefulWidget {
   final TextEditingController? controller;
   final String text;
 
-  const HashTagBox({
+  const HashTagInputBox({
     super.key,
     this.controller,
     required this.text,
   });
 
   @override
-  State<HashTagBox> createState() => _HashTagBoxState();
+  State<HashTagInputBox> createState() => _HashTagInputBoxState();
 }
 
-class _HashTagBoxState extends State<HashTagBox> {
+class _HashTagInputBoxState extends State<HashTagInputBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
