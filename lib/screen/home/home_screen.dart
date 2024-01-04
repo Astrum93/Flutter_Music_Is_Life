@@ -22,6 +22,9 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
+  CollectionReference userContentsCollection =
+      FirebaseFirestore.instance.collection('userContents');
+
   // 로그인된 유저
   User? loggedUser;
 
@@ -36,6 +39,17 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   _getUserInfo() async* {
     var userinfo = await userInfoCollection.doc(user!.displayName).get();
     yield userinfo.data();
+  }
+
+  /// 모든 Contents 불러오는 함수
+  _getAllContents() async* {
+    var docs = [];
+    var allContents = await userContentsCollection.get().then((snapShot) {
+      for (var docSnapshot in snapShot.docs) {
+        docs.add(docSnapshot);
+      }
+    });
+    yield docs;
   }
 
   @override
@@ -112,21 +126,18 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     const SizedBox(height: 10),
 
                     /// 메인 컬럼의 두 번째 행
-                    const SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          InvisibleBoxHot(),
-                          SizedBox(width: 15),
-                          InvisibleBoxHot(),
-                          SizedBox(width: 15),
-                          InvisibleBoxHot(),
-                          SizedBox(width: 15),
-                          InvisibleBoxHot(),
-                          SizedBox(width: 15),
-                          InvisibleBoxHot(),
-                        ],
-                      ),
+                    StreamBuilder(
+                      stream: _getAllContents(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          print(snapshot);
+                          return const CircularProgressIndicator();
+                        }
+                        var docs = snapshot.data;
+
+                        return InvisibleBoxHot();
+                      },
                     ),
 
                     /// 메인 컬럼 SizedBox
