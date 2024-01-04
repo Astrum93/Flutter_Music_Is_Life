@@ -15,33 +15,21 @@ CollectionReference userInfoCollection =
 final _displayName = _auth.currentUser!.displayName;
 
 class UserInfoData {
-  final String? userName;
-  final String? userMail;
-  final String? userPhoneNumber;
-  final String? userProfileBgImage;
-  final String? userProfileInfo;
-  final String? userProfileImage;
-
-  UserInfoData({
-    this.userName,
-    this.userMail,
-    this.userPhoneNumber,
-    this.userProfileBgImage,
-    this.userProfileInfo,
-    this.userProfileImage,
-  });
+  final String userName,
+      userMail,
+      userPhoneNumber,
+      userProfileBgImage,
+      userProfileInfo,
+      userProfileImage;
 
   /// 가져온 정보를 UserInfoModel의 생성자로 정의
-  factory UserInfoData.fromJson(Map<String, dynamic> json) {
-    return UserInfoData(
-      userName: json['userName'],
-      userMail: json['userMail'],
-      userPhoneNumber: json['userPhoneNumber'],
-      userProfileImage: json['userProfileImage'],
-      userProfileBgImage: json['userProfileBgImage'],
-      userProfileInfo: json['userProfileInfo'],
-    );
-  }
+  UserInfoData.fromJson(Map<String, dynamic> json)
+      : userName = json['userName'],
+        userMail = json['userMail'],
+        userPhoneNumber = json['userPhoneNumber'],
+        userProfileImage = json['userProfileImage'],
+        userProfileBgImage = json['userProfileBgImage'],
+        userProfileInfo = json['userProfileInfo'];
 
   /// Json 형태의 Map 데이터로 변환
   Map<String, dynamic> userInfoToJson() {
