@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +43,10 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   /// 모든 Contents 불러오는 함수
   _getAllContents() async* {
     var docs = [];
-    var allContents = await userContentsCollection.get().then((snapShot) {
+    await userContentsCollection.get().then((snapShot) {
       for (var docSnapshot in snapShot.docs) {
         docs.add(docSnapshot);
+        print(docs);
       }
     });
     yield docs;
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                         }
                         var docs = snapshot.data;
 
-                        return InvisibleBoxHot();
+                        return const InvisibleBoxHot();
                       },
                     ),
 
