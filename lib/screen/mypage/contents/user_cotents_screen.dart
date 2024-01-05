@@ -21,14 +21,18 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
 
   //
   getUserContents() async {
-    var docs = await userContentsCollection.orderBy('$_displayName').get();
+    var docs = await userContentsCollection
+        .orderBy('$_displayName', descending: false)
+        .get();
     return docs;
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: userContentsCollection.limit(100).snapshots(),
+      stream: userContentsCollection
+          .orderBy('$_displayName', descending: false)
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
