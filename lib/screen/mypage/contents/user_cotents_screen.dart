@@ -22,10 +22,7 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: userContentsCollection
-          .doc(_displayName)
-          .collection('Contents')
-          .snapshots(),
+      stream: userContentsCollection.limit(100).snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -51,9 +48,9 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
               var doc = subCollectionDocs[index];
 
               // Contents Image 있는 문서 참조.
-              var contentsSubject = doc.get('ContentsSubject');
-              var contentsImage = doc.get('ContentsImage');
-              var contents = doc.get('Contents');
+              var title = doc.get('title');
+              var contentsImage = doc.get('contentsImage');
+              var contents = doc.get('contents');
               var id = doc.get('id');
               var time = doc.get('time');
               var hashTags = doc.get('hashTags');
@@ -71,7 +68,7 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ContentsScreen(
-                          contentSubject: contentsSubject,
+                          contentSubject: title,
                           contents: contents,
                           contentsImage: contentsImage,
                           id: id,

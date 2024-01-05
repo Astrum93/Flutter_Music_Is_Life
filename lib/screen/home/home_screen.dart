@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   void initState() {
     super.initState();
     _getUserInfo();
+    //_getAllContents();
   }
 
   // 현재 유저 정보를 불러오는 함수
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
     await userContentsCollection.get().then((snapShot) {
       for (var docSnapshot in snapShot.docs) {
         docs.add(docSnapshot);
+        print('dddddddddddddddddddddd');
         print(docs);
       }
     });
@@ -71,7 +73,14 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               title: const Text('Music is Life'),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    var docs = await FirebaseFirestore.instance
+                        .collection("UserContents")
+                        .limit(4)
+                        .get();
+                    print(docs);
+                    print(docs.size);
+                  },
                   icon: const Icon(Icons.search_rounded),
                 ),
 
@@ -127,11 +136,10 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
 
                     /// 메인 컬럼의 두 번째 행
                     StreamBuilder(
-                      stream: _getAllContents(),
+                      stream: _getUserInfo(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          print(snapshot);
                           return const CircularProgressIndicator();
                         }
                         var docs = snapshot.data;
