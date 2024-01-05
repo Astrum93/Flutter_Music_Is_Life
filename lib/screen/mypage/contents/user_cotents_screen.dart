@@ -12,12 +12,18 @@ class UserContentsScreen extends StatefulWidget {
 }
 
 class _UserContentsScreenState extends State<UserContentsScreen> {
-  // 현재 인증된 유저 이름
-  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
-
   // FireStore UserContents collection 참조 변수
   CollectionReference userContentsCollection =
       FirebaseFirestore.instance.collection('UserContents');
+
+  // 현재 인증된 유저 이름
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
+
+  //
+  getUserContents() async {
+    var docs = await userContentsCollection.orderBy('$_displayName').get();
+    return docs;
+  }
 
   @override
   Widget build(BuildContext context) {
