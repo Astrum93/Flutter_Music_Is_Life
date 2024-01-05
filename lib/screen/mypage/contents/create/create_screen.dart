@@ -51,16 +51,27 @@ class _CreateScreenState extends State<CreateScreen> {
   // Image 저장 변수
   File? pickedImage;
 
+  // Form Key
+  final formKey = GlobalKey<FormState>();
+
+  // 게시글 제목 컨트롤러
+  final TextEditingController _titleController = TextEditingController();
+
+  // 게시글 내용 컨트롤러
+  final TextEditingController _contentController = TextEditingController();
+
+  // 해시태그 내용 컨트롤러
+  final TextEditingController _hashtagController1 = TextEditingController();
+  final TextEditingController _hashtagController2 = TextEditingController();
+  final TextEditingController _hashtagController3 = TextEditingController();
+
+  // 로딩 스피너 상태 변수
+  bool _loading = false;
+
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async {
     var userinfo = await userInfoCollection.doc(_displayName).get();
     return userinfo.data();
-  }
-
-  // Contents 데이터 불러오는 함수
-  _getUserContents() async {
-    userContentsCollection.doc(_displayName).collection('Contents').get();
-    setState(() {});
   }
 
   // User 정보 불러오기
@@ -69,7 +80,6 @@ class _CreateScreenState extends State<CreateScreen> {
     // TODO: implement initState
     super.initState();
     _getUserInfo();
-    _getUserContents();
   }
 
   // 컨텐츠 이미지
@@ -149,7 +159,7 @@ class _CreateScreenState extends State<CreateScreen> {
       return;
     }
 
-    final subject = _subjectController.text;
+    final title = _titleController.text;
     final content = _contentController.text;
     final hashtag1 = _hashtagController1.text;
     final hashtag2 = _hashtagController2.text;
@@ -161,8 +171,7 @@ class _CreateScreenState extends State<CreateScreen> {
     final fileName = path.basename(pickedImage!.path);
 
     // 클라우드 스토리지 버킷에 경로 생성
-    final refContentsImage =
-        _storage.ref().child('${_displayName}_Contents').child(fileName);
+    final refContentsImage = _storage.ref().child(title).child(fileName);
     await refContentsImage.putFile(pickedImage!);
 
     // 게시글 정보를 Firestore에 저장
@@ -171,15 +180,11 @@ class _CreateScreenState extends State<CreateScreen> {
     final myurl = await refContentsImage.getDownloadURL();
 
     // Firestore의 UserContents 저장
-    await _store
-        .collection('UserContents')
-        .doc(_displayName)
-        .collection('Contents')
-        .doc(subject)
-        .set({
-      'ContentsSubject': subject,
-      'ContentsImage': myurl,
-      'Contents': content,
+    await userContentsCollection.doc(title).set({
+      'name': _displayName,
+      'subject': title,
+      'contentsImage': myurl,
+      'contents': content,
       'time': Timestamp.now(),
       'id': _uid,
       'likeCount': likecount,
@@ -188,6 +193,7 @@ class _CreateScreenState extends State<CreateScreen> {
 
     //작성 완료 후 입력 필드 초기화
 
+    _titleController.clear();
     _contentController.clear();
     _hashtagController1.clear();
     _hashtagController2.clear();
@@ -200,26 +206,6 @@ class _CreateScreenState extends State<CreateScreen> {
           context, MaterialPageRoute(builder: (context) => const MyScreen()));
     }
   }
-
-  // Form Key
-  final formKey = GlobalKey<FormState>();
-
-  // 게시글 제목 컨트롤러
-  final TextEditingController _subjectController = TextEditingController();
-
-  // 게시글 내용 컨트롤러
-  final TextEditingController _contentController = TextEditingController();
-
-  // 해시태그 내용 컨트롤러
-  final TextEditingController _hashtagController1 = TextEditingController();
-  final TextEditingController _hashtagController2 = TextEditingController();
-  final TextEditingController _hashtagController3 = TextEditingController();
-
-  // 컨텐츠 내용 저장할 변수
-  String contents = '';
-
-  // 로딩 스피너 상태 변수
-  bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -372,7 +358,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   // 입력 창
                                   child: TextField(
                                     style: const TextStyle(color: Colors.grey),
-                                    controller: _subjectController,
+                                    controller: _titleController,
                                     decoration: const InputDecoration(
                                       hintText: ' 게시물 제목을 입력해 주세요.',
                                       hintStyle: TextStyle(color: Colors.grey),
