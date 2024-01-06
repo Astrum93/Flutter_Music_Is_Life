@@ -30,16 +30,14 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: userContentsCollection
-          .orderBy('$_displayName', descending: false)
-          .snapshots(),
+      stream: userContentsCollection.snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
 
-        // 하위 컬렉션 문서들을 리스트로 표시
-        var subCollectionDocs = snapshot.data!.docs;
+        // 컬렉션 문서들을 리스트로 표시
+        var collectionDocs = snapshot.data!;
 
         // GridView.builder
         return SizedBox(
@@ -53,9 +51,9 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              var doc = subCollectionDocs[index];
+              var doc = collectionDocs[index];
 
               // Contents Image 있는 문서 참조.
               var title = doc.get('title');

@@ -182,7 +182,7 @@ class _CreateScreenState extends State<CreateScreen> {
     // Firestore의 UserContents 저장
     await userContentsCollection.doc(title).set({
       'name': _displayName,
-      'subject': title,
+      'title': title,
       'contentsImage': myurl,
       'contents': content,
       'time': Timestamp.now(),
