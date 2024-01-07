@@ -19,25 +19,19 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
   // 현재 인증된 유저 이름
   final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
-  //
-  getUserContents() async {
-    var docs = await userContentsCollection
-        .orderBy('$_displayName', descending: false)
-        .get();
-    return docs;
-  }
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: userContentsCollection.snapshots(),
+      stream: userContentsCollection
+          .where("name", isEqualTo: _displayName)
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
 
-        // 컬렉션 문서들을 리스트로 표시
-        var collectionDocs = snapshot.data!;
+        // 컬렉션의 로그인한 유저의 게시물 문서
+        final collectionDocs = snapshot.data!.docs;
 
         // GridView.builder
         return SizedBox(
@@ -51,7 +45,7 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
             ),
-            itemCount: snapshot.data!.length,
+            itemCount: collectionDocs.length,
             itemBuilder: (context, index) {
               var doc = collectionDocs[index];
 
