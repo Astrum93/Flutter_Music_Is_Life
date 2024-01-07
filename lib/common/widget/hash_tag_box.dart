@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HashTag extends StatelessWidget {
+class HashTagBox extends StatelessWidget {
   final String text;
   final double width;
   final double fontSize;
 
-  const HashTag(
+  const HashTagBox(
       {super.key,
       required this.text,
       required this.width,
