@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/hash_tag_text_button.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../common/firebase_auth/firebase_auth_user.dart';
+import '../../common/widget/expanded_box.dart';
+import '../../common/widget/hash_tag_box.dart';
 import '../../common/widget/invisible_box_basic.dart';
 import '../../common/widget/invisible_box_hot.dart';
 import '../welcome_screen.dart';
@@ -22,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
       FirebaseFirestore.instance.collection('UserInfo');
 
   CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('userContents');
+      FirebaseFirestore.instance.collection('UserContents');
 
   // 로그인된 유저
   User? loggedUser;
@@ -134,17 +137,109 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     /// 메인 컬럼의 SizedBox
                     const SizedBox(height: 10),
 
-                    /// 메인 컬럼의 두 번째 행
+                    /// 인기 게시물
                     StreamBuilder(
-                      stream: _getUserInfo(),
+                      stream: FirebaseFirestore.instance
+                          .collection('UserContents')
+                          .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         }
-                        var docs = snapshot.data;
+                        // 유저 게시물 컬렉션의 모든 문서
+                        final contentsDocs = snapshot.data!.docs;
 
-                        return const InvisibleBoxHot();
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 480,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: contentsDocs.length,
+                            itemBuilder: (contest, index) {
+                              var doc = contentsDocs[index];
+
+                              var title = doc.get('title');
+                              var contentsImage = doc.get('contentsImage');
+                              var contents = doc.get('contents');
+                              var id = doc.get('id');
+                              var time = doc.get('time');
+                              var hashTags = doc.get('hashTags');
+
+                              // Timestamp를 DateTime으로 변환
+                              DateTime dateTime = time.toDate();
+
+                              // DateTime을 포맷팅
+                              String formattedDateTime = dateTime.toString();
+
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.05),
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.4),
+                                      blurRadius: 7,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 350,
+                                      height: 250,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(16),
+                                        image: DecorationImage(
+                                          image: NetworkImage(contentsImage),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      child: const Text(''),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Text(
+                                      title,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Text(
+                                      formattedDateTime.substring(0, 10),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        HashTagTextButton(
+                                          onPressed: () {},
+                                          text: hashTags[0],
+                                        ),
+                                        HashTagTextButton(
+                                          onPressed: () {},
+                                          text: hashTags[1],
+                                        ),
+                                        HashTagTextButton(
+                                          onPressed: () {},
+                                          text: hashTags[2],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(width: 10),
+                          ),
+                        );
                       },
                     ),
 

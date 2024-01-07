@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/common/widget/expanded_box.dart';
-import 'package:MusicIsLife/common/widget/hash_tag.dart';
+import 'package:MusicIsLife/common/widget/hash_tag_box.dart';
 import 'package:MusicIsLife/common/widget/subject_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -223,11 +223,11 @@ class _ContentsScreenState extends State<ContentsScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
-                  HashTag(text: widget.hashTags[0], width: 10, fontSize: 15),
+                  HashTagBox(text: widget.hashTags[0], width: 10, fontSize: 15),
                   const ExpandedBox(),
-                  HashTag(text: widget.hashTags[1], width: 10, fontSize: 15),
+                  HashTagBox(text: widget.hashTags[1], width: 10, fontSize: 15),
                   const ExpandedBox(),
-                  HashTag(text: widget.hashTags[2], width: 10, fontSize: 15),
+                  HashTagBox(text: widget.hashTags[2], width: 10, fontSize: 15),
                 ],
               ),
             ),
