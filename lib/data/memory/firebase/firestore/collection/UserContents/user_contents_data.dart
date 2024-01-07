@@ -7,7 +7,7 @@ class UserContents {
   final String contents;
   final String contentsImage;
   final Timestamp time;
-  final String hashTag;
+  final List<String> hashTag;
   final int likeCount;
 
   UserContents({

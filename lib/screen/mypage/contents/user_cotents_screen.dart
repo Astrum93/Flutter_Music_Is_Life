@@ -31,7 +31,7 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
         }
 
         // 컬렉션의 로그인한 유저의 게시물 문서
-        final collectionDocs = snapshot.data!.docs;
+        final collectionDocs = snapshot.data.docs;
 
         // GridView.builder
         return SizedBox(
