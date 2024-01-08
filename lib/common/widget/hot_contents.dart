@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/widget/expanded_box.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +13,10 @@ class HotContents extends StatefulWidget {
 }
 
 class _HotContentsState extends State<HotContents> {
+  // FireStore collection 참조 변수
+  CollectionReference userContentsCollection =
+      FirebaseFirestore.instance.collection('UserContents');
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -113,34 +117,38 @@ class _HotContentsState extends State<HotContents> {
                     Row(
                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.asset(
-                                    '$basePath/profile/pikachu.png'),
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            const Text(
-                              'Pikachu',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '10.3k',
-                              style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13),
-                            )
-                          ],
-                        ),
+                        StreamBuilder(
+                            stream: userInfoCollection.snapshots(),
+                            builder: (context, snapshot) {
+                              return Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 25,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.asset(
+                                          '$basePath/profile/pikachu.png'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text(
+                                    'Pikachu',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '10.3k',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13),
+                                  )
+                                ],
+                              );
+                            }),
                         Row(
                           children: [
                             Column(

@@ -36,26 +36,12 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   void initState() {
     super.initState();
     _getUserInfo();
-    //_getAllContents();
   }
 
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async* {
     var userinfo = await userInfoCollection.doc(user!.displayName).get();
     yield userinfo.data();
-  }
-
-  /// 모든 Contents 불러오는 함수
-  _getAllContents() async* {
-    var docs = [];
-    await userContentsCollection.get().then((snapShot) {
-      for (var docSnapshot in snapShot.docs) {
-        docs.add(docSnapshot);
-        print('dddddddddddddddddddddd');
-        print(docs);
-      }
-    });
-    yield docs;
   }
 
   @override
