@@ -129,7 +129,7 @@ class _InvisibleBoxHotState extends State<InvisibleBoxHot> {
                                 ],
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       const ExpandedBox(),
