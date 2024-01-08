@@ -44,7 +44,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     // 클라우드 스토리지 버킷에 경로 생성
     final refImage = FirebaseStorage.instance
         .ref()
-        .child('picked_image')
+        .child('userProfileImage')
         .child('${_displayName}_profile.png');
     // 클라우드 스토리지 버킷에 저장
     await refImage.putFile(pickedImage!);

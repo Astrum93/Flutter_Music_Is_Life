@@ -171,7 +171,8 @@ class _CreateScreenState extends State<CreateScreen> {
     final fileName = path.basename(pickedImage!.path);
 
     // 클라우드 스토리지 버킷에 경로 생성
-    final refContentsImage = _storage.ref().child(title).child(fileName);
+    final refContentsImage =
+        _storage.ref().child('userContents').child(title).child('$title.png');
     await refContentsImage.putFile(pickedImage!);
 
     // 게시글 정보를 Firestore에 저장
