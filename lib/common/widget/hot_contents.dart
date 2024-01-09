@@ -30,7 +30,7 @@ class _HotContentsState extends State<HotContents> {
 
         return SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 480,
+          height: 500,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: contentsDocs.length,
@@ -39,9 +39,9 @@ class _HotContentsState extends State<HotContents> {
 
               var title = doc.get('title');
               var contentsImage = doc.get('contentsImage');
-              var contents = doc.get('contents');
               var time = doc.get('time');
               var hashTags = doc.get('hashTags');
+              var likeCount = doc.get('likeCount').toString();
 
               // Timestamp를 DateTime으로 변환
               DateTime dateTime = time.toDate();
@@ -51,31 +51,37 @@ class _HotContentsState extends State<HotContents> {
 
               return Stack(
                 children: [
+                  /// 배경
                   Container(
                     width: 350,
-                    height: 300,
-                    margin: const EdgeInsets.only(bottom: 10),
+                    height: 500,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(contentsImage),
-                        fit: BoxFit.fill,
-                      ),
                       color: Colors.grey.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.4),
-                          blurRadius: 7,
-                        ),
-                      ],
                     ),
-                    child: Text(''),
+                  ),
+
+                  /// 게시물 사진
+                  Positioned(
+                    child: Container(
+                      width: 350,
+                      height: 350,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(contentsImage),
+                          fit: BoxFit.fill,
+                        ),
+                        color: Colors.grey.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(''),
+                    ),
                   ),
 
                   /// 게시물 생성 날짜
                   Positioned(
                     right: 10,
-                    bottom: 150,
+                    bottom: 120,
                     child: Text(
                       formattedDateTime.substring(0, 10),
                       style: const TextStyle(
@@ -88,12 +94,24 @@ class _HotContentsState extends State<HotContents> {
                   /// 게시물 제목
                   Positioned(
                     left: 10,
-                    bottom: 150,
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 15,
+                    bottom: 110,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
                         color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.amber,
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -101,7 +119,7 @@ class _HotContentsState extends State<HotContents> {
                   /// 프로필 정보
                   Positioned(
                     left: 10,
-                    bottom: 80,
+                    bottom: 50,
                     child: StreamBuilder(
                         stream: userInfoCollection.snapshots(),
                         builder: (context, snapshot) {
@@ -112,7 +130,8 @@ class _HotContentsState extends State<HotContents> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.asset(
-                                      '$basePath/profile/pikachu.png'),
+                                    '$basePath/profile/pikachu.png',
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 10),
@@ -135,9 +154,11 @@ class _HotContentsState extends State<HotContents> {
                           );
                         }),
                   ),
+
+                  /// 좋아요 버튼과 개수
                   Positioned(
                     right: 10,
-                    bottom: 80,
+                    bottom: 50,
                     child: Column(
                       children: [
                         IconButton(
@@ -152,7 +173,7 @@ class _HotContentsState extends State<HotContents> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Text(
-                            '19650',
+                            likeCount,
                             style: TextStyle(
                               color: Colors.pinkAccent.shade100,
                               fontWeight: FontWeight.bold,
@@ -165,7 +186,7 @@ class _HotContentsState extends State<HotContents> {
 
                   /// HashTags
                   Positioned(
-                    bottom: 30,
+                    bottom: 0,
                     child: Row(
                       children: [
                         HashTagTextButton(
@@ -186,7 +207,7 @@ class _HotContentsState extends State<HotContents> {
                 ],
               );
             },
-            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            separatorBuilder: (context, index) => const SizedBox(width: 20),
           ),
         );
       },
