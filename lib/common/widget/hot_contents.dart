@@ -134,6 +134,7 @@ class _HotContentsState extends State<HotContents> {
                             children: [
                               CircleAvatar(
                                 radius: 25,
+                                backgroundColor: Colors.greenAccent,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.network(
@@ -165,29 +166,29 @@ class _HotContentsState extends State<HotContents> {
                   /// 좋아요 버튼과 개수
                   Positioned(
                     right: 10,
+                    bottom: 60,
+                    child: IconButton(
+                      color: Colors.white,
+                      iconSize: 25,
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.pink,
+                      ),
+                    ),
+                  ),
+
+                  /// 좋아요 개수
+                  Positioned(
+                    right: 28,
                     bottom: 50,
-                    child: Column(
-                      children: [
-                        IconButton(
-                          color: Colors.white,
-                          iconSize: 25,
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite_border_outlined,
-                            color: Colors.pink,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Text(
-                            likeCount,
-                            style: TextStyle(
-                              color: Colors.pinkAccent.shade100,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      likeCount,
+                      style: TextStyle(
+                        color: Colors.pinkAccent.shade100,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
 
