@@ -42,6 +42,7 @@ class _HotContentsState extends State<HotContents> {
               var time = doc.get('time');
               var hashTags = doc.get('hashTags');
               var likeCount = doc.get('likeCount').toString();
+              var name = doc.get('name');
 
               // Timestamp를 DateTime으로 변환
               DateTime dateTime = time.toDate();
@@ -121,23 +122,30 @@ class _HotContentsState extends State<HotContents> {
                     left: 10,
                     bottom: 50,
                     child: StreamBuilder(
-                        stream: userInfoCollection.snapshots(),
+                        stream: userInfoCollection.doc(name).snapshots(),
                         builder: (context, snapshot) {
+                          // 유저 게시물 컬렉션의 모든 문서
+                          final userInfoDoc = snapshot.data!;
+
+                          var name = userInfoDoc.get('userName');
+                          var profileImage =
+                              userInfoDoc.get('userProfileImage');
+
                           return Row(
                             children: [
                               CircleAvatar(
                                 radius: 25,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
-                                  child: Image.asset(
-                                    '$basePath/profile/pikachu.png',
+                                  child: Image.network(
+                                    profileImage,
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              const Text(
-                                'Pikachu',
-                                style: TextStyle(
+                              Text(
+                                name,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
