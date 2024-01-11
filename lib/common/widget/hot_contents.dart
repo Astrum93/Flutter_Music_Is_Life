@@ -28,9 +28,10 @@ class _HotContentsState extends State<HotContents> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (contest, index) {
+                  itemBuilder: (context, index) {
                     // 유저 게시물 컬렉션의 모든 문서
                     final contentsDocs = snapshot.data!.docs;
+
                     var doc = contentsDocs[index];
 
                     var title = doc.get('title');
