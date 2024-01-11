@@ -24,7 +24,7 @@ class _HotContentsState extends State<HotContents> {
         // 유저 게시물 컬렉션의 모든 문서
         final contentsDocs = snapshot.data!.docs;
 
-        return snapshot.hasData
+        return snapshot.hasData && snapshot.data != null
             ? SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 500,
