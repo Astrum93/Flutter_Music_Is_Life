@@ -24,8 +24,9 @@ class _HotContentsState extends State<HotContents> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
+
         // 유저 게시물 컬렉션의 모든 문서
-        final contentsDocs = snapshot.data!.docs;
+        var contentsDocs = snapshot.data!.docs;
 
         return SizedBox(
           width: MediaQuery.of(context).size.width,
