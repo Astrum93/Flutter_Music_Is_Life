@@ -21,17 +21,17 @@ class _HotContentsState extends State<HotContents> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('UserContents').snapshots(),
       builder: (context, snapshot) {
+        // 유저 게시물 컬렉션의 모든 문서
+        final contentsDocs = snapshot.data!.docs;
+
         return snapshot.hasData
             ? SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 500,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data!.docs.length,
+                  itemCount: contentsDocs.length,
                   itemBuilder: (context, index) {
-                    // 유저 게시물 컬렉션의 모든 문서
-                    final contentsDocs = snapshot.data!.docs;
-
                     var doc = contentsDocs[index];
 
                     var title = doc.get('title');
