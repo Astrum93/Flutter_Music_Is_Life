@@ -24,7 +24,7 @@ class InvisibleBoxBasic extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'test',
+              '음악 검색',
               style: TextStyle(
                 color: Colors.white,
               ),
