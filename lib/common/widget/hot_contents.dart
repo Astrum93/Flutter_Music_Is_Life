@@ -24,8 +24,9 @@ class _HotContentsState extends State<HotContents> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
+
         // 유저 게시물 컬렉션의 모든 문서
-        final contentsDocs = snapshot.data!.docs;
+        final contentsDocs = snapshot.data?.docs ?? [];
 
         return SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -123,6 +124,15 @@ class _HotContentsState extends State<HotContents> {
                     child: StreamBuilder(
                         stream: userInfoCollection.doc(name).snapshots(),
                         builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+
+                          if (!snapshot.hasData || snapshot.data == null) {
+                            return const Text('No data available');
+                          }
+
                           // 유저 게시물 컬렉션의 모든 문서
                           final userInfoDoc = snapshot.data!;
 
