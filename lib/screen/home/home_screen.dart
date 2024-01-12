@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    const InvisibleBoxBasic(),
+                    InvisibleBoxBasic(),
 
                     /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
