@@ -25,8 +25,15 @@ class _HotContentsState extends State<HotContents> {
           return const CircularProgressIndicator();
         }
 
+        if (!snapshot.hasData || snapshot.data == null) {
+          return const Text(
+            'No data available',
+            style: TextStyle(color: Colors.red),
+          );
+        }
+
         // 유저 게시물 컬렉션의 모든 문서
-        final contentsDocs = snapshot.data?.docs ?? [];
+        final contentsDocs = snapshot.data!.docs;
 
         return SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -130,7 +137,10 @@ class _HotContentsState extends State<HotContents> {
                           }
 
                           if (!snapshot.hasData || snapshot.data == null) {
-                            return const Text('No data available');
+                            return const Text(
+                              'No data available',
+                              style: TextStyle(color: Colors.red),
+                            );
                           }
 
                           // 유저 게시물 컬렉션의 모든 문서
