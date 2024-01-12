@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/widget/hash_tag_text_button.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
@@ -7,10 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../common/firebase_auth/firebase_auth_user.dart';
-import '../../common/widget/expanded_box.dart';
-import '../../common/widget/hash_tag_box.dart';
 import '../../common/widget/invisible_box_basic.dart';
-import '../../common/widget/invisible_box_hot.dart';
 import '../welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -63,14 +59,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               title: const Text('Music is Life'),
               actions: [
                 IconButton(
-                  onPressed: () async {
-                    var docs = await FirebaseFirestore.instance
-                        .collection("UserContents")
-                        .limit(4)
-                        .get();
-                    print(docs);
-                    print(docs.size);
-                  },
+                  onPressed: () async {},
                   icon: const Icon(Icons.search_rounded),
                 ),
 
