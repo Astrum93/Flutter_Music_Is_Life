@@ -1,10 +1,28 @@
+import 'dart:convert';
+
 import 'package:MusicIsLife/common/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MusicPlayer extends StatelessWidget {
   const MusicPlayer({
     super.key,
   });
+
+  getMusic() async {
+    var url =
+        Uri.parse("https://www.youtube.com/results?search_query=이소라+바람이+분다");
+    http.Response _response =
+        await http.get(url, headers: {"Accept": "application/json"});
+
+    var statusCode = _response.statusCode;
+    var _headers = _response.headers;
+    var _body = utf8.decode(_response.bodyBytes);
+
+    print("statusCode : $statusCode");
+    //print("statusHeader : $_headers");
+    print("statusBody : $_body");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +62,9 @@ class MusicPlayer extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                getMusic();
+              },
               icon: const Icon(
                 Icons.play_circle_outline_rounded,
                 color: Colors.grey,

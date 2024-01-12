@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:flutter/material.dart';
 
 class InvisibleBoxBasic extends StatelessWidget {
@@ -23,12 +24,7 @@ class InvisibleBoxBasic extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text(
-              '음악 검색',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
+            MusicPlayer(),
           ],
         ),
       ),
