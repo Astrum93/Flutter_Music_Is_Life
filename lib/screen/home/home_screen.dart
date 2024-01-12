@@ -106,17 +106,13 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-
-                /// 메인 컬럼
                 child: Column(
                   children: [
-                    /// 메인 컬럼의 SizedBox
                     const SizedBox(height: 10),
 
                     /// 인기 게시물
                     const HotContents(),
 
-                    /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
 
                     /// 메인 컬럼 세 번째 열
@@ -136,12 +132,6 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    /// 로그인 버튼
-                    const InvisibleBoxBasic(),
-
-                    const SizedBox(height: 20),
-
-                    /// 메인 컬럼 네 번째 컨테이너 (Invisible)
                     const InvisibleBoxBasic(),
 
                     /// 메인 컬럼 SizedBox
@@ -165,54 +155,6 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     const SizedBox(height: 20),
 
                     /// 메인 컬럼 다섯 번째 컨테이너 (Invisible)
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            blurRadius: 7,
-                          )
-                        ],
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              'test',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    /// 메인 컬럼 SizedBox
-                    const SizedBox(height: 40),
-
-                    /// 메인 컬럼 다섯 번째 열
-                    const Column(
-                      children: [
-                        Text(
-                          '3333',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    /// 메인 컬럼 SizedBox
-                    const SizedBox(height: 20),
-
-                    /// 메인 컬럼 여섯 번째 컨테이너 (Invisible)
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
