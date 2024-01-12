@@ -12,16 +12,16 @@ class MusicPlayer extends StatelessWidget {
   getMusic() async {
     var url =
         Uri.parse("https://www.youtube.com/results?search_query=이소라+바람이+분다");
-    http.Response _response =
+    http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
 
-    var statusCode = _response.statusCode;
-    var _headers = _response.headers;
-    var _body = utf8.decode(_response.bodyBytes);
+    var statusCode = response.statusCode;
+    // var _headers = response.headers;
+    var body = utf8.decode(response.bodyBytes);
 
     print("statusCode : $statusCode");
     //print("statusHeader : $_headers");
-    print("statusBody : $_body");
+    print("statusBody : $body");
   }
 
   @override
