@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:MusicIsLife/common/constants.dart';
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,18 +11,20 @@ class MusicPlayer extends StatelessWidget {
   });
 
   getMusic() async {
-    var url =
-        Uri.parse("https://www.youtube.com/results?search_query=이소라+바람이+분다");
+    var url = Uri.parse(
+        'https://search.daum.net/search?w=vclip&nil_search=btn&DA=NTB&enc=utf8&q=유튜브+좋은날+아이유+음원');
     http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
 
-    var statusCode = response.statusCode;
-    // var _headers = response.headers;
-    var body = utf8.decode(response.bodyBytes);
+    BeautifulSoup bs = BeautifulSoup(response.body);
 
-    print("statusCode : $statusCode");
-    //print("statusHeader : $_headers");
-    print("statusBody : $body");
+    var source = bs.body!.find('a', class_: 'thumb_bf');
+    print(source);
+    // int i = 0;
+    // for (final item in source) {
+    //   print("$i 번째 아이템 : $item");
+    //   i++;
+    // }
   }
 
   @override
