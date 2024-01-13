@@ -1,15 +1,19 @@
-import 'dart:convert';
-
 import 'package:MusicIsLife/common/constants.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class MusicPlayer extends StatelessWidget {
+class MusicPlayer extends StatefulWidget {
   const MusicPlayer({
     super.key,
   });
 
+  @override
+  State<MusicPlayer> createState() => _MusicPlayerState();
+}
+
+class _MusicPlayerState extends State<MusicPlayer> {
+  /// Youtube 주소 가져오는 크롤링 코드
   getMusic() async {
     var url = Uri.parse(
         'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query==아이유+좋은날+원곡+유튜브');
@@ -22,9 +26,11 @@ class MusicPlayer extends StatelessWidget {
     final String youtubeURL = source.toString();
     print(youtubeURL);
 
-    // 정규식 패턴
+    /// 정규식 패턴
     RegExp regExp = RegExp(r'href="([^"]+)"');
     Match? match = regExp.firstMatch(youtubeURL);
+
+    /// Null Safety
     if (match != null) {
       String? result = match.group(1);
       print(result);
