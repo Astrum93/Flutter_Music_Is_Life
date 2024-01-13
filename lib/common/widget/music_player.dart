@@ -12,19 +12,25 @@ class MusicPlayer extends StatelessWidget {
 
   getMusic() async {
     var url = Uri.parse(
-        'https://search.daum.net/search?w=vclip&nil_search=btn&DA=NTB&enc=utf8&q=유튜브+좋은날+아이유+음원');
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query==아이유+좋은날+원곡+유튜브');
     http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
 
     BeautifulSoup bs = BeautifulSoup(response.body);
 
-    var source = bs.body!.find('a', class_: 'thumb_bf');
-    print(source);
-    // int i = 0;
-    // for (final item in source) {
-    //   print("$i 번째 아이템 : $item");
-    //   i++;
-    // }
+    var source = bs.body!.find('a', class_: 'info_title');
+    final String youtubeURL = source.toString();
+    print(youtubeURL);
+
+    // 정규식 패턴
+    RegExp regExp = RegExp(r'href="([^"]+)"');
+    Match? match = regExp.firstMatch(youtubeURL);
+    if (match != null) {
+      String? result = match.group(1);
+      print(result);
+    } else {
+      print("No matches");
+    }
   }
 
   @override
