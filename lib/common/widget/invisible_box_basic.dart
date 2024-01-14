@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:flutter/material.dart';
 
 class InvisibleBoxBasic extends StatelessWidget {
@@ -8,7 +7,7 @@ class InvisibleBoxBasic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 380,
-      height: 380,
+      height: 200,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.05),
@@ -20,14 +19,7 @@ class InvisibleBoxBasic extends StatelessWidget {
           )
         ],
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            MusicPlayer(),
-          ],
-        ),
-      ),
+      child: const Padding(padding: EdgeInsets.all(8.0), child: Text('')),
     );
   }
 }

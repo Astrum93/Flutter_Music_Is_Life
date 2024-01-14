@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
+import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                     /// 메인 컬럼 SizedBox
                     const SizedBox(height: 20),
 
-                    const InvisibleBoxBasic(),
+                    const SearchMusic(),
 
                     /// 메인 컬럼 SizedBox
                     const SizedBox(height: 40),
