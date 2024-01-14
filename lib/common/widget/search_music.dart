@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
+import 'package:MusicIsLife/common/widget/expanded_box.dart';
 import 'package:flutter/material.dart';
 
 class SearchMusic extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SearchMusicState extends State<SearchMusic> {
   Widget build(BuildContext context) {
     return Container(
       width: 380,
-      height: 200,
+      height: 220,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.05),
@@ -34,6 +35,7 @@ class _SearchMusicState extends State<SearchMusic> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
+          key: formKey,
           child: Column(
             children: [
               EasyTextFormField(
@@ -79,6 +81,13 @@ class _SearchMusicState extends State<SearchMusic> {
                     color: Colors.amber,
                   ),
                   hintText: "검색하고자 하는 노래 제목을 써주세요."),
+              const ExpandedBox(),
+              FloatingActionButton(
+                backgroundColor: Colors.greenAccent,
+                onPressed: () {},
+                child: const Icon(Icons.search, size: 30),
+              ),
+              const SizedBox(height: 10),
             ],
           ),
         ),
