@@ -14,19 +14,21 @@ class SearchMusic extends StatefulWidget {
 class _SearchMusicState extends State<SearchMusic> {
   String singer = '';
   String titleOfSong = '';
-  String? youtubeId;
+  String youtubeUrl = '';
+  String youtubeVideoId = '';
+  final String thumbnail = '';
 
   // Form Key
   final formKey = GlobalKey<FormState>();
 
-  /// Youtube 주소 가져오는 크롤링 코드
+  /// Youtube 주소 가져 오는 크롤링 코드
   Future getMusic(String titleOfSong, String singer) async {
     var searchWord = '$titleOfSong+$singer';
     searchWord = searchWord.replaceAll(' ', '+');
     print(searchWord);
 
     var url = Uri.parse(
-        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=유튜브+$searchWord');
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=youtube+$searchWord');
     print(url);
     http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
@@ -47,12 +49,19 @@ class _SearchMusicState extends State<SearchMusic> {
 
     /// Null Safety
     if (match != null) {
-      String? result = match.group(1);
-      print(result);
-      return result;
+      String result = match.group(1).toString();
+      print('result는 $result 입니다.');
+      youtubeUrl = result;
     } else {
       print("No matches");
     }
+  }
+
+  ///
+  getYoutubeData(String youtubeUrl) {
+    var id = youtubeUrl.substring(32);
+    youtubeVideoId = id;
+    print(youtubeVideoId);
   }
 
   @override
@@ -133,7 +142,8 @@ class _SearchMusicState extends State<SearchMusic> {
                 backgroundColor: Colors.greenAccent,
                 onPressed: () {
                   getMusic(titleOfSong, singer);
-                  print(youtubeId);
+                  print('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
+                  getYoutubeData(youtubeUrl);
                 },
                 child: const Icon(Icons.search, size: 30),
               ),
