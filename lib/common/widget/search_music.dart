@@ -19,8 +19,11 @@ class _SearchMusicState extends State<SearchMusic> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8,
+      ),
       width: 380,
-      height: 220,
+      height: 380,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.05),
@@ -38,6 +41,11 @@ class _SearchMusicState extends State<SearchMusic> {
           key: formKey,
           child: Column(
             children: [
+              Image.asset(
+                'assets/icon/3d_casual_life_cloud_music.png',
+                scale: 2,
+              ),
+              const ExpandedBox(),
               EasyTextFormField(
                   key: const ValueKey(1),
                   keyboardType: TextInputType.text,
@@ -52,13 +60,13 @@ class _SearchMusicState extends State<SearchMusic> {
                     singer = value!;
                   },
                   onChanged: (value) {
-                    singer = value!;
+                    singer = value;
                   },
                   prefixIcon: const Icon(
                     Icons.person_search_outlined,
                     color: Colors.amber,
                   ),
-                  hintText: "검색하고자 하는 가수 이름을 써주세요."),
+                  hintText: "검색 하실 가수 이름을 입력 해 주세요."),
               const SizedBox(height: 15),
               EasyTextFormField(
                   key: const ValueKey(2),
@@ -74,20 +82,19 @@ class _SearchMusicState extends State<SearchMusic> {
                     titleOfSong = value!;
                   },
                   onChanged: (value) {
-                    titleOfSong = value!;
+                    titleOfSong = value;
                   },
                   prefixIcon: const Icon(
                     Icons.music_note_rounded,
                     color: Colors.amber,
                   ),
-                  hintText: "검색하고자 하는 노래 제목을 써주세요."),
+                  hintText: "검색 하실 노래 제목을 입력 해 주세요."),
               const ExpandedBox(),
               FloatingActionButton(
                 backgroundColor: Colors.greenAccent,
                 onPressed: () {},
                 child: const Icon(Icons.search, size: 30),
               ),
-              const SizedBox(height: 10),
             ],
           ),
         ),

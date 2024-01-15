@@ -91,6 +91,7 @@ flutter:
     - assets/icon/Login.png
     - assets/icon/tape-recorder.png
     - assets/icon/vr-headset.png
+    - assets/icon/3d_casual_life_cloud_music.png
 
     # Logo
     - assets/logo/NA1.png
@@ -107,7 +108,7 @@ flutter:
 
     # Thumb
     - assets/thumb/Thumb_Test.jpeg
-    
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
