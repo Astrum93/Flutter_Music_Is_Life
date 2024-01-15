@@ -1,6 +1,8 @@
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:MusicIsLife/common/widget/expanded_box.dart';
+import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SearchMusic extends StatefulWidget {
   const SearchMusic({super.key});
@@ -15,6 +17,32 @@ class _SearchMusicState extends State<SearchMusic> {
 
   // Form Key
   final formKey = GlobalKey<FormState>();
+
+  /// Youtube 주소 가져오는 크롤링 코드
+  getMusic() async {
+    var url = Uri.parse(
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query==아이유+좋은날+원곡+유튜브');
+    http.Response response =
+        await http.get(url, headers: {"Accept": "application/json"});
+
+    BeautifulSoup bs = BeautifulSoup(response.body);
+
+    var source = bs.body!.find('a', class_: 'info_title');
+    final String youtubeURL = source.toString();
+    print(youtubeURL);
+
+    /// 정규식 패턴
+    RegExp regExp = RegExp(r'href="([^"]+)"');
+    Match? match = regExp.firstMatch(youtubeURL);
+
+    /// Null Safety
+    if (match != null) {
+      String? result = match.group(1);
+      print(result);
+    } else {
+      print("No matches");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +120,10 @@ class _SearchMusicState extends State<SearchMusic> {
               const ExpandedBox(),
               FloatingActionButton(
                 backgroundColor: Colors.greenAccent,
-                onPressed: () {},
+                onPressed: () {
+                  var searchWord = '$singer+$titleOfSong';
+                  searchWord = searchWord.replaceAll(' ', '+');
+                },
                 child: const Icon(Icons.search, size: 30),
               ),
             ],
