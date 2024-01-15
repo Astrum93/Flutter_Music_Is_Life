@@ -14,14 +14,20 @@ class SearchMusic extends StatefulWidget {
 class _SearchMusicState extends State<SearchMusic> {
   String singer = '';
   String titleOfSong = '';
+  String? youtubeId;
 
   // Form Key
   final formKey = GlobalKey<FormState>();
 
   /// Youtube 주소 가져오는 크롤링 코드
-  getMusic() async {
+  Future getMusic(String titleOfSong, String singer) async {
+    var searchWord = '$titleOfSong+$singer';
+    searchWord = searchWord.replaceAll(' ', '+');
+    print(searchWord);
+
     var url = Uri.parse(
-        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query==아이유+좋은날+원곡+유튜브');
+        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=유튜브+$searchWord');
+    print(url);
     http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
 
@@ -31,6 +37,10 @@ class _SearchMusicState extends State<SearchMusic> {
     final String youtubeURL = source.toString();
     print(youtubeURL);
 
+    if (youtubeURL.contains('youtube') == false) {
+      print('검색 결과가 youtube 영상이 아닙니다.');
+    }
+
     /// 정규식 패턴
     RegExp regExp = RegExp(r'href="([^"]+)"');
     Match? match = regExp.firstMatch(youtubeURL);
@@ -39,6 +49,7 @@ class _SearchMusicState extends State<SearchMusic> {
     if (match != null) {
       String? result = match.group(1);
       print(result);
+      return result;
     } else {
       print("No matches");
     }
@@ -75,28 +86,6 @@ class _SearchMusicState extends State<SearchMusic> {
               ),
               const ExpandedBox(),
               EasyTextFormField(
-                  key: const ValueKey(1),
-                  keyboardType: TextInputType.text,
-                  obscureText: false,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return '가수 이름을 올바르게 입력해 주세요.';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    singer = value!;
-                  },
-                  onChanged: (value) {
-                    singer = value;
-                  },
-                  prefixIcon: const Icon(
-                    Icons.person_search_outlined,
-                    color: Colors.amber,
-                  ),
-                  hintText: "검색 하실 가수 이름을 입력 해 주세요."),
-              const SizedBox(height: 15),
-              EasyTextFormField(
                   key: const ValueKey(2),
                   keyboardType: TextInputType.text,
                   obscureText: false,
@@ -117,12 +106,34 @@ class _SearchMusicState extends State<SearchMusic> {
                     color: Colors.amber,
                   ),
                   hintText: "검색 하실 노래 제목을 입력 해 주세요."),
+              const SizedBox(height: 15),
+              EasyTextFormField(
+                  key: const ValueKey(1),
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return '가수 이름을 올바르게 입력해 주세요.';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    singer = value!;
+                  },
+                  onChanged: (value) {
+                    singer = value;
+                  },
+                  prefixIcon: const Icon(
+                    Icons.person_search_outlined,
+                    color: Colors.amber,
+                  ),
+                  hintText: "검색 하실 가수 이름을 입력 해 주세요."),
               const ExpandedBox(),
               FloatingActionButton(
                 backgroundColor: Colors.greenAccent,
                 onPressed: () {
-                  var searchWord = '$singer+$titleOfSong';
-                  searchWord = searchWord.replaceAll(' ', '+');
+                  getMusic(titleOfSong, singer);
+                  print(youtubeId);
                 },
                 child: const Icon(Icons.search, size: 30),
               ),
