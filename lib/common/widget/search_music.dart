@@ -18,7 +18,7 @@ class _SearchMusicState extends State<SearchMusic> {
   String youtubeUrl = '';
   String youtubeVideoId = '';
   final String thumbnail = '';
-  YoutubePlayerController youtubeController;
+  late YoutubePlayerController youtubeController;
 
   /// Form Key
   final formKey = GlobalKey<FormState>();
