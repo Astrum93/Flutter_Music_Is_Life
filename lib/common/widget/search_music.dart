@@ -18,7 +18,7 @@ class _SearchMusicState extends State<SearchMusic> {
   String youtubeUrl = '';
   String youtubeVideoId = '';
   final String thumbnail = '';
-  late YoutubePlayerController youtubeController;
+  YoutubePlayerController youtubeController;
 
   /// Form Key
   final formKey = GlobalKey<FormState>();
@@ -108,6 +108,10 @@ class _SearchMusicState extends State<SearchMusic> {
                 'assets/icon/3d_casual_life_cloud_music.png',
                 scale: 2,
               ),
+
+              /// youtube Player로 재생
+              /// 해결해야할 문제
+              /// youtubeController를 Initializing 해줘야 함
               YoutubePlayer(
                 controller: youtubeController,
                 showVideoProgressIndicator: true,
@@ -160,14 +164,13 @@ class _SearchMusicState extends State<SearchMusic> {
               FloatingActionButton(
                 backgroundColor: Colors.greenAccent,
                 onPressed: () async {
+                  /// 입력된 정보를 바탕으로 web 스크랩핑
                   await getMusic(titleOfSong, singer);
+
                   print('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
+
+                  /// youtube controller로 변환
                   await createYoutubeController(youtubeUrl);
-                  YoutubePlayer(
-                    controller: youtubeController,
-                    showVideoProgressIndicator: true,
-                    progressColors: ProgressBarColors(),
-                  );
                 },
                 child: const Icon(Icons.search, size: 30),
               ),
