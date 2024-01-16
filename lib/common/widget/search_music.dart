@@ -3,6 +3,7 @@ import 'package:MusicIsLife/common/widget/expanded_box.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class SearchMusic extends StatefulWidget {
   const SearchMusic({super.key});
@@ -17,8 +18,9 @@ class _SearchMusicState extends State<SearchMusic> {
   String youtubeUrl = '';
   String youtubeVideoId = '';
   final String thumbnail = '';
+  late YoutubePlayerController youtubeController;
 
-  // Form Key
+  /// Form Key
   final formKey = GlobalKey<FormState>();
 
   /// Youtube 주소 가져 오는 크롤링 코드
@@ -59,11 +61,22 @@ class _SearchMusicState extends State<SearchMusic> {
     }
   }
 
-  ///
-  getYoutubeData(String youtubeUrl) {
+  /// youtube controller 생성
+  createYoutubeController(String youtubeUrl) {
     var id = youtubeUrl.substring(32);
     youtubeVideoId = id;
-    print(youtubeVideoId);
+    print('추출된 ID는 $youtubeVideoId 입니다.');
+
+    /// Youtube Player Controller
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: youtubeVideoId,
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+      ),
+    );
+    youtubeController = _controller;
+    print(youtubeController.initialVideoId);
+    print('Controller 생성 완료');
   }
 
   @override
@@ -73,7 +86,7 @@ class _SearchMusicState extends State<SearchMusic> {
         vertical: 8,
       ),
       width: 380,
-      height: 380,
+      height: 430,
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.05),
@@ -94,6 +107,10 @@ class _SearchMusicState extends State<SearchMusic> {
               Image.asset(
                 'assets/icon/3d_casual_life_cloud_music.png',
                 scale: 2,
+              ),
+              YoutubePlayer(
+                controller: youtubeController,
+                showVideoProgressIndicator: true,
               ),
               const ExpandedBox(),
               EasyTextFormField(
@@ -145,7 +162,12 @@ class _SearchMusicState extends State<SearchMusic> {
                 onPressed: () async {
                   await getMusic(titleOfSong, singer);
                   print('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
-                  getYoutubeData(youtubeUrl);
+                  await createYoutubeController(youtubeUrl);
+                  YoutubePlayer(
+                    controller: youtubeController,
+                    showVideoProgressIndicator: true,
+                    progressColors: ProgressBarColors(),
+                  );
                 },
                 child: const Icon(Icons.search, size: 30),
               ),
