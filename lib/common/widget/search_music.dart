@@ -22,7 +22,9 @@ class _SearchMusicState extends State<SearchMusic> {
   final formKey = GlobalKey<FormState>();
 
   /// Youtube 주소 가져 오는 크롤링 코드
-  Future getMusic(String titleOfSong, String singer) async {
+  Future getMusic(String title, String name) async {
+    titleOfSong = title;
+    singer = name;
     var searchWord = '$titleOfSong+$singer';
     searchWord = searchWord.replaceAll(' ', '+');
     print(searchWord);
@@ -140,8 +142,8 @@ class _SearchMusicState extends State<SearchMusic> {
               const ExpandedBox(),
               FloatingActionButton(
                 backgroundColor: Colors.greenAccent,
-                onPressed: () {
-                  getMusic(titleOfSong, singer);
+                onPressed: () async {
+                  await getMusic(titleOfSong, singer);
                   print('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
                   getYoutubeData(youtubeUrl);
                 },
