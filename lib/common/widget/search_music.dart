@@ -23,7 +23,7 @@ class _SearchMusicState extends State<SearchMusic> {
   /// Form Key
   final formKey = GlobalKey<FormState>();
 
-  ///
+  /// controller의 initialize 문제 해결할 스위치.
   bool isSearch = false;
 
   @override
@@ -47,7 +47,7 @@ class _SearchMusicState extends State<SearchMusic> {
 
       var url = Uri.parse(
           'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=youtube+$searchWord');
-      // print(url);
+      debugPrint('$url');
       http.Response response =
           await http.get(url, headers: {"Accept": "application/json"});
 
@@ -59,26 +59,26 @@ class _SearchMusicState extends State<SearchMusic> {
 
       if (youtubeURL.contains('youtube') == false) {
         debugPrint('검색 결과가 youtube 영상이 아닙니다.');
+      }
 
-        /// 정규식 패턴
-        RegExp regExp = RegExp(r'href="([^"]+)"');
-        Match? match = regExp.firstMatch(youtubeURL);
+      /// 정규식 패턴
+      RegExp regExp = RegExp(r'href="([^"]+)"');
+      Match? match = regExp.firstMatch(youtubeURL);
 
-        /// Null Safety
-        if (match != null) {
-          String result = match.group(1).toString();
-          debugPrint('result는 $result 입니다.');
-          youtubeUrl = result;
-        } else {
-          debugPrint("No matches");
-        }
+      /// Null Safety
+      if (match != null) {
+        String result = match.group(1).toString();
+        debugPrint('result는 $result 입니다.');
+        youtubeUrl = result;
+      } else {
+        debugPrint("No matches");
       }
     }
   }
 
   /// youtube controller 생성
   createYoutubeController(String youtubeUrl) {
-    var id = YoutubePlayer.convertUrlToId(youtubeUrl).toString();
+    var id = youtubeUrl.substring(32);
     youtubeVideoId = id;
     debugPrint('추출된 ID는 $youtubeVideoId 입니다.');
 
