@@ -1,6 +1,8 @@
 import 'package:MusicIsLife/common/widget/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
+import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
+import 'package:MusicIsLife/screen/mypage/music/music_search_screen.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
@@ -302,10 +304,10 @@ class _MyScreenState extends State<MyScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // 게시물 생성 버튼 ( Music recommand )
+                              // 게시물 생성 버튼 ( Music Search )
                               MiniButton(
-                                builder: (context) => const PostScreen(),
-                                text: 'Music recommand',
+                                builder: (context) => const MusicSearchScreen(),
+                                text: 'Music Search',
                                 icon: Icons.music_note_rounded,
                               ),
 

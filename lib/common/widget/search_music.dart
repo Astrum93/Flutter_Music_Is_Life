@@ -29,45 +29,50 @@ class _SearchMusicState extends State<SearchMusic> {
   @override
   void initState() {
     isSearch = false;
-    // TODO: implement initState
     super.initState();
   }
 
   /// Youtube 주소 가져 오는 크롤링 코드
   Future getMusic(String title, String name) async {
-    titleOfSong = title;
-    singer = name;
-    var searchWord = '$titleOfSong+$singer';
-    searchWord = searchWord.replaceAll(' ', '+');
-    debugPrint(searchWord);
+    final isValid = formKey.currentState!.validate();
 
-    var url = Uri.parse(
-        'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=youtube+$searchWord');
-    // print(url);
-    http.Response response =
-        await http.get(url, headers: {"Accept": "application/json"});
+    if (isValid) {
+      formKey.currentState!.save();
 
-    BeautifulSoup bs = BeautifulSoup(response.body);
+      titleOfSong = title;
+      singer = name;
+      var searchWord = '$titleOfSong+$singer';
+      searchWord = searchWord.replaceAll(' ', '+');
+      debugPrint(searchWord);
 
-    var source = bs.body!.find('a', class_: 'info_title');
-    final String youtubeURL = source.toString();
-    debugPrint(youtubeURL);
+      var url = Uri.parse(
+          'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=youtube+$searchWord');
+      // print(url);
+      http.Response response =
+          await http.get(url, headers: {"Accept": "application/json"});
 
-    if (youtubeURL.contains('youtube') == false) {
-      debugPrint('검색 결과가 youtube 영상이 아닙니다.');
-    }
+      BeautifulSoup bs = BeautifulSoup(response.body);
 
-    /// 정규식 패턴
-    RegExp regExp = RegExp(r'href="([^"]+)"');
-    Match? match = regExp.firstMatch(youtubeURL);
+      var source = bs.body!.find('a', class_: 'info_title');
+      final String youtubeURL = source.toString();
+      debugPrint(youtubeURL);
 
-    /// Null Safety
-    if (match != null) {
-      String result = match.group(1).toString();
-      debugPrint('result는 $result 입니다.');
-      youtubeUrl = result;
-    } else {
-      debugPrint("No matches");
+      if (youtubeURL.contains('youtube') == false) {
+        debugPrint('검색 결과가 youtube 영상이 아닙니다.');
+
+        /// 정규식 패턴
+        RegExp regExp = RegExp(r'href="([^"]+)"');
+        Match? match = regExp.firstMatch(youtubeURL);
+
+        /// Null Safety
+        if (match != null) {
+          String result = match.group(1).toString();
+          debugPrint('result는 $result 입니다.');
+          youtubeUrl = result;
+        } else {
+          debugPrint("No matches");
+        }
+      }
     }
   }
 
