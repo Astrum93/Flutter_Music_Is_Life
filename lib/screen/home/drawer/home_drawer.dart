@@ -36,43 +36,35 @@ class _HomeDrawerState extends State<HomeDrawer> {
       builder: (context, snapshot) {
         return snapshot.hasData
             ? Drawer(
-                backgroundColor: Colors.black.withOpacity(0.8),
+                backgroundColor: Colors.black.withOpacity(0.9),
+                surfaceTintColor: Colors.black.withOpacity(0.9),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.8),
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            const Row(
-                              children: [
-                                Text(
-                                  'Welcome',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                      const SizedBox(height: 30),
+                      const Row(
+                        children: [
+                          Text(
+                            'Welcome',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            // 'na email',
+                            '${(snapshot.data as Map)['userName']}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
                             ),
-                            Row(
-                              children: [
-                                Text(
-                                  // 'na email',
-                                  '${(snapshot.data as Map)['userName']}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                       const SizedBox(height: 50),
                       Row(
@@ -255,7 +247,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               Positioned(
                                 left: 0,
                                 right: 0,
-                                bottom: 5,
+                                bottom: 0,
                                 child: Center(
                                   child: TextButton.icon(
                                     onPressed: () {
