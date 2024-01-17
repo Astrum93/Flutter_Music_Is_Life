@@ -377,7 +377,9 @@ class _MyScreenState extends State<MyScreen> {
                     ),
                   ),
                 )
-              : const Center(child: CircularProgressIndicator());
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
         },
       ),
     );

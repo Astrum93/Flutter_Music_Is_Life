@@ -23,6 +23,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
+  CollectionReference userContentsCollection =
+      FirebaseFirestore.instance.collection('UserContents');
+
   @override
   void initState() {
     _getUserInfo();
@@ -148,100 +151,116 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               ),
 
                               // 게시글, Liked, Like
-                              Positioned(
-                                top: 90,
-                                left: 10,
-                                child: Container(
-                                  width: 230,
-                                  height: 100,
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        blurRadius: 7,
-                                      )
-                                    ],
-                                  ),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        // 게시글
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '게시글',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Text(
-                                              '0',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
+                              StreamBuilder(
+                                  stream: userContentsCollection
+                                      .where("name", isEqualTo: _displayName)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    return Positioned(
+                                      top: 90,
+                                      left: 10,
+                                      child: Container(
+                                        width: 230,
+                                        height: 100,
+                                        margin:
+                                            const EdgeInsets.only(bottom: 10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.7),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              blurRadius: 7,
+                                            )
                                           ],
                                         ),
-
-                                        SizedBox(width: 30),
-
-                                        // 좋아하는 사람
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'Liked',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
+                                        child: const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              // 게시글
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    '게시글',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Text(
+                                                    '0',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Text(
-                                              '0',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
+
+                                              SizedBox(width: 30),
+
+                                              // 좋아하는 사람
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'Liked',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Text(
+                                                    '0',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(width: 30),
+
+                                              // 좋아하는 사람
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'Like',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 10),
+                                                  Text(
+                                                    '0',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        SizedBox(width: 30),
-
-                                        // 좋아하는 사람
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'Like',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Text(
-                                              '0',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                      ),
+                                    );
+                                  }),
 
                               // 로그아웃 버튼
                               Positioned(
