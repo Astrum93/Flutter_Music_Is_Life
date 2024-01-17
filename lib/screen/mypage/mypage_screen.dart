@@ -1,6 +1,5 @@
 import 'package:MusicIsLife/common/widget/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
-import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
 import 'package:MusicIsLife/screen/mypage/music/music_search_screen.dart';
 import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
@@ -11,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../home/home_screen.dart';
 import 'contents/create/create_screen.dart';
-import 'contents/create/post_screen.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});
@@ -194,28 +192,76 @@ class _MyScreenState extends State<MyScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      '개발 중 입니다.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.person_add_alt_1_outlined,
                                 color: Colors.green,
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      '개발 중 입니다.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.forward_to_inbox_rounded,
                                 color: Colors.blue,
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      '개발 중 입니다.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.library_music_outlined,
                                 color: Colors.red,
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      '개발 중 입니다.',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.bolt_rounded,
                                 color: Colors.yellow,
