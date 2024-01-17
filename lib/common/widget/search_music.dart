@@ -23,17 +23,27 @@ class _SearchMusicState extends State<SearchMusic> {
   /// Form Key
   final formKey = GlobalKey<FormState>();
 
+  ///
+  bool isSearch = false;
+
+  @override
+  void initState() {
+    isSearch = false;
+    // TODO: implement initState
+    super.initState();
+  }
+
   /// Youtube 주소 가져 오는 크롤링 코드
   Future getMusic(String title, String name) async {
     titleOfSong = title;
     singer = name;
     var searchWord = '$titleOfSong+$singer';
     searchWord = searchWord.replaceAll(' ', '+');
-    print(searchWord);
+    debugPrint(searchWord);
 
     var url = Uri.parse(
         'https://search.naver.com/search.naver?sm=tab_hty.top&where=video&query=youtube+$searchWord');
-    print(url);
+    // print(url);
     http.Response response =
         await http.get(url, headers: {"Accept": "application/json"});
 
@@ -41,10 +51,10 @@ class _SearchMusicState extends State<SearchMusic> {
 
     var source = bs.body!.find('a', class_: 'info_title');
     final String youtubeURL = source.toString();
-    print(youtubeURL);
+    debugPrint(youtubeURL);
 
     if (youtubeURL.contains('youtube') == false) {
-      print('검색 결과가 youtube 영상이 아닙니다.');
+      debugPrint('검색 결과가 youtube 영상이 아닙니다.');
     }
 
     /// 정규식 패턴
@@ -54,29 +64,32 @@ class _SearchMusicState extends State<SearchMusic> {
     /// Null Safety
     if (match != null) {
       String result = match.group(1).toString();
-      print('result는 $result 입니다.');
+      debugPrint('result는 $result 입니다.');
       youtubeUrl = result;
     } else {
-      print("No matches");
+      debugPrint("No matches");
     }
   }
 
   /// youtube controller 생성
   createYoutubeController(String youtubeUrl) {
-    var id = youtubeUrl.substring(32);
+    var id = YoutubePlayer.convertUrlToId(youtubeUrl).toString();
     youtubeVideoId = id;
-    print('추출된 ID는 $youtubeVideoId 입니다.');
+    debugPrint('추출된 ID는 $youtubeVideoId 입니다.');
 
     /// Youtube Player Controller
-    YoutubePlayerController _controller = YoutubePlayerController(
+    YoutubePlayerController controller = YoutubePlayerController(
       initialVideoId: youtubeVideoId,
       flags: const YoutubePlayerFlags(
         autoPlay: true,
       ),
     );
-    youtubeController = _controller;
-    print(youtubeController.initialVideoId);
-    print('Controller 생성 완료');
+    youtubeController = controller;
+    setState(() {
+      isSearch = true;
+    });
+    debugPrint(youtubeController.initialVideoId);
+    debugPrint('Controller 생성 완료');
   }
 
   @override
@@ -104,18 +117,15 @@ class _SearchMusicState extends State<SearchMusic> {
           key: formKey,
           child: Column(
             children: [
-              Image.asset(
-                'assets/icon/3d_casual_life_cloud_music.png',
-                scale: 2,
-              ),
-
-              /// youtube Player로 재생
-              /// 해결해야할 문제
-              /// youtubeController를 Initializing 해줘야 함
-              YoutubePlayer(
-                controller: youtubeController,
-                showVideoProgressIndicator: true,
-              ),
+              isSearch
+                  ? YoutubePlayer(
+                      controller: youtubeController,
+                      showVideoProgressIndicator: true,
+                    )
+                  : Image.asset(
+                      'assets/icon/3d_casual_life_cloud_music.png',
+                      scale: 2,
+                    ),
               const ExpandedBox(),
               EasyTextFormField(
                   key: const ValueKey(2),
@@ -167,7 +177,7 @@ class _SearchMusicState extends State<SearchMusic> {
                   /// 입력된 정보를 바탕으로 web 스크랩핑
                   await getMusic(titleOfSong, singer);
 
-                  print('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
+                  debugPrint('함수 실행으로 가져온 result는 $youtubeUrl 입니다.');
 
                   /// youtube controller로 변환
                   await createYoutubeController(youtubeUrl);
