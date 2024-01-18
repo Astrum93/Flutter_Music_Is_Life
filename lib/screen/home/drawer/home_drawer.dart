@@ -156,6 +156,13 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                       .where("name", isEqualTo: _displayName)
                                       .snapshots(),
                                   builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
+
+                                    // 컬렉션의 로그인한 유저의 게시물 문서
+                                    final collectionDocs = snapshot.data!.docs;
                                     return Positioned(
                                       top: 90,
                                       left: 10,
@@ -176,8 +183,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                             )
                                           ],
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.symmetric(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
                                               vertical: 20),
                                           child: Row(
                                             mainAxisAlignment:
@@ -186,7 +193,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                               // 게시글
                                               Column(
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     '게시글',
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -195,10 +202,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 10),
+                                                  const SizedBox(height: 10),
                                                   Text(
-                                                    '0',
-                                                    style: TextStyle(
+                                                    collectionDocs.length
+                                                        .toString(),
+                                                    style: const TextStyle(
                                                       color: Colors.grey,
                                                       fontWeight:
                                                           FontWeight.bold,
