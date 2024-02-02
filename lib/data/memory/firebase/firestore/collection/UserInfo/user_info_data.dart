@@ -15,41 +15,50 @@ CollectionReference userInfoCollection =
 final _displayName = _auth.currentUser!.displayName;
 
 class UserInfoData {
-  final String userName,
+  final String? userName,
       userMail,
       userPhoneNumber,
       userProfileBgImage,
       userProfileInfo,
       userProfileImage;
 
+  UserInfoData({
+    this.userName,
+    this.userMail,
+    this.userPhoneNumber,
+    this.userProfileBgImage,
+    this.userProfileInfo,
+    this.userProfileImage,
+  });
+
   /// 가져온 정보를 UserInfoModel의 생성자로 정의
-  UserInfoData.fromJson(Map<String, dynamic> json)
-      : userName = json['userName'],
-        userMail = json['userMail'],
-        userPhoneNumber = json['userPhoneNumber'],
-        userProfileImage = json['userProfileImage'],
-        userProfileBgImage = json['userProfileBgImage'],
-        userProfileInfo = json['userProfileInfo'];
+  factory UserInfoData.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return UserInfoData(
+      userName: data?['userName'],
+      userMail: data?['userMail'],
+      userPhoneNumber: data?['userPhoneNumber'],
+      userProfileImage: data?['userProfileImage'],
+      userProfileBgImage: data?['userProfileBgImage'],
+      userProfileInfo: data?['userProfileInfo'],
+    );
+  }
 
   /// Json 형태의 Map 데이터로 변환
-  Map<String, dynamic> userInfoToJson() {
+  Map<String, dynamic> toFirestore() {
     return {
-      "userName": userName,
-      "userMail": userMail,
-      "userPhoneNumber": userPhoneNumber,
-      "userProfileImage": userProfileImage,
-      "userProfileBgImage": userProfileBgImage,
-      "userProfileInfo": userProfileInfo,
+      if (userName != null) "userName": userName,
+      if (userMail != null) "userMail": userMail,
+      if (userPhoneNumber != null) "userPhoneNumber": userPhoneNumber,
+      if (userProfileImage != null) "userProfileImage": userProfileImage,
+      if (userProfileBgImage != null) "userProfileBgImage": userProfileBgImage,
+      if (userProfileInfo != null) "userProfileInfo": userProfileInfo,
     };
   }
 }
-
-/// json 직렬화
-final userInfoRef = FirebaseFirestore.instance
-    .collection('UserInfo')
-    .withConverter(
-        fromFirestore: (snapshot, _) => UserInfoData.fromJson(snapshot.data()!),
-        toFirestore: (value, _) => value.userInfoToJson());
 
 /// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {

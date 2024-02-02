@@ -215,10 +215,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                                 ],
                                               ),
 
-                                              SizedBox(width: 30),
+                                              const SizedBox(width: 30),
 
                                               // 좋아하는 사람
-                                              Column(
+                                              const Column(
                                                 children: [
                                                   Text(
                                                     'Liked',
@@ -239,10 +239,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(width: 30),
+                                              const SizedBox(width: 30),
 
                                               // 좋아하는 사람
-                                              Column(
+                                              const Column(
                                                 children: [
                                                   Text(
                                                     'Like',
