@@ -51,6 +51,7 @@ dependencies:
   youtube_player_flutter: ^8.1.2
   beautiful_soup_dart: ^0.3.0
   http: ^1.1.0
+  firebase_messaging: ^14.7.18
 
 dev_dependencies:
   flutter_test:
