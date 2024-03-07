@@ -9,16 +9,22 @@ class FcmManager {
   static void initialize() async {
     /// ForeGround
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      debugPrint('Got a message whilst in the foreground!');
-      debugPrint('Message data: ${message.data}');
+      debugPrint('Foreground 상태 에서 메세지 수신 됨');
+      debugPrint('Message data는 ${message.data} 입니다.');
 
       if (message.notification != null) {
-        debugPrint(
-            'Message also contained a notification: ${message.notification}');
+        final title = message.notification?.title;
+        final text = message.notification?.body;
+        debugPrint('Message notification는 ${message.notification} 입니다.');
+        debugPrint('Message title은 $title 입니다.');
+        debugPrint('Message text는 $text 입니다.');
       }
     });
 
     /// BackGround
-    FirebaseMessaging.onMessageOpenedApp.listen((message) {});
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      debugPrint('Background 상태 에서 메세지 수신 됨');
+      debugPrint('Message data는 ${message.data} 입니다.');
+    });
   }
 }
