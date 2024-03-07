@@ -1,7 +1,9 @@
+import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   @override
   void initState() {
     super.initState();
+    FcmManager.requestPermission();
+    FcmManager.initialize();
     _getUserInfo();
   }
 
@@ -59,7 +63,11 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               title: const Text('Music is Life'),
               actions: [
                 IconButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    final fcmToken =
+                        await FirebaseMessaging.instance.getToken();
+                    debugPrint(fcmToken);
+                  },
                   icon: const Icon(Icons.search_rounded),
                 ),
 
