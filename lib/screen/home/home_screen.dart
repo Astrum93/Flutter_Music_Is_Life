@@ -3,10 +3,9 @@ import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import '../../common/firebase_auth/firebase_auth_user.dart';
 import '../welcome_screen.dart';
@@ -64,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               actions: [
                 IconButton(
                   onPressed: () async {
-                    final fcmToken =
-                        await FirebaseMessaging.instance.getToken();
-                    debugPrint(fcmToken);
+                    // final fcmToken =
+                    //     await FirebaseMessaging.instance.getToken();
+                    // debugPrint(fcmToken);
                   },
                   icon: const Icon(Icons.search_rounded),
                 ),
@@ -197,25 +196,25 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey.shade600,
-              showUnselectedLabels: false,
+              showUnselectedLabels: true,
               backgroundColor:
                   const Color.fromARGB(255, 15, 15, 15).withOpacity(0.1),
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_rounded),
-                  label: 'home',
+                  label: '홈',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.search_rounded),
-                  label: 'search',
+                  label: '검색',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.create),
-                  label: 'create',
+                  label: '글쓰기',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.messenger_outline_rounded),
-                  label: 'messenger',
+                  label: '메신저',
                 ),
               ],
             ),
