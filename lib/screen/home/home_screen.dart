@@ -18,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
+  final int _currentIndex = 0;
+
   // FireStore collection 참조 변수
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
@@ -190,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
 
             /// Bottom Navigation Bar
             bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey.shade600,
