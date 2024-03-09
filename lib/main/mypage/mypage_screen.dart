@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../tab/home/home_screen.dart';
+import '../tab/home/screen/home_screen.dart';
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
 import 'music/music_search_screen.dart';
