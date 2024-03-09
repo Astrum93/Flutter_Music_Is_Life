@@ -1,4 +1,6 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
+import 'package:MusicIsLife/main/mypage/contents/create/create_screen.dart';
+import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/material.dart';
 import '../../../../common/firebase_auth/firebase_auth_user.dart';
 import '../../mypage/mypage_screen.dart';
 import '../../welcome_screen.dart';
+import '../massenger/massenger_screen.dart';
+import '../search/search_screen.dart';
 import 'drawer/home_drawer.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -27,6 +31,14 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
 
   // 로그인된 유저
   User? loggedUser;
+
+  //
+  final List<Widget> _tabItems = <Widget>[
+    const HomeScreen(),
+    const SearchScreen(),
+    const CreateScreen(),
+    const MassengerScreen()
+  ];
 
   // initstate 함수
   @override
@@ -105,7 +117,9 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            body: const Placeholder(),
+            body: SafeArea(
+              child: _tabItems.elementAt(_currentIndex),
+            ),
 
             /// Bottom Navigation Bar
             bottomNavigationBar: BottomNavigationBar(
