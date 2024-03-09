@@ -48,84 +48,86 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
+          return Material(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
 
-                  /// 인기 게시물
-                  const HotContents(),
+                    /// 인기 게시물
+                    const HotContents(),
 
-                  const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-                  /// 메인 컬럼 세 번째 열
-                  const Center(
-                    child: Text(
-                      '음악 검색',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-
-                  /// 메인 컬럼 SizedBox
-                  const SizedBox(height: 20),
-
-                  const SearchMusic(),
-
-                  /// 메인 컬럼 SizedBox
-                  const SizedBox(height: 40),
-
-                  /// 메인 컬럼 네 번째 열
-                  const Column(
-                    children: [
-                      Text(
-                        '2222',
+                    /// 메인 컬럼 세 번째 열
+                    const Center(
+                      child: Text(
+                        '음악 검색',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
 
-                  /// 메인 컬럼 SizedBox
-                  const SizedBox(height: 20),
+                    /// 메인 컬럼 SizedBox
+                    const SizedBox(height: 20),
 
-                  /// 메인 컬럼 다섯 번째 컨테이너 (Invisible)
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          blurRadius: 7,
-                        )
+                    const SearchMusic(),
+
+                    /// 메인 컬럼 SizedBox
+                    const SizedBox(height: 40),
+
+                    /// 메인 컬럼 네 번째 열
+                    const Column(
+                      children: [
+                        Text(
+                          '2222',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            'test',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
+
+                    /// 메인 컬럼 SizedBox
+                    const SizedBox(height: 20),
+
+                    /// 메인 컬럼 다섯 번째 컨테이너 (Invisible)
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 7,
+                          )
                         ],
                       ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              'test',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

@@ -9,6 +9,7 @@ class NAspace extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        canvasColor: Colors.black,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black,
           surfaceTintColor: Colors.black,
