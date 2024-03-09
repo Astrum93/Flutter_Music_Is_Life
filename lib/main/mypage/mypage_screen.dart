@@ -1,15 +1,16 @@
 import 'package:MusicIsLife/common/widget/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
-import 'package:MusicIsLife/screen/mypage/contents/user_cotents_screen.dart';
-import 'package:MusicIsLife/screen/mypage/music/music_search_screen.dart';
-import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_background%20.dart';
-import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_image.dart';
-import 'package:MusicIsLife/screen/mypage/profile/edit/edit_profile_introduce.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
+import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
+import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../home/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import '../tab/home/home_screen.dart';
 import 'contents/create/create_screen.dart';
+import 'contents/user_cotents_screen.dart';
+import 'music/music_search_screen.dart';
 
 class MyScreen extends StatefulWidget {
   const MyScreen({super.key});

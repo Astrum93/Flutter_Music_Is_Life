@@ -1,14 +1,14 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
-import 'package:MusicIsLife/screen/home/drawer/home_drawer.dart';
-import 'package:MusicIsLife/screen/mypage/mypage_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/firebase_auth/firebase_auth_user.dart';
-import '../welcome_screen.dart';
+import '../../../common/firebase_auth/firebase_auth_user.dart';
+import '../../mypage/mypage_screen.dart';
+import '../../welcome_screen.dart';
+import 'drawer/home_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
-  final int _currentIndex = 0;
+  int _currentIndex = 0;
 
   // FireStore collection 참조 변수
   CollectionReference userInfoCollection =
@@ -197,8 +197,12 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
               selectedItemColor: Colors.white,
               unselectedItemColor: Colors.grey.shade600,
               showUnselectedLabels: true,
-              backgroundColor:
-                  const Color.fromARGB(255, 15, 15, 15).withOpacity(0.1),
+              backgroundColor: Colors.black,
+              onTap: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_rounded),
