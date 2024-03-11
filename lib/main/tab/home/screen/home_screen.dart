@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/firebase_auth/firebase_auth_user.dart';
 import '../../../mypage/mypage_screen.dart';
-import '../../../welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -181,7 +180,9 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
             ),
           );
         }
-        return const WelcomeScreen();
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
