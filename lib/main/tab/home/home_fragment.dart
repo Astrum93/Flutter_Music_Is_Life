@@ -1,6 +1,6 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
-import 'package:MusicIsLife/main/mypage/contents/create/create_screen.dart';
 import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
+import 'package:MusicIsLife/main/tab/lounge/lounge_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   final List<Widget> _tabItems = <Widget>[
     const HomeScreen(),
     const SearchScreen(),
-    const CreateScreen(),
+    const LoungeScreen(),
     const MassengerScreen()
   ];
 
@@ -80,8 +80,8 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
                   label: '검색',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.create),
-                  label: '글쓰기',
+                  icon: Icon(Icons.multitrack_audio_sharp),
+                  label: '라운지',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.messenger_outline_rounded),
