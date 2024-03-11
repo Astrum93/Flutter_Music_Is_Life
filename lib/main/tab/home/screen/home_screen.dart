@@ -1,11 +1,13 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
+import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/firebase_auth/firebase_auth_user.dart';
+import '../../../mypage/mypage_screen.dart';
 import '../../../welcome_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,8 +50,55 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Material(
-            child: Padding(
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text('Music is Life'),
+              actions: [
+                IconButton(
+                  onPressed: () async {
+                    // final fcmToken =
+                    //     await FirebaseMessaging.instance.getToken();
+                    // debugPrint(fcmToken);
+                  },
+                  icon: const Icon(Icons.search_rounded),
+                ),
+
+                /// 개인 프로필
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: ((context) => const MyScreen()),
+                      ),
+                    );
+                  },
+                  child: StreamBuilder(
+                    stream: _getUserInfo(),
+                    builder: (context, snapshot) {
+                      return snapshot.hasData
+                          ? CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 17,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  (snapshot.data as Map)['userProfileImage'],
+                                ),
+                              ),
+                            )
+                          : const Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ),
+                            );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            drawer: const HomeDrawer(),
+            body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
