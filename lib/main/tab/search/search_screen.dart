@@ -53,7 +53,8 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const Line(color: Colors.amber),
             height5,
-            SizedBox(
+            Container(
+              color: Colors.white,
               width: MediaQuery.of(context).size.width,
               height: 300,
               child: SingleChildScrollView(
@@ -124,6 +125,12 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
+            height10,
+            Container(
+              color: Colors.white,
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+            )
           ],
         ),
       ),
