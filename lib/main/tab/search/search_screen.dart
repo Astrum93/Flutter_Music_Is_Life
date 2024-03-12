@@ -10,6 +10,30 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  '검색',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
