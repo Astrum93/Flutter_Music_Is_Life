@@ -10,26 +10,42 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.search,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 100,
+              child: TextFormField(
+                cursorColor: Colors.grey,
+                keyboardType: TextInputType.text,
+                style: const TextStyle(
                   color: Colors.white,
                 ),
-                SizedBox(width: 5),
-                Text(
-                  '검색',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
+                decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15),
+                    ),
+                  ),
+                  hintText: '검색어를 입력 해주세요.',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  contentPadding: EdgeInsets.all(10),
                 ),
-              ],
+              ),
             ),
           ],
         ),
