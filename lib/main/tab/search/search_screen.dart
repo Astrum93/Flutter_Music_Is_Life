@@ -53,25 +53,76 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const Line(color: Colors.amber),
             height5,
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.red,
-            ),
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.blue,
-            ),
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.green,
-            ),
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.amber,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.green,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.amber,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.green,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.amber,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.red,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.green,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      color: Colors.amber,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
