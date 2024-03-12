@@ -1,4 +1,7 @@
+import 'package:MusicIsLife/common/widget/line.dart';
 import 'package:flutter/material.dart';
+
+import '../../../common/widget/width_height_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -14,10 +17,11 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 100,
+              height: 60,
               child: TextFormField(
                 cursorColor: Colors.grey,
                 keyboardType: TextInputType.text,
@@ -46,6 +50,28 @@ class _SearchScreenState extends State<SearchScreen> {
                   contentPadding: EdgeInsets.all(10),
                 ),
               ),
+            ),
+            const Line(color: Colors.amber),
+            height5,
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.red,
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.blue,
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.green,
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.amber,
             ),
           ],
         ),
