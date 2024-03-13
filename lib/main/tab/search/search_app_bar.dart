@@ -23,9 +23,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
+              Expanded(
                 child: TextFormField(
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
@@ -33,18 +31,6 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                     color: Colors.white,
                   ),
                   decoration: const InputDecoration(
-                    // enabledBorder: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.amber),
-                    //   borderRadius: BorderRadius.all(
-                    //     Radius.circular(15),
-                    //   ),
-                    // ),
-                    // focusedBorder: OutlineInputBorder(
-                    //   borderSide: BorderSide(color: Colors.grey),
-                    //   borderRadius: BorderRadius.all(
-                    //     Radius.circular(15),
-                    //   ),
-                    // ),
                     hintText: '검색어를 입력 해주세요.',
                     hintStyle: TextStyle(
                       color: Colors.grey,
