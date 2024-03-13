@@ -1,5 +1,5 @@
+import 'package:MusicIsLife/common/widget/box/expanded_box.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
-import 'package:MusicIsLife/common/widget/expanded_box.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

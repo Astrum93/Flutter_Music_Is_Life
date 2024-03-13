@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/widget/mini_button.dart';
+import 'package:MusicIsLife/common/widget/button/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';

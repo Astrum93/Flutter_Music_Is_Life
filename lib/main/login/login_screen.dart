@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/widget/check_button.dart';
+import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

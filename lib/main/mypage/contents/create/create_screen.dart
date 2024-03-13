@@ -12,8 +12,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:path/path.dart' as path;
 
-import '../../../../common/widget/expanded_box.dart';
-import '../../../../common/widget/hash_tag_input_box.dart';
+import '../../../../common/widget/box/expanded_box.dart';
+import '../../../../common/widget/box/hash_tag_input_box.dart';
 import '../../mypage_screen.dart';
 
 class CreateScreen extends StatefulWidget {

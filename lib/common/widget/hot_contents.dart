@@ -2,7 +2,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/u
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'hash_tag_text_button.dart';
+import 'button/hash_tag_text_button.dart';
 
 class HotContents extends StatefulWidget {
   const HotContents({super.key});

@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/widget/expanded_box.dart';
+import 'package:MusicIsLife/common/widget/box/expanded_box.dart';
 import 'package:MusicIsLife/common/widget/hash_tag_box.dart';
 import 'package:MusicIsLife/common/widget/subject_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

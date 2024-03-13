@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/common/constants.dart';
-import 'package:MusicIsLife/common/widget/hash_tag_box.dart';
+import 'package:MusicIsLife/common/widget/box/hash_tag_box.dart';
 import 'package:flutter/material.dart';
 
 import 'expanded_box.dart';

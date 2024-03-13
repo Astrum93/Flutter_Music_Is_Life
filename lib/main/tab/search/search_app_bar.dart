@@ -28,6 +28,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller,
+                  textInputAction: TextInputAction.search,
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
                   style: const TextStyle(
