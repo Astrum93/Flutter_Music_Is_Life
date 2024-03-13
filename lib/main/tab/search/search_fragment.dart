@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/widget/line.dart';
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +57,6 @@ class _SearchFragmentState extends State<SearchFragment> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Line(color: Colors.amber),
               height5,
               Container(
                 color: Colors.white,
