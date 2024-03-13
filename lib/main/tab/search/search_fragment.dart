@@ -132,31 +132,6 @@ class _SearchFragmentState extends State<SearchFragment> {
                   ),
                 ),
               ),
-              height10,
-              GestureDetector(
-                onTap: () {
-                  FirebaseFirestore.instance
-                      .collection("UserContents")
-                      .get()
-                      .then(
-                    (querySnapshot) {
-                      print("Successfully completed");
-                      for (var docSnapshot in querySnapshot.docs) {
-                        print('${docSnapshot.id} => ${docSnapshot.data()}');
-                      }
-                    },
-                    onError: (e) => print("Error completing: $e"),
-                  );
-                  //getDocument();
-                  //getCollection();
-                },
-                child: Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                  child: Text(''),
-                ),
-              )
             ],
           ),
         ),
