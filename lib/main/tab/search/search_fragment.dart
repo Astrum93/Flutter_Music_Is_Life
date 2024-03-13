@@ -12,6 +12,8 @@ class SearchFragment extends StatefulWidget {
 }
 
 class _SearchFragmentState extends State<SearchFragment> {
+  final TextEditingController controller = TextEditingController();
+
   Future<void> getDocument() async {
     // 참조할 문서 정의하기
     DocumentReference documentRef =
@@ -51,7 +53,7 @@ class _SearchFragmentState extends State<SearchFragment> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const SearchAppBar(),
+        appBar: SearchAppBar(controller: controller),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
