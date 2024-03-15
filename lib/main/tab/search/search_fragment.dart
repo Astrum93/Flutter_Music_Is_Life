@@ -1,8 +1,7 @@
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
+import 'package:MusicIsLife/main/tab/search/search_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../../../common/widget/width_height_widget.dart';
 
 class SearchFragment extends StatefulWidget {
   const SearchFragment({super.key});
@@ -54,87 +53,7 @@ class _SearchFragmentState extends State<SearchFragment> {
     return SafeArea(
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              height5,
-              Container(
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.amber,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.amber,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.amber,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        body: const SearchScreen(),
       ),
     );
   }
