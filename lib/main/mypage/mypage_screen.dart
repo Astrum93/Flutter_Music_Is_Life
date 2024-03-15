@@ -3,11 +3,11 @@ import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
+import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../tab/home/screen/home_screen.dart';
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
 import 'music/music_search_screen.dart';
@@ -166,7 +166,7 @@ class _MyScreenState extends State<MyScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen()));
+                                                const HomeFragment()));
                                   },
                                   icon: const Icon(
                                     Icons.home,
