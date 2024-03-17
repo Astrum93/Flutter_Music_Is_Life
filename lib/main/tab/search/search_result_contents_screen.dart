@@ -1,14 +1,14 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchResultContents extends StatefulWidget {
+  const SearchResultContents({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchResultContents> createState() => _SearchResultContentsState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchResultContentsState extends State<SearchResultContents> {
   @override
   Widget build(BuildContext context) {
     return Padding(
