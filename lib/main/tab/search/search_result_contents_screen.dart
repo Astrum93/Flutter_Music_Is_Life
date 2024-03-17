@@ -16,10 +16,15 @@ class _SearchResultContentsState extends State<SearchResultContents> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            '게시물 검색 결과',
+            style: TextStyle(color: Colors.grey),
+          ),
           height5,
           Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
+            height: 400,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
