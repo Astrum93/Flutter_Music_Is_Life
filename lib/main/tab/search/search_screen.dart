@@ -20,7 +20,6 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
-            height: 300,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(

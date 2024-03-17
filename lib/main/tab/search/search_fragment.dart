@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
+import 'package:MusicIsLife/main/tab/search/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class SearchFragment extends StatefulWidget {
@@ -17,7 +18,9 @@ class _SearchFragmentState extends State<SearchFragment> {
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
         body: ListView(
-          children: [],
+          children: const [
+            SearchScreen(),
+          ],
         ),
       ),
     );
