@@ -1,17 +1,17 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
 import 'package:MusicIsLife/main/tab/search/search_result_contents_screen.dart';
-import 'package:MusicIsLife/main/tab/search/search_result_user_screen.dart';
+import 'package:MusicIsLife/main/tab/search/search_result_user_info_screen.dart';
 import 'package:flutter/material.dart';
 
-class SearchFragment extends StatefulWidget {
-  const SearchFragment({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<SearchFragment> createState() => _SearchFragmentState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchFragmentState extends State<SearchFragment> {
+class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController controller = TextEditingController();
 
   @override
@@ -22,7 +22,7 @@ class _SearchFragmentState extends State<SearchFragment> {
         body: ListView(
           children: const [
             height30,
-            SearchResultUser(),
+            SearchResultUserInfo(),
             height30,
             SearchResultContents(),
           ],

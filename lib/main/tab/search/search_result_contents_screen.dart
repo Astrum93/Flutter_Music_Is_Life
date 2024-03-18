@@ -18,7 +18,10 @@ class _SearchResultContentsState extends State<SearchResultContents> {
         children: [
           const Text(
             '게시물 검색 결과',
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           height5,
           Container(

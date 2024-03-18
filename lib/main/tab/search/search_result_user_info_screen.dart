@@ -1,14 +1,14 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchResultUser extends StatefulWidget {
-  const SearchResultUser({super.key});
+class SearchResultUserInfo extends StatefulWidget {
+  const SearchResultUserInfo({super.key});
 
   @override
-  State<SearchResultUser> createState() => _SearchResultUserState();
+  State<SearchResultUserInfo> createState() => _SearchResultUserInfoState();
 }
 
-class _SearchResultUserState extends State<SearchResultUser> {
+class _SearchResultUserInfoState extends State<SearchResultUserInfo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +18,10 @@ class _SearchResultUserState extends State<SearchResultUser> {
         children: [
           const Text(
             '사용자 검색 결과',
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           height5,
           Container(

@@ -2,7 +2,7 @@ import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
-import 'package:MusicIsLife/main/tab/search/search_fragment.dart';
+import 'package:MusicIsLife/main/tab/search/search_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SearchFragment()));
+                        builder: (context) => const SearchScreen()));
                   },
                   icon: const Icon(Icons.search_rounded),
                 ),

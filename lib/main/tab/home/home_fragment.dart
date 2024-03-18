@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../common/firebase_auth/firebase_auth_user.dart';
 import '../../welcome_screen.dart';
 import '../massenger/massenger_screen.dart';
-import '../search/search_fragment.dart';
+import '../search/search_screen.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({super.key});
@@ -33,7 +33,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   //
   final List<Widget> _tabItems = <Widget>[
     const HomeScreen(),
-    const SearchFragment(),
+    const SearchScreen(),
     const LoungeScreen(),
     const MassengerScreen()
   ];
