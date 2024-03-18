@@ -52,6 +52,7 @@ dependencies:
   beautiful_soup_dart: ^0.3.0
   http: ^1.1.0
   firebase_messaging: ^14.7.18
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:
