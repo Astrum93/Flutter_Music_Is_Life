@@ -15,6 +15,11 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

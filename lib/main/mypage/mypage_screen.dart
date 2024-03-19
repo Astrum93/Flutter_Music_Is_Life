@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../tab/search/data/search_data.dart';
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
 import 'music/music_search_screen.dart';
@@ -194,17 +195,18 @@ class _MyScreenState extends State<MyScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      '개발 중 입니다.',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //     content: Text(
+                                //       '개발 중 입니다.',
+                                //       textAlign: TextAlign.center,
+                                //       style: TextStyle(
+                                //           fontWeight: FontWeight.bold),
+                                //     ),
+                                //     backgroundColor: Colors.green,
+                                //   ),
+                                // );
+                                SearchData.getUserInfoDataList();
                               },
                               icon: const Icon(
                                 Icons.person_add_alt_1_outlined,
