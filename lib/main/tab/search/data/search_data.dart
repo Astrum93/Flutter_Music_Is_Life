@@ -13,4 +13,10 @@ class SearchData extends GetxController {
     SearchDataProvider.getContentsDocId(searchContentsData);
     super.onInit();
   }
+
+  void searchUserInfo(String keyword) {
+    userInfo.value = searchUserInfoData
+        .where((element) => element.contains(keyword))
+        .toList();
+  }
 }

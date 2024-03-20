@@ -18,12 +18,16 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
+    controller.addListener(() {
+      debugPrint(controller.text);
+    });
     Get.put(SearchData());
     super.initState();
   }
 
   @override
   void dispose() {
+    /// *** delete는 Generic Type으로 관리 ***
     Get.delete<SearchData>();
     super.dispose();
   }
