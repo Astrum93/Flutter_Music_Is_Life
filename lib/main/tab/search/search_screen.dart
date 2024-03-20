@@ -42,47 +42,49 @@ class _SearchScreenState extends State<SearchScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
-        body: ListView(
-          children: [
-            height30,
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                '사용자 검색 결과',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+        body: Obx(
+          () => ListView(
+            children: [
+              height30,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  '사용자 검색 결과',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            height5,
-            searchData.userInfo.isEmpty
-                ? Container(
-                    color: Colors.black,
-                    width: MediaQuery.of(context).size.width,
-                    height: 400,
-                  )
-                : SearchResultUserInfo(),
-            height30,
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                '게시물 검색 결과',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
+              height5,
+              searchData.userInfo.isEmpty
+                  ? Container(
+                      color: Colors.black,
+                      width: MediaQuery.of(context).size.width,
+                      height: 400,
+                    )
+                  : SearchResultUserInfo(),
+              height30,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  '게시물 검색 결과',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            height5,
-            searchData.contents.isEmpty
-                ? Container(
-                    color: Colors.black,
-                    width: MediaQuery.of(context).size.width,
-                    height: 400,
-                  )
-                : SearchResultContents(),
-          ],
+              height5,
+              searchData.contents.isEmpty
+                  ? Container(
+                      color: Colors.black,
+                      width: MediaQuery.of(context).size.width,
+                      height: 400,
+                    )
+                  : SearchResultContents(),
+            ],
+          ),
         ),
       ),
     );
