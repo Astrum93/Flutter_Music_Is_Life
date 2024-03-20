@@ -17,7 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController controller = TextEditingController();
 
   /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
-  late final userInfoSearchData = Get.find<SearchData>();
+  late final searchData = Get.find<SearchData>();
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
     controller.addListener(() {
       // debugPrint(controller.text);
       /// 유저 정보를 검색하는 searchUserInfo 실행
-      userInfoSearchData.searchUserInfo(controller.text);
+      searchData.searchUserInfo(controller.text);
     });
     super.initState();
   }
@@ -43,11 +43,45 @@ class _SearchScreenState extends State<SearchScreen> {
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
         body: ListView(
-          children: const [
+          children: [
             height30,
-            SearchResultUserInfo(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                '사용자 검색 결과',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            height5,
+            searchData.userInfo.isEmpty
+                ? Container(
+                    color: Colors.black,
+                    width: MediaQuery.of(context).size.width,
+                    height: 400,
+                  )
+                : SearchResultUserInfo(),
             height30,
-            SearchResultContents(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                '게시물 검색 결과',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            height5,
+            searchData.contents.isEmpty
+                ? Container(
+                    color: Colors.black,
+                    width: MediaQuery.of(context).size.width,
+                    height: 400,
+                  )
+                : SearchResultContents(),
           ],
         ),
       ),
