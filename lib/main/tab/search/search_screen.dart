@@ -16,12 +16,17 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController controller = TextEditingController();
 
+  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
+  late final userInfoSearchData = Get.find<SearchData>();
+
   @override
   void initState() {
-    controller.addListener(() {
-      debugPrint(controller.text);
-    });
     Get.put(SearchData());
+    controller.addListener(() {
+      // debugPrint(controller.text);
+      /// 유저 정보를 검색하는 searchUserInfo 실행
+      userInfoSearchData.searchUserInfo(controller.text);
+    });
     super.initState();
   }
 

@@ -18,5 +18,6 @@ class SearchData extends GetxController {
     userInfo.value = searchUserInfoData
         .where((element) => element.contains(keyword))
         .toList();
+    //debugPrint(userInfo.toString());
   }
 }
