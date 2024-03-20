@@ -10,6 +10,7 @@ class SearchData extends GetxController {
   @override
   void onInit() {
     SearchDataProvider.getUserInfoDocId(searchUserInfoData);
+    SearchDataProvider.getContentsDocId(searchContentsData);
     super.onInit();
   }
 }
