@@ -19,14 +19,18 @@ class SearchData extends GetxController {
     super.onInit();
   }
 
-  void searchUserInfo(String keyword) {
+  void search(String keyword) {
     if (keyword.isEmpty) {
       userInfo.clear();
+      contents.clear();
       return;
     }
     userInfo.value = searchUserInfoData
         .where((element) => element.contains(keyword))
         .toList();
     //debugPrint(userInfo.toString());
+    contents.value = searchContentsData
+        .where((element) => element.contains(keyword))
+        .toList();
   }
 }

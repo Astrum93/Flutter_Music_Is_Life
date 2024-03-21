@@ -22,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
     controller.addListener(() {
       // debugPrint(controller.text);
       /// 유저 정보를 검색하는 searchUserInfo 실행
-      searchData.searchUserInfo(controller.text);
+      searchData.search(controller.text);
     });
     super.initState();
   }

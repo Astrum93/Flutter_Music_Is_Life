@@ -13,13 +13,13 @@ class SearchResultContents extends StatelessWidget with SearchDataProvider {
         width: MediaQuery.of(context).size.width,
         height: 100,
         child: ListView.builder(
+          itemCount: searchData.contents.length,
           itemBuilder: (context, index) => Text(
-            searchData.userInfo[index],
+            searchData.contents[index],
             style: const TextStyle(
               color: Colors.white,
             ),
           ),
-          itemCount: searchData.userInfo.length,
         ),
       ),
     );
