@@ -13,11 +13,8 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
   final TextEditingController controller = TextEditingController();
-
-  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
-  late final searchData = Get.find<SearchData>();
 
   @override
   void initState() {
@@ -61,7 +58,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Container(
                       color: Colors.black,
                       width: MediaQuery.of(context).size.width,
-                      height: 400,
+                      height: 50,
                     )
                   : SearchResultUserInfo(),
               height30,
@@ -80,7 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Container(
                       color: Colors.black,
                       width: MediaQuery.of(context).size.width,
-                      height: 400,
+                      height: 50,
                     )
                   : SearchResultContents(),
             ],

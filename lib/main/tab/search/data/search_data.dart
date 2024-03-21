@@ -1,5 +1,10 @@
-import 'package:MusicIsLife/main/tab/search/data/search_data_provider.dart';
+import 'package:MusicIsLife/main/tab/search/data/search_data_util.dart';
 import 'package:get/get.dart';
+
+abstract mixin class SearchDataProvider {
+  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
+  late final searchData = Get.find<SearchData>();
+}
 
 class SearchData extends GetxController {
   List searchContentsData = [];
@@ -9,12 +14,16 @@ class SearchData extends GetxController {
 
   @override
   void onInit() {
-    SearchDataProvider.getUserInfoDocId(searchUserInfoData);
-    SearchDataProvider.getContentsDocId(searchContentsData);
+    SearchDataUtil.getUserInfoDocId(searchUserInfoData);
+    SearchDataUtil.getContentsDocId(searchContentsData);
     super.onInit();
   }
 
   void searchUserInfo(String keyword) {
+    if (keyword.isEmpty) {
+      userInfo.clear();
+      return;
+    }
     userInfo.value = searchUserInfoData
         .where((element) => element.contains(keyword))
         .toList();

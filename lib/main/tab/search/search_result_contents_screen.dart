@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'data/search_data.dart';
 
-class SearchResultContents extends StatelessWidget {
+class SearchResultContents extends StatelessWidget with SearchDataProvider {
   SearchResultContents({super.key});
-
-  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
-  late final searchData = Get.find<SearchData>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +11,7 @@ class SearchResultContents extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: 400,
+        height: 100,
         child: ListView.builder(
           itemBuilder: (context, index) => Text(
             searchData.userInfo[index],
@@ -23,6 +19,7 @@ class SearchResultContents extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+          itemCount: searchData.userInfo.length,
         ),
       ),
     );
