@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SearchDataProvider {
+class SearchDataUtil {
   static Future<List> getUserInfoDocId(List idList) async {
     final userInfoSnapshot =
         await FirebaseFirestore.instance.collection('UserInfo').get();
