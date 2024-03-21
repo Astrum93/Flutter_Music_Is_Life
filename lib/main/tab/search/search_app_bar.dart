@@ -1,10 +1,14 @@
 import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
 import 'package:flutter/material.dart';
 
-class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
+import 'data/search_data.dart';
+
+class SearchAppBar extends StatelessWidget
+    with SearchDataProvider
+    implements PreferredSizeWidget {
   final TextEditingController controller;
 
-  const SearchAppBar({required this.controller, super.key});
+  SearchAppBar({required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,8 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const HomeFragment()));
+                  searchData.contents.clear();
+                  searchData.userInfo.clear();
                 },
                 child: const Icon(
                   Icons.arrow_back_ios,
