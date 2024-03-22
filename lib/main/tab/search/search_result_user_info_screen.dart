@@ -15,7 +15,7 @@ class SearchResultUserInfo extends StatelessWidget with SearchDataProvider {
         child: ListView.builder(
           itemCount: searchData.userInfo.length,
           itemBuilder: (context, index) => Text(
-            searchData.userInfo[index],
+            'searchData.userInfo[index]',
             style: const TextStyle(
               color: Colors.white,
             ),

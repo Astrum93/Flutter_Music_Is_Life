@@ -7,15 +7,15 @@ abstract mixin class SearchDataProvider {
 }
 
 class SearchData extends GetxController {
-  List searchContentsData = [];
   List searchUserInfoData = [];
+  Map<dynamic, dynamic> searchContentsData = {};
   RxList contents = [].obs;
-  RxList userInfo = [].obs;
+  RxMap userInfo = {}.obs;
 
   @override
   void onInit() {
-    SearchDataUtil.getUserInfoDocId(searchUserInfoData);
-    SearchDataUtil.getContentsDocId(searchContentsData);
+    SearchDataUtil.getUserInfoDoc(searchUserInfoData);
+    SearchDataUtil.getContentsDoc(searchContentsData);
     super.onInit();
   }
 
@@ -25,11 +25,12 @@ class SearchData extends GetxController {
       contents.clear();
       return;
     }
-    userInfo.value = searchUserInfoData
-        .where((element) => element.contains(keyword))
-        .toList();
-    //debugPrint(userInfo.toString());
-    contents.value = searchContentsData
+    userInfo.value = {
+      searchUserInfoData
+          .map((element) => element.id)
+          .where((element) => element.contains(keyword)): ''
+    };
+    contents.value = searchContentsData.keys
         .where((element) => element.contains(keyword))
         .toList();
   }
