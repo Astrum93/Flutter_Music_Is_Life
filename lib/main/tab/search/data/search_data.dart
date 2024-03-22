@@ -8,9 +8,9 @@ abstract mixin class SearchDataProvider {
 
 class SearchData extends GetxController {
   List searchUserInfoData = [];
-  Map<dynamic, dynamic> searchContentsData = {};
+  List searchContentsData = [];
+  RxList userInfo = [].obs;
   RxList contents = [].obs;
-  RxMap userInfo = {}.obs;
 
   @override
   void onInit() {
@@ -25,12 +25,10 @@ class SearchData extends GetxController {
       contents.clear();
       return;
     }
-    userInfo.value = {
-      searchUserInfoData
-          .map((element) => element.id)
-          .where((element) => element.contains(keyword)): ''
-    };
-    contents.value = searchContentsData.keys
+    userInfo.value = searchUserInfoData
+        .where((element) => element.contains(keyword))
+        .toList();
+    contents.value = searchContentsData
         .where((element) => element.contains(keyword))
         .toList();
   }
