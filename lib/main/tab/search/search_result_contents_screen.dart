@@ -20,11 +20,11 @@ class SearchResultContents extends StatelessWidget with SearchDataProvider {
               const Height(10),
               Row(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 30,
+                  Container(
+                    color: Colors.transparent,
+                    width: 50,
+                    height: 50,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
                       child: Image.network(
                         searchData.contents[index].get('contentsImage'),
                         fit: BoxFit.cover,
