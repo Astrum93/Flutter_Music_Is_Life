@@ -8,18 +8,10 @@ class SearchDataUtil {
     return docs;
   }
 
-  static Future<List> getContentsDoc(List idList) async {
+  static Future<List<DocumentSnapshot>> getContentsDoc() async {
     final userContentsSnapshot =
         await FirebaseFirestore.instance.collection('UserContents').get();
     final docs = userContentsSnapshot.docs;
-    if (docs.isNotEmpty) {
-      /// docs의 doc들의 id값을 리스트로 변환해야 함
-      for (var doc in docs) {
-        var docId = doc.id.toString();
-        idList.add(docId);
-      }
-      //debugPrint(idList.toString());
-    }
-    return [];
+    return docs;
   }
 }

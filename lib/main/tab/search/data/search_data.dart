@@ -16,7 +16,7 @@ class SearchData extends GetxController {
   @override
   void onInit() {
     SearchDataUtil.getUserInfoDoc();
-    SearchDataUtil.getContentsDoc(searchContentsData);
+    SearchDataUtil.getContentsDoc();
     super.onInit();
   }
 
@@ -29,6 +29,8 @@ class SearchData extends GetxController {
 
     final List<DocumentSnapshot> userInfoDocs =
         await SearchDataUtil.getUserInfoDoc();
+    final List<DocumentSnapshot> contentsDocs =
+        await SearchDataUtil.getContentsDoc();
 
     userInfo.value = userInfoDocs.where((doc) {
       final String id = doc.id;
@@ -36,8 +38,10 @@ class SearchData extends GetxController {
       return id.toLowerCase().contains(keyword.toLowerCase());
     }).toList();
 
-    contents.value = searchContentsData
-        .where((element) => element.contains(keyword))
-        .toList();
+    contents.value = contentsDocs.where((doc) {
+      final String id = doc.id;
+      // Document의 id에 keyword가 포함되는지 확인
+      return id.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
   }
 }
