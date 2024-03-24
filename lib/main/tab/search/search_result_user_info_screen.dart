@@ -1,5 +1,4 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'data/search_data.dart';
@@ -9,25 +8,41 @@ class SearchResultUserInfo extends StatelessWidget with SearchDataProvider {
 
   @override
   Widget build(BuildContext context) {
-    final userInfoCollection =
-        FirebaseFirestore.instance.collection('UserInfo');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: 100,
+        height: 300,
         child: ListView.builder(
+          padding: const EdgeInsets.symmetric(vertical: 8),
           itemCount: searchData.userInfo.length,
-          itemBuilder: (context, index) => Row(
+          itemBuilder: (context, index) => Column(
             children: [
-              Image.network(''),
-              width10,
-              Text(
-                searchData.userInfo[index].get('userName').toString(),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
+              const Height(10),
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 30,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        searchData.userInfo[index].get('userProfileImage'),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                  const Width(15),
+                  Text(
+                    searchData.userInfo[index].get('userName').toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
+              const Height(10),
             ],
           ),
         ),

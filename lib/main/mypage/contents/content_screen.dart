@@ -204,7 +204,6 @@ class _ContentsScreenState extends State<ContentsScreen> {
                               setState(() {
                                 showMore = showMore == true ? false : true;
                               });
-                              print('test');
                             },
                             icon: showMore
                                 ? const Icon(Icons.arrow_drop_down)
