@@ -23,7 +23,7 @@ class SearchResultUserInfo extends StatelessWidget with SearchDataProvider {
               Image.network(''),
               width10,
               Text(
-                searchData.userInfo[index],
+                searchData.userInfo[index].get('userName').toString(),
                 style: const TextStyle(
                   color: Colors.white,
                 ),
