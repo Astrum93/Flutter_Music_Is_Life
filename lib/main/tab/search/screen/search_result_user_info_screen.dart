@@ -1,7 +1,7 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'data/search_data.dart';
+import '../data/search_data.dart';
 
 class SearchResultUserInfo extends StatelessWidget with SearchDataProvider {
   SearchResultUserInfo({super.key});

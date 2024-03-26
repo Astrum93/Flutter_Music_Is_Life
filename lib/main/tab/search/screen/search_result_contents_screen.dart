@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/widget/width_height_widget.dart';
-import 'data/search_data.dart';
+import '../../../../common/widget/width_height_widget.dart';
+import '../data/search_data.dart';
 
 class SearchResultContents extends StatelessWidget with SearchDataProvider {
   SearchResultContents({super.key});

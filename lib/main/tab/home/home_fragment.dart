@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../welcome_screen.dart';
 import '../messenger/messenger_screen.dart';
-import '../search/search_screen.dart';
+import '../search/screen/search_screen.dart';
 
 class HomeFragment extends StatefulWidget {
   const HomeFragment({super.key});

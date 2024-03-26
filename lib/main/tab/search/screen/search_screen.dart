@@ -1,8 +1,8 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
+import 'package:MusicIsLife/main/tab/search/screen/search_result_contents_screen.dart';
+import 'package:MusicIsLife/main/tab/search/screen/search_result_user_info_screen.dart';
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
-import 'package:MusicIsLife/main/tab/search/search_result_contents_screen.dart';
-import 'package:MusicIsLife/main/tab/search/search_result_user_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -4,13 +4,13 @@ import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
-import 'package:MusicIsLife/main/tab/search/search_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../../mypage/mypage_screen.dart';
+import '../../search/screen/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
