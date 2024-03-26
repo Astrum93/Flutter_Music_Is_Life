@@ -1,11 +1,10 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
 import 'package:MusicIsLife/main/tab/lounge/lounge_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/firebase_auth/firebase_auth_user.dart';
+import '../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../welcome_screen.dart';
 import '../massenger/massenger_screen.dart';
 import '../search/search_screen.dart';
@@ -20,17 +19,7 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   int _currentIndex = 0;
 
-  // FireStore collection 참조 변수
-  CollectionReference userInfoCollection =
-      FirebaseFirestore.instance.collection('UserInfo');
-
-  CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('UserContents');
-
-  // 로그인된 유저
-  User? loggedUser;
-
-  //
+  /// Tap Items
   final List<Widget> _tabItems = <Widget>[
     const HomeScreen(),
     const SearchScreen(),

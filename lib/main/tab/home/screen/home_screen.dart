@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/firebase_auth/firebase_auth_user.dart';
+import '../../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../../mypage/mypage_screen.dart';
 
 class HomeScreen extends StatefulWidget {
