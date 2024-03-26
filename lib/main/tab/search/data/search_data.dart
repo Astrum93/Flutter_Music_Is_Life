@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/main/tab/search/data/search_data_util.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/fire_store_data_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -15,8 +15,8 @@ class SearchData extends GetxController {
 
   @override
   void onInit() {
-    SearchDataUtil.getUserInfoDoc();
-    SearchDataUtil.getContentsDoc();
+    FireStoreDataUtil.getUserInfoDoc();
+    FireStoreDataUtil.getContentsDoc();
     super.onInit();
   }
 
@@ -28,9 +28,9 @@ class SearchData extends GetxController {
     }
 
     final List<DocumentSnapshot> userInfoDocs =
-        await SearchDataUtil.getUserInfoDoc();
+        await FireStoreDataUtil.getUserInfoDoc();
     final List<DocumentSnapshot> contentsDocs =
-        await SearchDataUtil.getContentsDoc();
+        await FireStoreDataUtil.getContentsDoc();
 
     userInfo.value = userInfoDocs.where((doc) {
       final String id = doc.id;
