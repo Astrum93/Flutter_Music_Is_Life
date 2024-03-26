@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../welcome_screen.dart';
-import '../massenger/massenger_screen.dart';
+import '../messenger/messenger_screen.dart';
 import '../search/search_screen.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -19,12 +19,12 @@ class HomeFragment extends StatefulWidget {
 class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   int _currentIndex = 0;
 
-  /// Tap Items
+  /// Tab Items
   final List<Widget> _tabItems = <Widget>[
     const HomeScreen(),
     const SearchScreen(),
     const LoungeScreen(),
-    const MassengerScreen()
+    const MessengerScreen()
   ];
 
   // initstate 함수
