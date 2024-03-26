@@ -1,9 +1,9 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/collection/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/main/tab/search/search_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +17,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
-  // FireStore collection 참조 변수
-  CollectionReference userInfoCollection =
-      FirebaseFirestore.instance.collection('UserInfo');
-
-  CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('UserContents');
-
+class _HomeScreenState extends State<HomeScreen>
+    with FirebaseCollectionReference, FirebaseAuthUser {
   // 로그인된 유저
   User? loggedUser;
 

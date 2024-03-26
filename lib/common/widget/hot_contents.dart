@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/collection/firebase_collection_reference.dart';
 import 'package:flutter/material.dart';
 
 import 'button/hash_tag_text_button.dart';
@@ -11,15 +11,12 @@ class HotContents extends StatefulWidget {
   State<HotContents> createState() => _HotContentsState();
 }
 
-class _HotContentsState extends State<HotContents> {
-  // FireStore collection 참조 변수
-  CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('UserContents');
-
+class _HotContentsState extends State<HotContents>
+    with FirebaseCollectionReference {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('UserContents').snapshots(),
+      stream: userContentsCollection.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
