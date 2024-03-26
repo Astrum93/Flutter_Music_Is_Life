@@ -30,9 +30,9 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   // initstate 함수
   @override
   void initState() {
-    super.initState();
     FcmManager.requestPermission();
     FcmManager.initialize();
+    super.initState();
   }
 
   @override

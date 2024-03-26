@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/data/memory/firebase/firestore/UserInfo/user_info_data.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:flutter/material.dart';
 
