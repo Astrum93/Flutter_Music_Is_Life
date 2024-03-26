@@ -21,7 +21,7 @@ class UserContents {
     this.name,
   });
 
-  factory UserContents.fromFirestore(
+  factory UserContents.fromFireStore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
@@ -38,7 +38,7 @@ class UserContents {
     );
   }
 
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toFireStore() {
     return {
       if (id != null) 'id': id,
       if (title != null) 'title': title,

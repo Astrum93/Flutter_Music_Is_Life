@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/data/memory/user_join_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,14 +8,7 @@ import '../../../../../../common/constants.dart';
 // Firebase Authentication Instance
 final _auth = FirebaseAuth.instance;
 
-// FireStore collection 참조 변수
-CollectionReference userInfoCollection =
-    FirebaseFirestore.instance.collection('UserInfo');
-
-// 현재 인증된 유저 이름
-final _displayName = _auth.currentUser!.displayName;
-
-class UserInfoData {
+class UserInfoData with FirebaseCollectionReference {
   final String? userName,
       userMail,
       userPhoneNumber,
@@ -32,7 +26,7 @@ class UserInfoData {
   });
 
   /// 가져온 정보를 UserInfoModel의 생성자로 정의
-  factory UserInfoData.fromFirestore(
+  factory UserInfoData.fromFireStore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
@@ -48,7 +42,7 @@ class UserInfoData {
   }
 
   /// Json 형태의 Map 데이터로 변환
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toFireStore() {
     return {
       if (userName != null) "userName": userName,
       if (userMail != null) "userMail": userMail,
@@ -60,7 +54,7 @@ class UserInfoData {
   }
 }
 
-/// 회원가입시 UserInfo Collection에 데이터를 저장하는 함수
+/// 회원 가입시 UserInfo Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
   await _auth.createUserWithEmailAndPassword(
     email: userJoinData.mail,
@@ -70,7 +64,10 @@ void saveUserData(UserJoinData userJoinData) async {
   await _auth.currentUser!.updateDisplayName(userJoinData.name);
 
   // Firestore의 UserInfo에 저장
-  await userInfoCollection.doc(userJoinData.name).set({
+  await FirebaseFirestore.instance
+      .collection('UserInfo')
+      .doc(userJoinData.name)
+      .set({
     'userName': userJoinData.name,
     'userMail': userJoinData.mail,
     'userPhoneNumber': userJoinData.phone,

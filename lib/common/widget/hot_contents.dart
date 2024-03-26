@@ -1,5 +1,5 @@
-import 'package:MusicIsLife/data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
-import 'package:MusicIsLife/data/memory/firebase/firestore/collection/firebase_collection_reference.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/UserInfo/user_info_data.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:flutter/material.dart';
 
 import 'button/hash_tag_text_button.dart';

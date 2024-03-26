@@ -1,7 +1,7 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
-import 'package:MusicIsLife/data/memory/firebase/firestore/collection/firebase_collection_reference.dart';
+import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/main/tab/search/search_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

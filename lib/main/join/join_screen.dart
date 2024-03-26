@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../common/constants.dart';
-import '../../data/memory/firebase/firestore/collection/UserInfo/user_info_data.dart';
+import '../../data/memory/firebase/firestore/UserInfo/user_info_data.dart';
 import '../../data/memory/user_join_data.dart';
 import '../login/login_screen.dart';
 
