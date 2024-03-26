@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   @override
   void initState() {
     super.initState();
+    FirebaseAuth.instance.authStateChanges();
     FcmManager.requestPermission();
     FcmManager.initialize();
     _getUserInfo();
@@ -46,99 +47,89 @@ class _HomeScreenState extends State<HomeScreen> with FirebaseAuthUser {
   @override
   Widget build(BuildContext context) {
     // 배경 이미지
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text('Music is Life'),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SearchScreen()));
-                  },
-                  icon: const Icon(Icons.search_rounded),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Music is Life'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SearchScreen()));
+            },
+            icon: const Icon(Icons.search_rounded),
+          ),
 
-                /// 개인 프로필
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const MyScreen()),
-                      ),
-                    );
-                  },
-                  child: StreamBuilder(
-                    stream: _getUserInfo(),
-                    builder: (context, snapshot) {
-                      return snapshot.hasData
-                          ? CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              radius: 17,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  (snapshot.data as Map)['userProfileImage'],
-                                ),
-                              ),
-                            )
-                          : const Center(
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                              ),
-                            );
-                    },
+          /// 개인 프로필
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => const MyScreen()),
+                ),
+              );
+            },
+            child: StreamBuilder(
+              stream: _getUserInfo(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 17,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            (snapshot.data as Map)['userProfileImage'],
+                          ),
+                        ),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      );
+              },
+            ),
+          ),
+        ],
+      ),
+      drawer: const HomeDrawer(),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 13),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              SizedBox(height: 10),
+
+              /// 인기 게시물
+              HotContents(),
+
+              SizedBox(height: 40),
+
+              /// 메인 컬럼 세 번째 열
+              Center(
+                child: Text(
+                  '음악 검색',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
-            drawer: const HomeDrawer(),
-            body: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-
-                    /// 인기 게시물
-                    HotContents(),
-
-                    SizedBox(height: 40),
-
-                    /// 메인 컬럼 세 번째 열
-                    Center(
-                      child: Text(
-                        '음악 검색',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-
-                    /// 메인 컬럼 SizedBox
-                    SizedBox(height: 20),
-
-                    SearchMusic(),
-
-                    /// 메인 컬럼 SizedBox
-                    SizedBox(height: 40),
-                  ],
-                ),
               ),
-            ),
-          );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+
+              /// 메인 컬럼 SizedBox
+              SizedBox(height: 20),
+
+              SearchMusic(),
+
+              /// 메인 컬럼 SizedBox
+              SizedBox(height: 40),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
