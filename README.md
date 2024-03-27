@@ -154,3 +154,20 @@ https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/e1c15d06-f535
 <br>
 <hr>
 <br>
+
+#### 검색
+
+<br>
+
+<div align = center>
+
+
+https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/48b00aa4-cd6c-4851-8bfd-5eb4a7b7a4a9
+
+
+</div>
+
+
+<br>
+<hr>
+<br>
