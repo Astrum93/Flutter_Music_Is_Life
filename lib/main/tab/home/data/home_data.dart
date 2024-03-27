@@ -11,11 +11,25 @@ class HomeData extends GetxController {
   List homeContentsData = [];
   RxList userInfo = [].obs;
   RxList contents = [].obs;
+  RxMap loggedUser = {}.obs;
 
   @override
   void onInit() {
     FireStoreDataUtil.getUserInfoDoc();
     FireStoreDataUtil.getContentsDoc();
+    FireStoreDataUtil.loggedUserDoc();
     super.onInit();
+  }
+
+  void docsProvider() async {
+    // if () {
+    //   userInfo.clear();
+    //   contents.clear();
+    //   return;
+    // }
+
+    final loggedUserDoc = await FireStoreDataUtil.loggedUserDoc();
+
+    loggedUser = loggedUserDoc;
   }
 }

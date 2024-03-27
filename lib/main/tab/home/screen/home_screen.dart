@@ -28,8 +28,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
-    Get.put(HomeData());
     FirebaseAuth.instance.authStateChanges();
+    Get.put(HomeData());
+    homeData.docsProvider();
     FcmManager.requestPermission();
     FcmManager.initialize();
     _getUserInfo();
