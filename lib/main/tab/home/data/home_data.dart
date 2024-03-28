@@ -22,15 +22,13 @@ class HomeData extends GetxController {
     super.onInit();
   }
 
-  void docsProvider() async {
+  Future<void> docsProvider() async {
     final loggedUserDoc = await FireStoreDataUtil.loggedUserDoc();
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         loggedUser = loggedUserDoc.toRxMap();
-        update();
       } else {
         loggedUser.clear();
-        update();
       }
     });
     print(loggedUser);

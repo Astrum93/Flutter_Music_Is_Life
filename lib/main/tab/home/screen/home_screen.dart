@@ -4,7 +4,6 @@ import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,18 +20,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
-  // 로그인된 유저
-  //User? loggedUser;
-
   // initstate 함수
   @override
   void initState() {
-    FirebaseAuth.instance.authStateChanges();
+    super.initState();
     Get.put(HomeData());
     homeData.docsProvider();
     FcmManager.requestPermission();
     FcmManager.initialize();
-    super.initState();
   }
 
   @override
@@ -58,27 +53,29 @@ class _HomeScreenState extends State<HomeScreen>
           ),
 
           /// 개인 프로필
-          InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) => const MyScreen()),
-                ),
-              );
-            },
-            child: Obx(
-              () => CircleAvatar(
+          Obx(
+            () => InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) => const MyScreen()),
+                  ),
+                );
+              },
+              child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 17,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: homeData.loggedUser.isEmpty
-                      ? Image.network('')
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
                       : Image.network(homeData.loggedUser['userProfileImage']),
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
       drawer: const HomeDrawer(),
