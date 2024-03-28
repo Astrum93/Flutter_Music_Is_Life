@@ -22,14 +22,7 @@ class HomeData extends GetxController {
   }
 
   void docsProvider() async {
-    // if () {
-    //   userInfo.clear();
-    //   contents.clear();
-    //   return;
-    // }
-
     final loggedUserDoc = await FireStoreDataUtil.loggedUserDoc();
-
-    loggedUser = loggedUserDoc;
+    loggedUser = loggedUserDoc.toRxMap();
   }
 }
