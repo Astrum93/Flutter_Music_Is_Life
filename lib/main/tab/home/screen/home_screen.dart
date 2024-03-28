@@ -22,24 +22,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
   // 로그인된 유저
-  User? loggedUser;
+  //User? loggedUser;
 
   // initstate 함수
   @override
   void initState() {
-    super.initState();
     FirebaseAuth.instance.authStateChanges();
     Get.put(HomeData());
     homeData.docsProvider();
     FcmManager.requestPermission();
     FcmManager.initialize();
-    _getUserInfo();
+    super.initState();
   }
 
-  // 현재 유저 정보를 불러오는 함수
-  _getUserInfo() async* {
-    var userinfo = await userInfoCollection.doc(user!.displayName).get();
-    yield userinfo.data();
+  @override
+  void dispose() {
+    Get.delete<HomeData>();
+    super.dispose();
   }
 
   @override
@@ -67,26 +66,17 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               );
             },
-            child: StreamBuilder(
-              stream: _getUserInfo(),
-              builder: (context, snapshot) {
-                return snapshot.hasData
-                    ? CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 17,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            (snapshot.data as Map)['userProfileImage'],
-                          ),
-                        ),
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      );
-              },
+            child: Obx(
+              () => CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 17,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: homeData.loggedUser.isEmpty
+                      ? Image.network('')
+                      : Image.network(homeData.loggedUser['userProfileImage']),
+                ),
+              ),
             ),
           ),
         ],

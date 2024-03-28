@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/data/memory/firebase/firestore/fire_store_data_util.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 abstract mixin class HomeDataProvider {
@@ -23,6 +24,15 @@ class HomeData extends GetxController {
 
   void docsProvider() async {
     final loggedUserDoc = await FireStoreDataUtil.loggedUserDoc();
-    loggedUser = loggedUserDoc.toRxMap();
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        loggedUser = loggedUserDoc.toRxMap();
+        update();
+      } else {
+        loggedUser.clear();
+        update();
+      }
+    });
+    print(loggedUser);
   }
 }
