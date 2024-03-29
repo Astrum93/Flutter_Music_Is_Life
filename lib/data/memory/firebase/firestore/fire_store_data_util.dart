@@ -35,6 +35,6 @@ class FireStoreDataUtil {
 
 extension ToRxMap on DocumentSnapshot<Map<String, dynamic>> {
   RxMap<String, dynamic> toRxMap() {
-    return RxMap<String, dynamic>.from(data() ?? {});
+    return RxMap<String, dynamic>.from(data()!);
   }
 }

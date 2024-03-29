@@ -53,29 +53,31 @@ class _HomeScreenState extends State<HomeScreen>
           ),
 
           /// 개인 프로필
-          Obx(
-            () => InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => const MyScreen()),
-                  ),
-                );
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                radius: 17,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: homeData.loggedUser.isEmpty
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Image.network(homeData.loggedUser['userProfileImage']),
+
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) => const MyScreen()),
                 ),
+              );
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 17,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: homeData.loggedUser.isEmpty
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Obx(
+                        () => Image.network(
+                            homeData.loggedUser['userProfileImage']),
+                      ),
               ),
             ),
-          )
+          ),
         ],
       ),
       drawer: const HomeDrawer(),

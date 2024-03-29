@@ -27,10 +27,13 @@ class HomeData extends GetxController {
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         loggedUser = loggedUserDoc.toRxMap();
+        print('${user.displayName}님이 로그인!');
       } else {
+        print(user);
         loggedUser.clear();
       }
     });
+    loggedUser = loggedUserDoc.toRxMap();
     print(loggedUser);
   }
 }
