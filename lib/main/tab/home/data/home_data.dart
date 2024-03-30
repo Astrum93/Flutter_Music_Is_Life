@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 abstract mixin class HomeDataProvider {
-  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
+  /// late 키워드를 사용하는 이유는 state 생성이 initState보다 빠르기 때문
   late final homeData = Get.find<HomeData>();
 }
 
@@ -34,6 +34,5 @@ class HomeData extends GetxController {
       }
     });
     loggedUser = loggedUserDoc.toRxMap();
-    print(loggedUser);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
+import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class LogInScreen extends StatefulWidget {
   State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _LogInScreenState extends State<LogInScreen> with HomeDataProvider {
   // UserData 생성자
   UserJoinData userJoinData = UserJoinData('', '', '', '', '');
 
@@ -45,6 +46,10 @@ class _LogInScreenState extends State<LogInScreen> {
           email: userData.mail,
           password: userData.password,
         );
+        //homeData.docsProvider();
+        print('login 됨');
+        print(homeData.docsProvider());
+        // Firebase Auth에서 인증된 정보를 확인 하는 절차
         // User 등록이 됬을 경우
         if (signInUser.user != null && mounted) {
           Navigator.push(

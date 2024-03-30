@@ -20,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
-  // initstate 함수
   @override
   void initState() {
     super.initState();
@@ -65,16 +64,15 @@ class _HomeScreenState extends State<HomeScreen>
             child: CircleAvatar(
               backgroundColor: Colors.transparent,
               radius: 17,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: homeData.loggedUser.isEmpty
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Obx(
-                        () => Image.network(
-                            homeData.loggedUser['userProfileImage']),
-                      ),
+              child: Obx(
+                () => ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: homeData.loggedUser.isEmpty
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Image.network(homeData.loggedUser['userProfileImage']),
+                ),
               ),
             ),
           ),
