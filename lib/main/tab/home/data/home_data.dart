@@ -18,10 +18,7 @@ class HomeData extends GetxController {
   void onInit() {
     FireStoreDataUtil.getUserInfoDoc();
     FireStoreDataUtil.getContentsDoc();
-    FireStoreDataUtil.loggedUserDoc().then((value) {
-      loggedUser = value.toRxMap();
-      print(loggedUser.values);
-    });
+    FireStoreDataUtil.loggedUserDoc();
     super.onInit();
   }
 
