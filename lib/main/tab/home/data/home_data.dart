@@ -18,7 +18,10 @@ class HomeData extends GetxController {
   void onInit() {
     FireStoreDataUtil.getUserInfoDoc();
     FireStoreDataUtil.getContentsDoc();
-    FireStoreDataUtil.loggedUserDoc();
+    FireStoreDataUtil.loggedUserDoc().then((value) {
+      loggedUser = value.toRxMap();
+      print(loggedUser.values);
+    });
     super.onInit();
   }
 
@@ -27,9 +30,7 @@ class HomeData extends GetxController {
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         loggedUser = loggedUserDoc.toRxMap();
-        print('${user.displayName}님이 로그인!');
       } else {
-        print(user);
         loggedUser.clear();
       }
     });

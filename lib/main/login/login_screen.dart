@@ -46,9 +46,7 @@ class _LogInScreenState extends State<LogInScreen> with HomeDataProvider {
           email: userData.mail,
           password: userData.password,
         );
-        //homeData.docsProvider();
-        print('login 됨');
-        print(homeData.docsProvider());
+
         // Firebase Auth에서 인증된 정보를 확인 하는 절차
         // User 등록이 됬을 경우
         if (signInUser.user != null && mounted) {

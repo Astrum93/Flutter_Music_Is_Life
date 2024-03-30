@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/common/widget/hot_contents.dart';
 import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
@@ -22,11 +21,11 @@ class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
   @override
   void initState() {
-    super.initState();
     Get.put(HomeData());
     homeData.docsProvider();
-    FcmManager.requestPermission();
-    FcmManager.initialize();
+    // FcmManager.requestPermission();
+    // FcmManager.initialize();
+    super.initState();
   }
 
   @override
