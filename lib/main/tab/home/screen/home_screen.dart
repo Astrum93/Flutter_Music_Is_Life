@@ -24,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     Get.put(HomeData());
     homeData.docsProvider();
-
     FcmManager.requestPermission();
     FcmManager.initialize();
     super.initState();
@@ -79,10 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
                               ? const Center(
                                   child: CircularProgressIndicator(),
                                 )
-                              : Obx(
-                                  () => Image.network(
-                                      loggedUser['userProfileImage']),
-                                ),
+                              : Image.network(loggedUser['userProfileImage']),
                         );
                       },
                     ),
