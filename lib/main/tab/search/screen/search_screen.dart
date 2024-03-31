@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:MusicIsLife/main/tab/search/screen/search_result_contents_screen.dart';
 import 'package:MusicIsLife/main/tab/search/screen/search_result_user_info_screen.dart';
@@ -43,21 +42,16 @@ class _SearchScreenState extends State<SearchScreen>
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
         body: Obx(
-          () => TabBar(
+          () => TabBarView(
             controller: tabController,
-            tabs: [
-              height30,
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  '사용자 검색 결과',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              height5,
+            children: [
+              // const Tab(
+              //   icon: Icon(
+              //     Icons.person_outline_rounded,
+              //     color: Colors.grey,
+              //   ),
+              //   text: '사용자 검색 결과',
+              // ),
               searchData.userInfo.isEmpty
                   ? Container(
                       color: Colors.black,
@@ -65,18 +59,7 @@ class _SearchScreenState extends State<SearchScreen>
                       height: 50,
                     )
                   : SearchResultUserInfo(),
-              height30,
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  '게시물 검색 결과',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              height5,
+
               searchData.contents.isEmpty
                   ? Container(
                       color: Colors.black,
