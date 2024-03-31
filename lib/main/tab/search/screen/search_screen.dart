@@ -13,8 +13,10 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
+class _SearchScreenState extends State<SearchScreen>
+    with SearchDataProvider, SingleTickerProviderStateMixin {
   final TextEditingController controller = TextEditingController();
+  late final TabController tabController;
 
   @override
   void initState() {
@@ -23,6 +25,7 @@ class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
       /// 유저 정보를 검색하는 searchUserInfo 실행
       searchData.search(controller.text);
     });
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -30,6 +33,7 @@ class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
   void dispose() {
     /// *** delete는 Generic Type으로 관리 ***
     Get.delete<SearchData>();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -39,8 +43,9 @@ class _SearchScreenState extends State<SearchScreen> with SearchDataProvider {
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
         body: Obx(
-          () => ListView(
-            children: [
+          () => TabBar(
+            controller: tabController,
+            tabs: [
               height30,
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
