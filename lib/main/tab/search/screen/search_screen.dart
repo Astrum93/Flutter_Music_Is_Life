@@ -24,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen>
       /// 유저 정보를 검색하는 searchUserInfo 실행
       searchData.search(controller.text);
     });
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     super.initState();
   }
 
@@ -41,34 +41,52 @@ class _SearchScreenState extends State<SearchScreen>
     return SafeArea(
       child: Scaffold(
         appBar: SearchAppBar(controller: controller),
-        body: Obx(
-          () => TabBarView(
-            controller: tabController,
-            children: [
-              // const Tab(
-              //   icon: Icon(
-              //     Icons.person_outline_rounded,
-              //     color: Colors.grey,
-              //   ),
-              //   text: '사용자 검색 결과',
-              // ),
-              searchData.userInfo.isEmpty
-                  ? Container(
-                      color: Colors.black,
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                    )
-                  : SearchResultUserInfo(),
-
-              searchData.contents.isEmpty
-                  ? Container(
-                      color: Colors.black,
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                    )
-                  : SearchResultContents(),
-            ],
-          ),
+        body: Column(
+          children: [
+            TabBar(
+              controller: tabController,
+              indicatorWeight: 2,
+              tabs: const [
+                Tab(
+                  icon: Icon(
+                    Icons.person_outline_rounded,
+                    color: Colors.grey,
+                  ),
+                  text: '사용자 검색 결과',
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.person_outline_rounded,
+                    color: Colors.grey,
+                  ),
+                  text: '게시물 검색 결과',
+                ),
+              ],
+            ),
+            Expanded(
+              child: Obx(
+                () => TabBarView(
+                  controller: tabController,
+                  children: [
+                    searchData.userInfo.isEmpty
+                        ? Container(
+                            color: Colors.black,
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                          )
+                        : SearchResultUserInfo(),
+                    searchData.contents.isEmpty
+                        ? Container(
+                            color: Colors.black,
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                          )
+                        : SearchResultContents(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
