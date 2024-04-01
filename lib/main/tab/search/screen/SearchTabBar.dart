@@ -59,18 +59,17 @@ class SearchTabBar extends StatelessWidget {
       indicatorWeight: 0.1,
       indicatorColor: Colors.amber,
       indicatorSize: TabBarIndicatorSize.label,
+      dividerColor: Colors.transparent,
       tabs: const [
         Tab(
           icon: Icon(
             Icons.person_outline_rounded,
-            color: Colors.grey,
           ),
           text: '사용자 검색 결과',
         ),
         Tab(
           icon: Icon(
-            Icons.person_outline_rounded,
-            color: Colors.grey,
+            Icons.library_music_outlined,
           ),
           text: '게시물 검색 결과',
         ),
