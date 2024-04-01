@@ -1,9 +1,9 @@
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
-import 'package:MusicIsLife/main/tab/search/screen/search_result_contents_screen.dart';
-import 'package:MusicIsLife/main/tab/search/screen/search_result_user_info_screen.dart';
 import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'SearchTabBar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -43,47 +43,11 @@ class _SearchScreenState extends State<SearchScreen>
         appBar: SearchAppBar(controller: controller),
         body: Column(
           children: [
-            TabBar(
-              controller: tabController,
-              indicatorWeight: 2,
-              tabs: const [
-                Tab(
-                  icon: Icon(
-                    Icons.person_outline_rounded,
-                    color: Colors.grey,
-                  ),
-                  text: '사용자 검색 결과',
-                ),
-                Tab(
-                  icon: Icon(
-                    Icons.person_outline_rounded,
-                    color: Colors.grey,
-                  ),
-                  text: '게시물 검색 결과',
-                ),
-              ],
-            ),
+            SearchTabBar(tabController: tabController),
             Expanded(
               child: Obx(
-                () => TabBarView(
-                  controller: tabController,
-                  children: [
-                    searchData.userInfo.isEmpty
-                        ? Container(
-                            color: Colors.black,
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                          )
-                        : SearchResultUserInfo(),
-                    searchData.contents.isEmpty
-                        ? Container(
-                            color: Colors.black,
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                          )
-                        : SearchResultContents(),
-                  ],
-                ),
+                () => SearchTabBarView(
+                    tabController: tabController, searchData: searchData),
               ),
             ),
           ],
