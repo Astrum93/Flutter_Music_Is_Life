@@ -45,9 +45,11 @@ class _SearchFragmentState extends State<SearchFragment>
           children: [
             SearchTabBar(tabController: tabController),
             Expanded(
-              child: Obx(
-                () => SearchTabBarView(
-                    tabController: tabController, searchData: searchData),
+              child: GetBuilder<SearchData>(
+                builder: (searchData) {
+                  return SearchTabBarView(
+                      tabController: tabController, searchData: searchData);
+                },
               ),
             ),
           ],

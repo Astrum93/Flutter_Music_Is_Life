@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 class SearchTabBarView extends StatelessWidget {
   const SearchTabBarView({
-    super.key,
+    Key? key,
     required this.tabController,
     required this.searchData,
-  });
+  }) : super(key: key);
 
   final TabController tabController;
   final SearchData searchData;
