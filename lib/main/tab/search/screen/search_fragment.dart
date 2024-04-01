@@ -3,16 +3,16 @@ import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'SearchTabBar.dart';
+import 'search_tab_bar.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class SearchFragment extends StatefulWidget {
+  const SearchFragment({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchFragment> createState() => _SearchFragmentState();
 }
 
-class _SearchScreenState extends State<SearchScreen>
+class _SearchFragmentState extends State<SearchFragment>
     with SearchDataProvider, SingleTickerProviderStateMixin {
   final TextEditingController controller = TextEditingController();
   late final TabController tabController;

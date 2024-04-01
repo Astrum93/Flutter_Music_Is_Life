@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 import '../../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../../mypage/mypage_screen.dart';
-import '../../search/screen/search_screen.dart';
+import '../../search/screen/search_fragment.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
                 IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SearchScreen()));
+                        builder: (context) => const SearchFragment()));
                   },
                   icon: const Icon(Icons.search_rounded),
                 ),
