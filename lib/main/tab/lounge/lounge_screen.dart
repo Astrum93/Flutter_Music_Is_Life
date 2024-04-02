@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/main/tab/lounge/slider_items.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,10 @@ class _LoungeScreenState extends State<LoungeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CarouselSlider(
-        items: <Widget>[
-          Image.asset('assets/image/planet.png'),
-          Image.asset('assets/image/pink_planet.jpg'),
-        ],
-        options: CarouselOptions(),
+        items: sliderItems,
+        options: CarouselOptions(
+          height: 350,
+        ),
       ),
     );
   }
