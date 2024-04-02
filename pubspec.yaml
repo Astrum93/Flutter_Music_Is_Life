@@ -98,6 +98,10 @@ flutter:
     - assets/icon/3d_casual_life_cloud_music.png
     - assets/icon/just_be_happy.png
 
+    # Image
+    - assets/image/planet.png
+    - assets/image/pink_planet.jpg
+
     # Logo
     - assets/logo/NA1.png
     - assets/logo/NA2.png
