@@ -54,6 +54,7 @@ dependencies:
   firebase_messaging: ^14.7.18
   get: ^4.6.6
   nav: ^1.4.3
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
