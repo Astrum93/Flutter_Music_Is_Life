@@ -13,11 +13,21 @@ class _LoungeScreenState extends State<LoungeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: CarouselSlider(
-        items: sliderItems,
-        options: CarouselOptions(
-          height: 350,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CarouselSlider(
+            items: sliderItems,
+            options: CarouselOptions(
+              height: 400,
+            ),
+          ),
+          Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+          )
+        ],
       ),
     );
   }
