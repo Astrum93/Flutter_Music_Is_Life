@@ -2,6 +2,7 @@ import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:MusicIsLife/main/tab/search/screen/search_result_contents_screen.dart';
 import 'package:MusicIsLife/main/tab/search/screen/search_result_user_info_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchTabBarView extends StatelessWidget {
   const SearchTabBarView({
@@ -15,24 +16,30 @@ class SearchTabBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      controller: tabController,
-      children: [
-        searchData.userInfo.isEmpty
-            ? Container(
-                color: Colors.black,
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-              )
-            : SearchResultUserInfo(),
-        searchData.contents.isEmpty
-            ? Container(
-                color: Colors.black,
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-              )
-            : SearchResultContents(),
-      ],
+    return Obx(
+      () => TabBarView(
+        controller: tabController,
+        children: [
+          searchData.userInfo.isEmpty
+              ? Center(
+                  child: Image.asset(
+                    'assets/icon/just_be_happy.png',
+                    color: Colors.white,
+                    scale: 3,
+                  ),
+                )
+              : SearchResultUserInfo(),
+          searchData.contents.isEmpty
+              ? Center(
+                  child: Image.asset(
+                    'assets/icon/just_be_happy.png',
+                    color: Colors.white,
+                    scale: 3,
+                  ),
+                )
+              : SearchResultContents(),
+        ],
+      ),
     );
   }
 }
