@@ -100,7 +100,7 @@ flutter:
 
     # Image
     - assets/image/planet.png
-    - assets/image/pink_planet.jpg
+    - assets/image/pink_planet.png
 
     # Logo
     - assets/logo/NA1.png
