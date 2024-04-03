@@ -21,7 +21,7 @@ class SliderItem extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
-        )
+        ),
       ],
     );
   }
