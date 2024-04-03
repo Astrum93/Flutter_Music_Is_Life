@@ -32,6 +32,18 @@ class _LoungeScreenState extends State<LoungeScreen> {
                 }),
           ),
           LoungeSliderIndicator(controller: _controller, current: _current),
+          if (_current == 0)
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.green,
+            ),
+          if (_current == 1)
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.red,
+            )
         ],
       ),
     );
