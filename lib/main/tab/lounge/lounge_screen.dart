@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/lounge/slider_items.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -32,17 +33,22 @@ class _LoungeScreenState extends State<LoungeScreen> {
                 }),
           ),
           LoungeSliderIndicator(controller: _controller, current: _current),
+          height10,
           if (_current == 0)
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.green,
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.green,
+              ),
             ),
           if (_current == 1)
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.red,
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.red,
+              ),
             )
         ],
       ),
