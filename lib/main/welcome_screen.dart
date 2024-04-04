@@ -19,9 +19,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         padding: const EdgeInsets.all(50.0),
         child: Stack(
           children: [
-            Image.asset('assets/logo/logo.png'),
             Positioned(
-              bottom: 0,
+              left: 0,
+              right: 0,
+              top: 100,
+              child: Image.asset(
+                'assets/logo/logo5.png',
+                scale: 0.5,
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -111,7 +121,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
 
                   // 메인 SizedBox
-                  const SizedBox(height: 1),
 
                   // 비회원 로그인
                   // TextButton(
@@ -131,7 +140,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   //   '현재 로그인된 유저는 $_currentUser 입니다.',
                   //   style: const TextStyle(color: Colors.white),
                   // )
-                  const SizedBox(height: 20)
                 ],
               ),
             ),
