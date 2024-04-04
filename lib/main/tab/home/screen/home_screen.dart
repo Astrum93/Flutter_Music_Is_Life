@@ -46,7 +46,10 @@ class _HomeScreenState extends State<HomeScreen>
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: const Text('Music is Life'),
+              title: Image.asset(
+                'assets/logo/music_is_life.png',
+                scale: 8,
+              ),
               actions: [
                 IconButton(
                   onPressed: () {
