@@ -29,13 +29,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
             Positioned(
+              left: 0,
+              right: 0,
+              top: 300,
+              child: Image.asset(
+                'assets/logo/music_is_life.png',
+                scale: 0.5,
+              ),
+            ),
+            Positioned(
               bottom: 10,
               left: 0,
               right: 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // 메인 Column의 로그인 버튼
+                  // 로그인 버튼
                   InkWell(
                     onTap: () {
                       Navigator.of(context).push(
@@ -47,30 +56,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Container(
                       width: 150,
                       height: 50,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.7),
-                            blurRadius: 5,
-                          )
-                        ],
+                        border: Border.all(color: Colors.grey),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "로그인",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          "로그인",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
@@ -91,30 +91,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     child: Container(
                       width: 150,
                       height: 50,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(0.7),
-                            blurRadius: 5,
-                          )
-                        ],
+                        border: Border.all(color: Colors.grey),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "회원가입",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          "회원가입",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
