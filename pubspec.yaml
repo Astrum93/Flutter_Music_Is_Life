@@ -106,8 +106,13 @@ flutter:
     - assets/logo/NA1.png
     - assets/logo/NA2.png
     - assets/logo/NAspace.png
-    - assets/logo/NAspace2.png
-    
+    - assets/logo/logo.png
+    - assets/logo/logo2.png
+    - assets/logo/logo3.png
+    - assets/logo/logo4.png
+    - assets/logo/logo5.png
+    - assets/logo/logo6.png
+
     # profile
     - assets/profile/pikachu.png
     - assets/profile/homer.gif
