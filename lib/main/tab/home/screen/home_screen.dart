@@ -53,8 +53,11 @@ class _HomeScreenState extends State<HomeScreen>
               actions: [
                 IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SearchFragment()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SearchFragment(),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.search_rounded),
                 ),
