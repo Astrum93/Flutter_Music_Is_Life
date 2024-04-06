@@ -1,6 +1,6 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
-import 'package:MusicIsLife/main/tab/lounge/lounge_screen.dart';
+import 'package:MusicIsLife/main/tab/lounge/lounge_fragment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
   final List<Widget> _tabItems = <Widget>[
     const HomeScreen(),
     const SearchFragment(),
-    const LoungeScreen(),
+    const LoungeFragment(),
     const MessengerScreen()
   ];
 

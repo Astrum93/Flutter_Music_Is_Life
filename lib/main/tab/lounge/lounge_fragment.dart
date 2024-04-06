@@ -1,19 +1,24 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/tab/lounge/lounge_slider_indicator.dart';
-import 'package:MusicIsLife/main/tab/lounge/slider_items.dart';
+import 'package:MusicIsLife/main/tab/lounge/slider/lounge_slider_indicator.dart';
+import 'package:MusicIsLife/main/tab/lounge/slider/slider_items.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoungeScreen extends StatefulWidget {
-  const LoungeScreen({super.key});
+import 'category_item/category_all.dart';
+import 'category_item/category_current.dart';
+
+class LoungeFragment extends StatefulWidget {
+  const LoungeFragment({super.key});
 
   @override
-  State<LoungeScreen> createState() => _LoungeScreenState();
+  State<LoungeFragment> createState() => _LoungeFragmentState();
 }
 
-class _LoungeScreenState extends State<LoungeScreen> {
+class _LoungeFragmentState extends State<LoungeFragment> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
+  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 
   @override
   Widget build(BuildContext context) {
@@ -35,22 +40,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
           ),
           LoungeSliderIndicator(controller: _controller, current: _current),
           height10,
-          if (_current == 0)
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.green,
-              ),
-            ),
-          if (_current == 1)
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Colors.red,
-              ),
-            )
+          if (_current == 0) const CategoryAll(),
+          if (_current == 1) CategoryCurrent(displayName: _displayName),
         ],
       ),
     );
