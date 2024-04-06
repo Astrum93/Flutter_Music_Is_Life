@@ -162,7 +162,8 @@ https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/e1c15d06-f535
 <div align = center>
 
 
-https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/48b00aa4-cd6c-4851-8bfd-5eb4a7b7a4a9
+https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/b83e9a9c-6910-4b2d-9b00-500a1827fbb0
+
 
 
 </div>
@@ -171,3 +172,26 @@ https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/48b00aa4-cd6c
 <br>
 <hr>
 <br>
+
+
+#### 라운지
+
+<br>
+
+<div align = center>
+
+
+
+
+https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/5237f3f0-4ba4-40f2-953f-292852f01329
+
+
+
+
+</div>
+
+
+<br>
+<hr>
+<br>
+
