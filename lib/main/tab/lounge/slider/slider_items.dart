@@ -27,7 +27,8 @@ class SliderItem extends StatelessWidget {
   }
 }
 
-const Widget music1 = SliderItem('assets/image/planet.png', text: 'test1');
-const Widget music2 = SliderItem('assets/image/pink_planet.png', text: 'test2');
+const Widget music1 = SliderItem('assets/image/planet.png', text: 'All');
+const Widget music2 =
+    SliderItem('assets/image/pink_planet.png', text: 'Current');
 
 List<Widget> sliderItems = [music1, music2];
