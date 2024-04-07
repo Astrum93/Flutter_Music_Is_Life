@@ -1,12 +1,12 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
 import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
 import 'package:MusicIsLife/main/tab/lounge/lounge_fragment.dart';
+import 'package:MusicIsLife/main/tab/messenger/messenger_fragment.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../welcome_screen.dart';
-import '../messenger/messenger_screen.dart';
 import '../search/screen/search_fragment.dart';
 
 class HomeFragment extends StatefulWidget {
@@ -24,7 +24,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
     const HomeScreen(),
     const SearchFragment(),
     const LoungeFragment(),
-    const MessengerScreen()
+    const MessengerFragment()
   ];
 
   // initstate 함수
