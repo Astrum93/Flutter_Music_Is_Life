@@ -8,7 +8,8 @@ class MessengerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
+      children: const [
+        Height(40),
         ChatWidget(),
         Height(40),
         ChatWidget(),

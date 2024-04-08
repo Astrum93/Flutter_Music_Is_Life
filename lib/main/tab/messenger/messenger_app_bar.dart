@@ -16,7 +16,11 @@ class MessengerAppBar extends StatelessWidget implements PreferredSizeWidget {
                 MaterialPageRoute(
                     builder: (context) => const CreateChatScreen()));
           },
-          icon: const Icon(Icons.add, color: Colors.grey),
+          icon: const Icon(
+            Icons.add,
+            color: Colors.grey,
+            size: 30,
+          ),
         ),
       ],
     );
