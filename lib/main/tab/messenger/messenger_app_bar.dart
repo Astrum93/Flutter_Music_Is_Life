@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/main/tab/messenger/screen/create_chat_screen.dart';
 import 'package:flutter/material.dart';
 
 class MessengerAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -5,7 +6,20 @@ class MessengerAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CreateChatScreen()));
+          },
+          icon: const Icon(Icons.add, color: Colors.grey),
+        ),
+      ],
+    );
   }
 
   @override
