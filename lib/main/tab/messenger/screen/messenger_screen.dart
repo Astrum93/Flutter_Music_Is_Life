@@ -1,3 +1,5 @@
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
 import 'package:flutter/material.dart';
 
 class MessengerScreen extends StatelessWidget {
@@ -5,6 +7,25 @@ class MessengerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView(
+      children: [
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+        ChatWidget(),
+        Height(40),
+      ],
+    );
   }
 }
