@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/main/tab/messenger/messenger_app_bar.dart';
+import 'package:MusicIsLife/main/tab/messenger/screen/messenger_screen.dart';
 import 'package:flutter/material.dart';
 
 class MessengerFragment extends StatefulWidget {
@@ -14,7 +15,7 @@ class _MessengerFragmentState extends State<MessengerFragment> {
     return const SafeArea(
       child: Scaffold(
         appBar: MessengerAppBar(),
-        body: Placeholder(),
+        body: MessengerScreen(),
       ),
     );
   }
