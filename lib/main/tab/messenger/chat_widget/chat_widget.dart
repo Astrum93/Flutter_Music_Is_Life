@@ -110,8 +110,7 @@ class ChatWidget extends StatelessWidget {
           right: 40,
           bottom: 10,
           child: Container(
-            width: 60,
-            height: 30,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: const BoxDecoration(
               color: Colors.black87,
               borderRadius: BorderRadius.all(Radius.circular(20)),
