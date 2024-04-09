@@ -16,7 +16,7 @@ class ChatWidget extends StatelessWidget {
         Center(
           child: Container(
             width: MediaQuery.of(context).size.width - 50,
-            height: 150,
+            height: 140,
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(40)),
@@ -30,36 +30,61 @@ class ChatWidget extends StatelessWidget {
           left: 40,
           child: Row(
             children: [
-              /// 채팅방 프로필 사진
+              /// 채팅방 대표 사진
               Center(
                 child: Container(
                   width: 100,
                   height: 100,
                   decoration: const BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.black87,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.grey,
+                    size: 40,
                   ),
                 ),
               ),
               width20,
 
               /// 채팅방 이름
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '채팅방 이름',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 120,
+                        child: Text(
+                          '채팅방 이름',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        width: 10,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(30))),
+                      )
+                    ],
                   ),
-                  Text(
-                    '방장 이름',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
+                  const SizedBox(
+                    width: 120,
+                    child: Text(
+                      '방장 이름',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               )
@@ -69,7 +94,7 @@ class ChatWidget extends StatelessWidget {
 
         /// 즐겨찾기 버튼
         Positioned(
-          top: 0,
+          top: 10,
           right: 35,
           child: IconButton(
               onPressed: () {},

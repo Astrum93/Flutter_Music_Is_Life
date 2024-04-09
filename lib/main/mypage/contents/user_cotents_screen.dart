@@ -94,7 +94,6 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
                           image: NetworkImage(contentsImage),
                         ),
                       ),
-                      child: const Text(''),
                     ),
                   ),
                 ),

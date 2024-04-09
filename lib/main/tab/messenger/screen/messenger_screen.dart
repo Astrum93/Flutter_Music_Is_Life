@@ -9,23 +9,23 @@ class MessengerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: const [
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
         ChatWidget(),
-        Height(40),
+        Height(30),
       ],
     );
   }
