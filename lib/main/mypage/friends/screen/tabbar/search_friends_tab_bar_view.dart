@@ -20,7 +20,7 @@ class SearchFriendsTabBarView extends StatelessWidget {
       () => TabBarView(
         controller: tabController,
         children: [
-          searchData.userInfo.isEmpty
+          searchData.recommendFriends.isEmpty
               ? Center(
                   child: Image.asset(
                     'assets/icon/just_be_happy.png',
@@ -29,7 +29,7 @@ class SearchFriendsTabBarView extends StatelessWidget {
                   ),
                 )
               : const RecommendsFriendsScreen(),
-          searchData.contents.isEmpty
+          searchData.searchFriends.isEmpty
               ? Center(
                   child: Image.asset(
                     'assets/icon/just_be_happy.png',
