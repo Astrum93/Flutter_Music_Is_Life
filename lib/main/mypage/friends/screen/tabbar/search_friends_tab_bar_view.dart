@@ -28,7 +28,7 @@ class SearchFriendsTabBarView extends StatelessWidget {
                     scale: 3,
                   ),
                 )
-              : const RecommendsFriendsScreen(),
+              : RecommendsFriendsScreen(),
           searchData.searchFriends.isEmpty
               ? Center(
                   child: Image.asset(

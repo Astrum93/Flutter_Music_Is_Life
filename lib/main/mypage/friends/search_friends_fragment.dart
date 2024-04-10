@@ -20,9 +20,13 @@ class _SearchFriendsFragmentState extends State<SearchFriendsFragment>
   @override
   void initState() {
     Get.put(SearchData());
+
+    /// 추천 친구
     searchData.userInfoCreate();
+
+    /// 유저 검색
     controller.addListener(() {
-      /// 유저 정보를 검색하는 searchUserInfo 실행
+      /// 유저 정보를 검색하는 searchFriend 실행
       searchData.searchFriend(controller.text);
     });
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
