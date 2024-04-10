@@ -1,6 +1,6 @@
 import 'package:MusicIsLife/common/widget/button/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
-import 'package:MusicIsLife/main/mypage/friends/search_friends_screen.dart';
+import 'package:MusicIsLife/main/mypage/friends/search_friends_fragment.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
@@ -199,7 +199,7 @@ class _MyScreenState extends State<MyScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        const SearchFriendsScreen(),
+                                        const SearchFriendsFragment(),
                                   ),
                                 );
                               },
