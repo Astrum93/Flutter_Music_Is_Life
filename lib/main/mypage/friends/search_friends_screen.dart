@@ -1,20 +1,24 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
 import 'package:flutter/material.dart';
 
-class CreateChatScreen extends StatelessWidget {
-  const CreateChatScreen({super.key});
+class SearchFriendsScreen extends StatefulWidget {
+  const SearchFriendsScreen({super.key});
 
+  @override
+  State<SearchFriendsScreen> createState() => _SearchFriendsScreenState();
+}
+
+class _SearchFriendsScreenState extends State<SearchFriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: <Widget>[
+      child: Material(
+        child: Column(
+          children: [
             height30,
             Center(
               child: Text(
-                '새로운 \n채　팅',
+                '새로운 \n친　구',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -22,9 +26,6 @@ class CreateChatScreen extends StatelessWidget {
               ),
             ),
             Height(60),
-
-            /// 채팅방 Widget
-            ChatWidget(),
           ],
         ),
       ),

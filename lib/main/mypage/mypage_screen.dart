@@ -1,5 +1,6 @@
 import 'package:MusicIsLife/common/widget/button/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
+import 'package:MusicIsLife/main/mypage/friends/search_friends_screen.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
@@ -194,17 +195,13 @@ class _MyScreenState extends State<MyScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   const SnackBar(
-                                //     content: Text(
-                                //       '개발 중 입니다.',
-                                //       textAlign: TextAlign.center,
-                                //       style: TextStyle(
-                                //           fontWeight: FontWeight.bold),
-                                //     ),
-                                //     backgroundColor: Colors.green,
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SearchFriendsScreen(),
+                                  ),
+                                );
                               },
                               icon: const Icon(
                                 Icons.person_add_alt_1_outlined,

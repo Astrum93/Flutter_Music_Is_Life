@@ -133,24 +133,6 @@ class ChatWidget extends StatelessWidget {
             ),
           ),
         ),
-
-        /// 하늘색 추가 버튼
-        // Positioned(
-        //   bottom: -30,
-        //   child: Container(
-        //     width: 60,
-        //     height: 60,
-        //     decoration: BoxDecoration(
-        //       color: Colors.lightBlue.shade200,
-        //       borderRadius: const BorderRadius.all(Radius.circular(20)),
-        //     ),
-        //     child: const Icon(
-        //       Icons.input_rounded,
-        //       color: Colors.white,
-        //       size: 30,
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
