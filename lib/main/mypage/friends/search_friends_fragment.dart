@@ -1,5 +1,9 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/mypage/friends/screen/tabbar/search_friends_tab_bar.dart';
+import 'package:MusicIsLife/main/mypage/friends/screen/tabbar/search_friends_tab_bar_view.dart';
+import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchFriendsFragment extends StatefulWidget {
   const SearchFriendsFragment({super.key});
@@ -9,13 +13,28 @@ class SearchFriendsFragment extends StatefulWidget {
 }
 
 class _SearchFriendsFragmentState extends State<SearchFriendsFragment>
-    with SingleTickerProviderStateMixin {
+    with SearchDataProvider, SingleTickerProviderStateMixin {
+  final TextEditingController controller = TextEditingController();
   late final TabController tabController;
 
   @override
   void initState() {
+    Get.put(SearchData());
+    searchData.userInfoCreate();
+    controller.addListener(() {
+      /// 유저 정보를 검색하는 searchUserInfo 실행
+      searchData.searchFriend(controller.text);
+    });
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    /// *** delete는 Generic Type으로 관리 ***
+    Get.delete<SearchData>();
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,52 +55,17 @@ class _SearchFriendsFragmentState extends State<SearchFriendsFragment>
             ),
             const Height(60),
             SearchFriendsTabBar(tabController: tabController),
+            Expanded(
+              child: GetBuilder<SearchData>(
+                builder: (searchData) {
+                  return SearchFriendsTabBarView(
+                      tabController: tabController, searchData: searchData);
+                },
+              ),
+            ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class SearchFriendsTabBar extends StatelessWidget {
-  const SearchFriendsTabBar({
-    super.key,
-    required this.tabController,
-  });
-
-  final TabController tabController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TabBar(
-      controller: tabController,
-      labelColor: Colors.white,
-      labelStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-      overlayColor: MaterialStatePropertyAll(
-        Colors.lightBlue.withOpacity(0.2),
-      ),
-      indicatorWeight: 0.1,
-      indicatorColor: Colors.grey,
-      indicatorSize: TabBarIndicatorSize.label,
-      dividerColor: Colors.transparent,
-      tabs: const [
-        Tab(
-          icon: Icon(
-            Icons.local_fire_department_outlined,
-            color: Colors.red,
-          ),
-          text: '추천 친구',
-        ),
-        Tab(
-          icon: Icon(
-            Icons.search_rounded,
-            color: Colors.orangeAccent,
-          ),
-          text: '유저 검색',
-        ),
-      ],
     );
   }
 }
