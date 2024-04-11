@@ -55,7 +55,7 @@ class SearchData extends GetxController {
 
   void searchFriend(String keyword) async {
     if (keyword.isEmpty) {
-      userInfo.clear();
+      searchFriends.clear();
       return;
     }
 
