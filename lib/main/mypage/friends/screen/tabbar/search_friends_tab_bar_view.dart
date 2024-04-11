@@ -29,15 +29,7 @@ class SearchFriendsTabBarView extends StatelessWidget {
                   ),
                 )
               : RecommendsFriendsScreen(),
-          searchData.searchFriends.isEmpty
-              ? Center(
-                  child: Image.asset(
-                    'assets/icon/just_be_happy.png',
-                    color: Colors.white,
-                    scale: 3,
-                  ),
-                )
-              : const SearchFriendsScreen(),
+          const SearchFriendsScreen(),
         ],
       ),
     );
