@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SearchFriendsTabBar extends StatelessWidget {
-  const SearchFriendsTabBar({
+class AddFriendsTabBar extends StatelessWidget {
+  const AddFriendsTabBar({
     super.key,
     required this.tabController,
   });

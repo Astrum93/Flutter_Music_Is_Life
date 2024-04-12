@@ -1,11 +1,11 @@
-import 'package:MusicIsLife/main/mypage/friends/screen/recommend_friends_screen.dart';
-import 'package:MusicIsLife/main/mypage/friends/screen/search_friends_screen.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/screen/recommend_friends_tab_bar_view.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/screen/search_friends_tab_bar_view.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SearchFriendsTabBarView extends StatelessWidget {
-  const SearchFriendsTabBarView({
+class AddFriendsTabBarView extends StatelessWidget {
+  const AddFriendsTabBarView({
     Key? key,
     required this.tabController,
     required this.searchData,
@@ -28,8 +28,8 @@ class SearchFriendsTabBarView extends StatelessWidget {
                     scale: 3,
                   ),
                 )
-              : RecommendsFriendsScreen(),
-          const SearchFriendsScreen(),
+              : RecommendsFriendsTabBarView(),
+          const SearchFriendsTabBarView(),
         ],
       ),
     );

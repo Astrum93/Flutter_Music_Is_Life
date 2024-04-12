@@ -1,18 +1,18 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/mypage/friends/screen/tabbar/search_friends_tab_bar.dart';
-import 'package:MusicIsLife/main/mypage/friends/screen/tabbar/search_friends_tab_bar_view.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar_view.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SearchFriendsFragment extends StatefulWidget {
-  const SearchFriendsFragment({super.key});
+class AddFriendsFragment extends StatefulWidget {
+  const AddFriendsFragment({super.key});
 
   @override
-  State<SearchFriendsFragment> createState() => _SearchFriendsFragmentState();
+  State<AddFriendsFragment> createState() => _AddFriendsFragmentState();
 }
 
-class _SearchFriendsFragmentState extends State<SearchFriendsFragment>
+class _AddFriendsFragmentState extends State<AddFriendsFragment>
     with SearchDataProvider, SingleTickerProviderStateMixin {
   late final TabController tabController;
 
@@ -52,11 +52,11 @@ class _SearchFriendsFragmentState extends State<SearchFriendsFragment>
               ),
             ),
             const Height(60),
-            SearchFriendsTabBar(tabController: tabController),
+            AddFriendsTabBar(tabController: tabController),
             Expanded(
               child: GetBuilder<SearchData>(
                 builder: (searchData) {
-                  return SearchFriendsTabBarView(
+                  return AddFriendsTabBarView(
                       tabController: tabController, searchData: searchData);
                 },
               ),

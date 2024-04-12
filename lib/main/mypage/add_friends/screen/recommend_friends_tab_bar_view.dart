@@ -3,8 +3,9 @@ import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 
-class RecommendsFriendsScreen extends StatelessWidget with SearchDataProvider {
-  RecommendsFriendsScreen({super.key});
+class RecommendsFriendsTabBarView extends StatelessWidget
+    with SearchDataProvider {
+  RecommendsFriendsTabBarView({super.key});
 
   @override
   Widget build(BuildContext context) {
