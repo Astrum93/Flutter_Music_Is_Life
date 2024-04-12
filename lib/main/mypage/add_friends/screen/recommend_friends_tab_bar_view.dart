@@ -114,17 +114,22 @@ class RequestFriendDialog extends StatelessWidget {
             Positioned(
               left: 0,
               bottom: -50,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.veryDarkGrey,
-                    border: Border.all(color: Colors.redAccent)),
-                child: const Center(
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.redAccent,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.veryDarkGrey,
+                      border: Border.all(color: Colors.redAccent)),
+                  child: const Center(
+                    child: Icon(
+                      Icons.close,
+                      color: Colors.redAccent,
+                    ),
                   ),
                 ),
               ),
