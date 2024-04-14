@@ -10,44 +10,46 @@ class RecommendsFriendsTabBarView extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisExtent: 150,
-      ),
-      itemCount: searchData.recommendFriends.length,
-      itemBuilder: (context, index) => GestureDetector(
-        onLongPress: () {
-          showDialog(
-            context: context,
-            builder: (context) => RequestFriendDialog(
-              searchData: searchData,
-              index: index,
-              data: searchData.recommendFriends[index].get('userName'),
-            ),
-          );
-        },
-        child: Column(
-          children: [
-            RecommendFriendProfileWidget(
-              searchData: searchData,
-              index: index,
-              borderColor: Colors.transparent,
-              boxColor: (index == 0)
-                  ? Colors.redAccent
-                  : (index == 1)
-                      ? Colors.blue
-                      : (index == 2)
-                          ? Colors.greenAccent
-                          : AppColors.veryDarkGrey,
-            ),
-            height10,
-            Text(
-              searchData.recommendFriends[index].get('userName'),
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ],
+    return Scaffold(
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisExtent: 150,
+        ),
+        itemCount: searchData.recommendFriends.length,
+        itemBuilder: (context, index) => GestureDetector(
+          onLongPress: () {
+            showDialog(
+              context: context,
+              builder: (context) => RequestFriendDialog(
+                searchData: searchData,
+                index: index,
+                data: searchData.recommendFriends[index].get('userName'),
+              ),
+            );
+          },
+          child: Column(
+            children: [
+              RecommendFriendProfileWidget(
+                searchData: searchData,
+                index: index,
+                borderColor: Colors.transparent,
+                boxColor: (index == 0)
+                    ? Colors.redAccent
+                    : (index == 1)
+                        ? Colors.blue
+                        : (index == 2)
+                            ? Colors.greenAccent
+                            : AppColors.veryDarkGrey,
+              ),
+              height10,
+              Text(
+                searchData.recommendFriends[index].get('userName'),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
       ),
     );
