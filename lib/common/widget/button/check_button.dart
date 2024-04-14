@@ -6,6 +6,7 @@ class CheckButton extends StatelessWidget {
   final double? height;
   final Color? boxColor;
   final Color borderColor;
+  final IconData? icon;
   final Color? iconColor;
 
   const CheckButton(
@@ -15,6 +16,7 @@ class CheckButton extends StatelessWidget {
       this.height,
       this.boxColor,
       required this.borderColor,
+      this.icon,
       this.iconColor});
 
   @override
@@ -31,7 +33,7 @@ class CheckButton extends StatelessWidget {
         ),
         child: Center(
           child: Icon(
-            Icons.check,
+            icon,
             color: iconColor,
           ),
         ),

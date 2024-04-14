@@ -230,6 +230,7 @@ class _LogInScreenState extends State<LogInScreen> with HomeDataProvider {
                               height: 40,
                               boxColor: AppColors.veryDarkGrey,
                               borderColor: Colors.transparent,
+                              icon: Icons.check,
                               iconColor: Colors.green,
                               onTap: () async {
                                 tryLogin(userJoinData);
