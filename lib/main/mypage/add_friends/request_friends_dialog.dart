@@ -24,7 +24,7 @@ class RequestFriendDialog extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           color: AppColors.veryDarkGrey,
-          border: Border.all(color: Colors.grey),
+          border: Border.all(color: Colors.black),
           borderRadius: const BorderRadius.all(
             Radius.circular(15),
           ),
@@ -36,7 +36,11 @@ class RequestFriendDialog extends StatelessWidget {
             Positioned(
               top: -80,
               child: RecommendFriendProfileWidget(
-                  searchData: searchData, index: index),
+                searchData: searchData,
+                index: index,
+                borderColor: Colors.amberAccent,
+                boxColor: AppColors.veryDarkGrey,
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +53,7 @@ class RequestFriendDialog extends StatelessWidget {
                 ),
                 height10,
                 const Text(
-                  '친구 요청 하시겠습니까?',
+                  '친구로 등록 하시겠습니까?',
                   style: TextStyle(color: Colors.white),
                 ),
               ],
