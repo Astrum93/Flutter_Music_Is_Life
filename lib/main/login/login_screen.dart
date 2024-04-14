@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
@@ -225,7 +226,12 @@ class _LogInScreenState extends State<LogInScreen> with HomeDataProvider {
 
                             // 체크 버튼
                             CheckButton(
-                              () async {
+                              width: 40,
+                              height: 40,
+                              boxColor: AppColors.veryDarkGrey,
+                              borderColor: Colors.transparent,
+                              iconColor: Colors.green,
+                              onTap: () async {
                                 tryLogin(userJoinData);
                               },
                             )

@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/button/google_join_button.dart';
 import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
@@ -272,9 +273,16 @@ class _JoinScreenState extends State<JoinScreen> {
                             const SizedBox(height: 30),
 
                             // 회원가입 버튼
-                            CheckButton(() async {
-                              tryJoin();
-                            }),
+                            CheckButton(
+                              width: 40,
+                              height: 40,
+                              boxColor: AppColors.veryDarkGrey,
+                              borderColor: Colors.transparent,
+                              iconColor: Colors.green,
+                              onTap: () async {
+                                tryJoin();
+                              },
+                            ),
 
                             const SizedBox(height: 20),
                             const Row(
