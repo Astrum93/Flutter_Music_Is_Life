@@ -28,40 +28,48 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
     final List friends = [];
     final String user =
         widget.searchData.recommendFriends[widget.index].get('userName');
-    try {
-      if (friends.contains(user) == false) {
-        friends.add(user);
-        await FirebaseFirestore.instance
-            .collection('UserFriends')
-            .doc(FirebaseAuth.instance.currentUser!.displayName)
-            .set(
-          {'friends': friends},
-        );
 
-        if (mounted) {
+    final friendSnapshot = await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(FirebaseAuth.instance.currentUser!.displayName)
+        .get();
+    final List<dynamic>? existingFriends = friendSnapshot.data()?['friends'];
+
+    try {
+      if (friendSnapshot.exists) {
+        if (existingFriends != null &&
+            existingFriends.contains(user) &&
+            mounted) {
           Navigator.pop(context);
-          switch (friends.contains(user)) {
-            case true:
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                  ),
-                  content: Text(
-                    '이미 등록된 사용자 입니다 😂',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  duration: Duration(seconds: 5),
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.redAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
                 ),
-              );
-              break;
-            default:
+              ),
+              content: Text(
+                '이미 등록된 사용자 입니다 😂',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              duration: Duration(seconds: 5),
+            ),
+          );
+          if (existingFriends.contains(user) == false && mounted) {
+            /// 해당 유저가 친구 리스트에 존재하는 경우
+            friends.add(user);
+            await FirebaseFirestore.instance
+                .collection('UserFriends')
+                .doc(FirebaseAuth.instance.currentUser!.displayName)
+                .set({'friends': friends});
+            if (mounted) {
+              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   backgroundColor: Colors.greenAccent,
@@ -75,17 +83,19 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
                     '친구 추가가 성공적으로 처리 되었습니다 🎉',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   duration: Duration(seconds: 5),
                 ),
               );
+            }
           }
         }
       }
     } catch (e) {
       if (mounted) {
-        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.blueGrey,
@@ -98,8 +108,10 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
             content: Text(
               '알수없는 오류로 실행되지 않았습니다.',
               textAlign: TextAlign.center,
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             duration: Duration(seconds: 5),
           ),
