@@ -31,7 +31,7 @@ class _MyScreenState extends State<MyScreen> {
   CollectionReference userInfoCollection =
       FirebaseFirestore.instance.collection('UserInfo');
 
-  // FireStore UserContents collection 참조 변수
+  // FireStore user_contents collection 참조 변수
   CollectionReference userContentsCollection =
       FirebaseFirestore.instance.collection('UserContents');
 
