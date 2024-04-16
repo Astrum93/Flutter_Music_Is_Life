@@ -1,7 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/screen/recommend_friends_tab_bar_view.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/friend_profile_widget.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,9 +24,9 @@ class RequestFriendDialog extends StatefulWidget {
 }
 
 class _RequestFriendDialogState extends State<RequestFriendDialog> {
+  /// 친구 추가
   void addFriends() async {
-    final String user =
-        widget.searchData.recommendFriends[widget.index].get('userName');
+    final String user = widget.data;
 
     try {
       final friendSnapshot = await FirebaseFirestore.instance
@@ -156,7 +156,7 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
             /// 프로필 사진
             Positioned(
               top: 20,
-              child: RecommendFriendProfileWidget(
+              child: FriendProfileWidget(
                 searchData: widget.searchData,
                 index: widget.index,
                 borderColor: Colors.amberAccent,

@@ -37,7 +37,7 @@ class SearchFriendsResultScreen extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (context) => RequestFriendDialog(
-                            searchData: searchData,
+                            searchData: searchData.searchFriends[index],
                             index: index,
                             data:
                                 searchData.searchFriends[index].get('userName'),

@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 
 class FriendProfileWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class FriendProfileWidget extends StatelessWidget {
     required this.borderColor,
   });
 
-  final String searchData;
+  final SearchData searchData;
   final int index;
   final Color? boxColor;
   final Color borderColor;
@@ -33,7 +34,7 @@ class FriendProfileWidget extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.network(
-              searchData,
+              searchData.toString(),
               fit: BoxFit.cover,
               alignment: Alignment.center,
             ),
