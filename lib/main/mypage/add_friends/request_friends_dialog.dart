@@ -25,18 +25,22 @@ class RequestFriendDialog extends StatefulWidget {
 
 class _RequestFriendDialogState extends State<RequestFriendDialog> {
   void addFriends() async {
-    final List friends = [];
     final String user =
         widget.searchData.recommendFriends[widget.index].get('userName');
 
-    final friendSnapshot = await FirebaseFirestore.instance
-        .collection('UserFriends')
-        .doc(FirebaseAuth.instance.currentUser!.displayName)
-        .get();
-    final List<dynamic>? existingFriends = friendSnapshot.data()?['friends'];
-
     try {
+      final friendSnapshot = await FirebaseFirestore.instance
+          .collection('UserFriends')
+          .doc(FirebaseAuth.instance.currentUser!.displayName)
+          .get();
+
+      /// UserFriends 컬렉션 유무 확인
       if (friendSnapshot.exists) {
+        /// UserFriends 컬렉션 friends 필드
+        final List<dynamic>? existingFriends =
+            friendSnapshot.data()?['friends'];
+
+        /// 1. friends 필드가 null이 아니거나 현재 선택한 유저가 포함되어 있다면
         if (existingFriends != null &&
             existingFriends.contains(user) &&
             mounted) {
@@ -61,41 +65,46 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
               duration: Duration(seconds: 5),
             ),
           );
-          if (existingFriends.contains(user) == false && mounted) {
-            /// 해당 유저가 친구 리스트에 존재하는 경우
-            friends.add(user);
-            await FirebaseFirestore.instance
-                .collection('UserFriends')
-                .doc(FirebaseAuth.instance.currentUser!.displayName)
-                .set({'friends': friends});
-            if (mounted) {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.greenAccent,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
+          return;
+        }
+
+        /// 2. friends 필드가 null이 아니거나 현재 선택한 유저가 포함되어 있지 않다면
+        if (existingFriends != null && !existingFriends.contains(user)) {
+          existingFriends.add(user);
+          await FirebaseFirestore.instance
+              .collection('UserFriends')
+              .doc(FirebaseAuth.instance.currentUser!.displayName)
+              .set({'friends': existingFriends});
+          if (mounted) {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.greenAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
                   ),
-                  content: Text(
-                    '친구 추가가 성공적으로 처리 되었습니다 🎉',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  duration: Duration(seconds: 5),
                 ),
-              );
-            }
+                content: Text(
+                  '친구 추가가 성공적으로 처리 되었습니다 🎉',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                duration: Duration(seconds: 5),
+              ),
+            );
           }
+          return;
         }
       }
     } catch (e) {
+      /// 3. 이외의 에러가 났을 경우
       if (mounted) {
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             backgroundColor: Colors.blueGrey,
@@ -182,7 +191,9 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
                 borderColor: Colors.greenAccent,
                 icon: Icons.check,
                 iconColor: Colors.greenAccent,
-                onTap: addFriends,
+                onTap: () async {
+                  addFriends();
+                },
               ),
             ),
 
