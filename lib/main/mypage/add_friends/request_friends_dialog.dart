@@ -1,6 +1,5 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
-import 'package:MusicIsLife/common/widget/scaffold/top_round_snack_bar.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,12 +45,24 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
             mounted) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
-            const TopRoundSnackBar(
-              color: Colors.redAccent,
-              text: '이미 등록된 사용자 입니다 😂',
-              textColor: Colors.black,
-              seconds: 3,
-            ) as SnackBar,
+            const SnackBar(
+              backgroundColor: Colors.redAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
+                ),
+              ),
+              content: Text(
+                '이미 등록된 사용자 입니다 😂',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              duration: Duration(seconds: 3),
+            ),
           );
           return;
         }
@@ -66,30 +77,53 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
           if (mounted) {
             Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
-              const TopRoundSnackBar(
-                color: Colors.greenAccent,
-                text: '친구 추가가 성공적으로 처리 되었습니다 🎉',
-                textColor: Colors.black,
-                seconds: 3,
-              ) as SnackBar,
+              const SnackBar(
+                backgroundColor: Colors.greenAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                  ),
+                ),
+                content: Text(
+                  '친구 추가가 성공적으로 처리 되었습니다 🎉',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                duration: Duration(seconds: 3),
+              ),
             );
           }
           return;
         }
 
         /// 3. 자기 자신을 친구 추가 하는 경우
-        if (user == FirebaseAuth.instance.currentUser!.displayName) {
-          if (mounted) {
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const TopRoundSnackBar(
-                color: Colors.purpleAccent,
-                text: '자기 자신은 친구 등록 할 수 없습니다 ❗',
-                textColor: Colors.black,
-                seconds: 3,
-              ) as SnackBar,
-            );
-          }
+        if (user == FirebaseAuth.instance.currentUser!.displayName && mounted) {
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.purpleAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
+                ),
+              ),
+              content: Text(
+                '자기 자신은 친구 등록 할 수 없습니다 ❗',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              duration: Duration(seconds: 3),
+            ),
+          );
+
           return;
         }
       }
@@ -98,12 +132,24 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const TopRoundSnackBar(
-            color: Colors.blueAccent,
-            text: '알수없는 오류로 실행 되지 않았습니다.',
-            textColor: Colors.black,
-            seconds: 3,
-          ) as SnackBar,
+          const SnackBar(
+            backgroundColor: Colors.blueAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10.0),
+                topRight: Radius.circular(10.0),
+              ),
+            ),
+            content: Text(
+              '알수없는 오류로 실행 되지 않았습니다.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            duration: Duration(seconds: 3),
+          ),
         );
       }
     }
