@@ -76,9 +76,25 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
           }
           return;
         }
+
+        /// 3. 자기 자신을 친구 추가 하는 경우
+        if (user == FirebaseAuth.instance.currentUser!.displayName) {
+          if (mounted) {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const TopRoundSnackBar(
+                color: Colors.purpleAccent,
+                text: '자기 자신은 친구 등록 할 수 없습니다 ❗',
+                textColor: Colors.black,
+                seconds: 3,
+              ) as SnackBar,
+            );
+          }
+          return;
+        }
       }
     } catch (e) {
-      /// 3. 이외의 에러가 났을 경우
+      /// 4. 이외의 에러가 났을 경우
       if (mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
