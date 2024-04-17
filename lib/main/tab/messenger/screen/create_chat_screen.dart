@@ -1,5 +1,6 @@
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
+import 'package:MusicIsLife/main/tab/messenger/screen/friends_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class CreateChatScreen extends StatelessWidget {
@@ -25,6 +26,11 @@ class CreateChatScreen extends StatelessWidget {
 
             /// 채팅방 Widget
             ChatWidget(),
+
+            Height(60),
+
+            /// 친구 목록
+            FriendsListWidget(),
           ],
         ),
       ),
