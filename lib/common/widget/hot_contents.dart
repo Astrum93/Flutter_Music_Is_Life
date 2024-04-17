@@ -61,6 +61,10 @@ class _HotContentsState extends State<HotContents>
                     height: 500,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.05),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
                     ),
                   ),
 
@@ -69,16 +73,20 @@ class _HotContentsState extends State<HotContents>
                     child: Container(
                       width: 350,
                       height: 350,
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(contentsImage),
-                          fit: BoxFit.fill,
-                        ),
-                        color: Colors.grey.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(20),
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
                       ),
-                      child: const Text(''),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: contentsImage.isEmpty
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Image.network(
+                                contentsImage,
+                                fit: BoxFit.contain,
+                              ),
+                      ),
                     ),
                   ),
 

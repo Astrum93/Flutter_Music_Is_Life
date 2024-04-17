@@ -40,9 +40,6 @@ class _HomeScreenState extends State<HomeScreen>
     return FutureBuilder(
         future: homeData.docsProvider(),
         builder: (context, snapshot) {
-          // if (snapshot.connectionState == ConnectionState.waiting) {
-          //   return const CircularProgressIndicator();
-          // }
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
@@ -63,8 +60,7 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
 
                 /// 개인 프로필
-
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
