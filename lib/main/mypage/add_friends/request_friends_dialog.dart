@@ -68,7 +68,9 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
         }
 
         /// 2. friends 필드가 null이 아니거나 현재 선택한 유저가 포함되어 있지 않다면
-        if (existingFriends != null && !existingFriends.contains(user)) {
+        if (existingFriends != null &&
+            !existingFriends.contains(user) &&
+            user != FirebaseAuth.instance.currentUser!.displayName) {
           existingFriends.add(user);
           await FirebaseFirestore.instance
               .collection('UserFriends')
