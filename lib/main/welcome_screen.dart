@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // 로그인 버튼
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -80,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   const SizedBox(height: 15),
 
                   // 메인 Column의 회원가입 버튼
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

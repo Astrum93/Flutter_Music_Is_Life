@@ -23,11 +23,20 @@ class FireStoreDataUtil {
   }
 
   static Future<DocumentSnapshot<Map<String, dynamic>>> loggedUserDoc() async {
-    final userinfo = await FirebaseFirestore.instance
+    final userInfo = await FirebaseFirestore.instance
         .collection('UserInfo')
         .doc(FirebaseAuth.instance.currentUser!.displayName)
         .get();
-    return userinfo;
+    return userInfo;
+  }
+
+  static Future<DocumentSnapshot<Map<String, dynamic>>>
+      loggedUserFriendsDoc() async {
+    final userFriends = await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(FirebaseAuth.instance.currentUser!.displayName)
+        .get();
+    return userFriends;
   }
 }
 
