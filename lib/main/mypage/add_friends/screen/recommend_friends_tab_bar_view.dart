@@ -23,7 +23,7 @@ class RecommendsFriendsTabBarView extends StatelessWidget
             showDialog(
               context: context,
               builder: (context) => RequestFriendDialog(
-                searchData: searchData,
+                rxList: searchData.recommendFriends,
                 index: index,
                 data: searchData.recommendFriends[index].get('userName'),
               ),
@@ -32,7 +32,7 @@ class RecommendsFriendsTabBarView extends StatelessWidget
           child: Column(
             children: [
               FriendProfileWidget(
-                searchData: searchData.recommendFriends[index],
+                rxList: searchData.recommendFriends,
                 index: index,
                 borderColor: Colors.transparent,
                 boxColor: (index == 0)
