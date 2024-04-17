@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,16 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
     return Expanded(
       child: ListView.builder(
         itemCount: 10,
-        itemBuilder: (context, index) => Container(),
+        itemBuilder: (context, index) => Column(
+          children: [
+            Container(
+              width: 300,
+              height: 100,
+              color: Colors.amberAccent,
+            ),
+            height10
+          ],
+        ),
       ),
     );
   }
