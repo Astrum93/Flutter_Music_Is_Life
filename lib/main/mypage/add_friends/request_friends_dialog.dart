@@ -115,7 +115,7 @@ class _RequestFriendDialogState extends State<RequestFriendDialog> {
                 ),
               ),
               content: Text(
-                '자기 자신은 친구 등록 할 수 없습니다 ❗',
+                '자기 자신은 친구 등록 할 수 없습니다❗',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,

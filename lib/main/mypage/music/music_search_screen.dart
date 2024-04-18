@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/widget/search_music.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/search_music.dart';
 import 'package:flutter/material.dart';
 
 class MusicSearchScreen extends StatefulWidget {

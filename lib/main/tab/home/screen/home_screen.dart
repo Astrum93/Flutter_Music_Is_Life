@@ -1,9 +1,9 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
-import 'package:MusicIsLife/common/widget/hot_contents.dart';
-import 'package:MusicIsLife/common/widget/search_music.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/search_music.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

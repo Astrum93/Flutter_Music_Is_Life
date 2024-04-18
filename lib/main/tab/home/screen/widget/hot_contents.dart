@@ -1,7 +1,7 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
+import 'package:MusicIsLife/common/widget/button/hash_tag_text_button.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:flutter/material.dart';
-
-import 'button/hash_tag_text_button.dart';
 
 class HotContents extends StatefulWidget {
   const HotContents({super.key});
@@ -54,6 +54,7 @@ class _HotContentsState extends State<HotContents>
               String formattedDateTime = dateTime.toString();
 
               return Stack(
+                alignment: Alignment.center,
                 children: [
                   /// 배경
                   Container(
@@ -61,15 +62,32 @@ class _HotContentsState extends State<HotContents>
                     height: 500,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.05),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      width: 350,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                          color: AppColors.veryDarkGrey,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
+                        ),
                       ),
                     ),
                   ),
 
                   /// 게시물 사진
                   Positioned(
+                    top: 0,
                     child: Container(
                       width: 350,
                       height: 350,
