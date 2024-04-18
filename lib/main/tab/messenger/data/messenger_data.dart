@@ -8,7 +8,7 @@ abstract mixin class MessengerProvider {
 class MessengerData extends GetxController {
   @override
   void onInit() {
-    FireStoreDataUtil.loggedUserFriendsDoc();
+    FireStoreDataUtil.currentUserFriendsDoc();
     super.onInit();
   }
 }
