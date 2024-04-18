@@ -60,9 +60,9 @@ class _HotContentsState extends State<HotContents>
                   Container(
                     width: 350,
                     height: 500,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.05),
-                      borderRadius: const BorderRadius.all(
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.all(
                         Radius.circular(50),
                       ),
                     ),
@@ -95,7 +95,10 @@ class _HotContentsState extends State<HotContents>
                         color: Colors.transparent,
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
+                        ),
                         child: contentsImage.isEmpty
                             ? const Center(
                                 child: CircularProgressIndicator(),
