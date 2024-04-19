@@ -2,7 +2,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/fire_store_data_util.
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-abstract mixin class MessengerProvider {
+abstract mixin class MessengerDataProvider {
   late final messengerData = Get.find<MessengerData>();
 }
 
