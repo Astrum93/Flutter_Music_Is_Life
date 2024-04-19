@@ -1,4 +1,6 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/friend_profile_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,18 +20,19 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
       () => Expanded(
         child: ListView.builder(
           itemCount: messengerData.friendsUserInfoDocs.length,
-          itemBuilder: (context, index) => Column(
+          itemBuilder: (context, index) => Row(
             children: [
-              Container(
-                width: 300,
-                height: 100,
-                decoration: const BoxDecoration(
-                  color: Colors.amberAccent,
-                ),
-                child: Text(
-                    messengerData.friendsUserInfoDocs[index].get('userName')),
+              FriendProfileWidget(
+                  rxList: messengerData.friendsUserInfoDocs,
+                  index: index,
+                  boxColor: Colors.transparent,
+                  borderColor: AppColors.veryDarkGrey),
+              width10,
+              Text(
+                messengerData.friendsUserInfoDocs[index].get('userName'),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
               ),
-              height10
             ],
           ),
         ),

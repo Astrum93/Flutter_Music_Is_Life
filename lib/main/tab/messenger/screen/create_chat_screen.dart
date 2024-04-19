@@ -50,6 +50,18 @@ class _CreateChatScreenState extends State<CreateChatScreen>
 
             const Height(60),
 
+            const Center(
+              child: Text(
+                '친구 목록',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+
+            height20,
+
             /// 친구 목록
             GetBuilder<MessengerData>(
               builder: (messengerData) {
