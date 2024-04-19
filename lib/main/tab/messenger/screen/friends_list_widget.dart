@@ -20,14 +20,15 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
       () => Expanded(
         child: ListView.builder(
           itemCount: messengerData.friendsUserInfoDocs.length,
-          itemBuilder: (context, index) => Row(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Column(
             children: [
               FriendProfileWidget(
                   rxList: messengerData.friendsUserInfoDocs,
                   index: index,
                   boxColor: Colors.transparent,
                   borderColor: AppColors.veryDarkGrey),
-              width10,
+              height10,
               Text(
                 messengerData.friendsUserInfoDocs[index].get('userName'),
                 style: const TextStyle(
