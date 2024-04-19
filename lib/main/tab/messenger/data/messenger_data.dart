@@ -21,8 +21,10 @@ class MessengerData extends GetxController {
         await FireStoreDataUtil.currentUserFriendsDoc();
     friendsId = currentUserFriendsDoc.get('friends');
     for (dynamic id in friendsId) {
-      friendsUserInfoDocs
-          .add(FirebaseFirestore.instance.collection('UserInfo').doc(id).get());
+      friendsUserInfoDocs.add(await FirebaseFirestore.instance
+          .collection('UserInfo')
+          .doc(id)
+          .get());
     }
   }
 }
