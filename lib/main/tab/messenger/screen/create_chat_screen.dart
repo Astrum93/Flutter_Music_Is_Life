@@ -1,3 +1,5 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
+import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
@@ -68,6 +70,16 @@ class _CreateChatScreenState extends State<CreateChatScreen>
                 return const FriendsListWidget();
               },
             ),
+            Center(
+              child: CheckButton(
+                width: 50,
+                height: 50,
+                icon: Icons.check,
+                iconColor: Colors.greenAccent,
+                borderColor: AppColors.veryDarkGrey,
+                onTap: () {},
+              ),
+            )
           ],
         ),
       ),
