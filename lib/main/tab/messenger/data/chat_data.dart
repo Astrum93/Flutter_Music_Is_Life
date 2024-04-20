@@ -1,15 +1,13 @@
-class ChatData {
-  final String chatImage;
-  final String chatName;
-  final List member;
-  final List likedMember;
-  final int memberCount;
+import 'package:get/get.dart';
 
-  ChatData(
-    this.chatImage,
-    this.chatName,
-    this.member,
-    this.likedMember,
-    this.memberCount,
-  );
+abstract mixin class ChatDataProvider {
+  late final chatData = Get.find<ChatData>();
+}
+
+class ChatData extends GetxController {
+  RxString chatImage = "".obs;
+  RxString chatName = "".obs;
+  RxList member = [].obs;
+  RxList likedMember = [].obs;
+  RxInt memberCount = 0.obs;
 }
