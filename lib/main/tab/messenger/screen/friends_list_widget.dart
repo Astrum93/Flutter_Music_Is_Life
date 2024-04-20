@@ -47,7 +47,6 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
                   } else {
                     chatData.member.add(userName);
                   }
-                  print(chatData.member);
                 });
               },
               child: Column(

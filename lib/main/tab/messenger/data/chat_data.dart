@@ -9,5 +9,4 @@ class ChatData extends GetxController {
   RxString chatName = "".obs;
   RxList member = [].obs;
   RxList likedMember = [].obs;
-  RxInt memberCount = 0.obs;
 }
