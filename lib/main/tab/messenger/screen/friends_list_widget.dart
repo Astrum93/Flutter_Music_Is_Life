@@ -14,8 +14,18 @@ class FriendsListWidget extends StatefulWidget {
 }
 
 class _FriendsListWidgetState extends State<FriendsListWidget>
-    with MessengerDataProvider {
-  final ChatData chatData = ChatData('', '', [], [], 0);
+    with MessengerDataProvider, ChatDataProvider {
+  @override
+  void initState() {
+    Get.put(ChatData());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<ChatData>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +60,10 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
                           ? Colors.amberAccent
                           : AppColors.veryDarkGrey),
                   height10,
-                  Column(
-                    children: [
-                      Text(
-                        userName,
-                        style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      height10,
-                      Icon(
-                        Icons.check_circle_outline_rounded,
-                        color: chatData.member.contains(userName)
-                            ? Colors.amberAccent
-                            : Colors.transparent,
-                      )
-                    ],
+                  Text(
+                    userName,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
