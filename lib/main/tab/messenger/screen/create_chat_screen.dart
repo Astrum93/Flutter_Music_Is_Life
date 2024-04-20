@@ -2,6 +2,7 @@ import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
+import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:MusicIsLife/main/tab/messenger/screen/friends_list_widget.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,11 @@ class _CreateChatScreenState extends State<CreateChatScreen>
             const Height(60),
 
             /// 채팅방 Widget
-            const ChatWidget(),
+            GetBuilder<ChatData>(
+              builder: (chatData) {
+                return const ChatWidget();
+              },
+            ),
 
             const Height(60),
 
