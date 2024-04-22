@@ -1,4 +1,6 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/tab/messenger/chat_widget/edit/edit_chat_image.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,19 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
   void dispose() {
     Get.delete<ChatData>();
     super.dispose();
+  }
+
+  // 이미지 수정 팝업창
+  void showAlertChatImage(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Dialog(
+          backgroundColor: Colors.transparent,
+          child: EditChatImage(),
+        );
+      },
+    );
   }
 
   @override
@@ -52,31 +67,37 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
               children: [
                 /// 채팅방 대표 사진
                 Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: const BoxDecoration(
-                      color: Colors.black87,
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: chatData.chatImage.isEmpty
-                        ? const Icon(
-                            Icons.add,
-                            color: Colors.grey,
-                            size: 40,
-                          )
-                        : CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 40,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                chatData.chatImage.toString(),
-                                fit: BoxFit.cover,
-                                alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: () {
+                      showAlertChatImage(context);
+                      print(chatData.chatImage);
+                    },
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: const BoxDecoration(
+                        color: AppColors.veryDarkGrey,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: chatData.chatImage.isEmpty
+                          ? const Icon(
+                              Icons.add,
+                              color: Colors.grey,
+                              size: 40,
+                            )
+                          : CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  chatData.chatImage.toString(),
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.center,
+                                ),
                               ),
                             ),
-                          ),
+                    ),
                   ),
                 ),
                 width20,
@@ -104,16 +125,18 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                           width: 10,
                           height: 10,
                           decoration: const BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          ),
                         )
                       ],
                     ),
                     SizedBox(
                       width: 120,
                       child: Text(
-                        chatData.member.join(','),
+                        chatData.member.isEmpty
+                            ? '채팅 멤버'
+                            : chatData.member.join(','),
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             color: Colors.black,
