@@ -78,7 +78,6 @@ class _EditChatImageState extends State<EditChatImage> with ChatDataProvider {
           GestureDetector(
             onTap: () {
               _pickerImage();
-              setState(() {});
             },
             child: Obx(
               () => Container(

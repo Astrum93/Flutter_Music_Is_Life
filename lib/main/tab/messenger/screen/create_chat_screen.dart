@@ -16,10 +16,11 @@ class CreateChatScreen extends StatefulWidget {
 }
 
 class _CreateChatScreenState extends State<CreateChatScreen>
-    with MessengerDataProvider {
+    with MessengerDataProvider, ChatDataProvider {
   @override
   void initState() {
     Get.put(MessengerData());
+    Get.put(ChatData());
     messengerData.getFriendsUserInfo();
     super.initState();
   }
@@ -27,6 +28,7 @@ class _CreateChatScreenState extends State<CreateChatScreen>
   @override
   void dispose() {
     Get.delete<MessengerData>();
+    Get.delete<ChatData>();
     super.dispose();
   }
 
@@ -96,7 +98,11 @@ class _CreateChatScreenState extends State<CreateChatScreen>
                 icon: Icons.check,
                 iconColor: Colors.greenAccent,
                 borderColor: AppColors.veryDarkGrey,
-                onTap: () {},
+                onTap: () {
+                  print(chatData.chatImage);
+                  print(chatData.member);
+                  print(chatData.chatName);
+                },
               ),
             )
           ],
