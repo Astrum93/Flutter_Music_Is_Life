@@ -15,35 +15,31 @@ class EditChatImage extends StatefulWidget {
   State<EditChatImage> createState() => _EditChatImageState();
 }
 
-class _EditChatImageState extends State<EditChatImage> {
+class _EditChatImageState extends State<EditChatImage> with ChatDataProvider {
   // Image 저장 변수
   File? pickedImage;
 
-  // chatData
-  ChatData chatData = ChatData();
+  @override
+  void initState() {
+    Get.put(ChatData());
+    super.initState();
+  }
 
   // Image Picker
   void _pickerImage() async {
     final imagePicker = ImagePicker();
     final pickedImageFile = await imagePicker.pickImage(
       source: ImageSource.gallery,
-      imageQuality: 100,
-      maxHeight: 300,
     );
-    setState(() {
-      if (pickedImageFile != null) {
-        pickedImage = File(pickedImageFile.path);
-      }
-    });
-  }
 
-  // Picked Image 저장
-  void _pickedImageSave() async {
+    if (pickedImageFile != null) {
+      pickedImage = File(pickedImageFile.path);
+    }
     // 클라우드 스토리지 버킷에 경로 생성
     final refImage = FirebaseStorage.instance
         .ref()
         .child('userChatImage')
-        .child('${chatData.chatName}_chatImage.png');
+        .child('chatImage.png');
     // 클라우드 스토리지 버킷에 저장
     await refImage.putFile(pickedImage!);
 
@@ -82,32 +78,35 @@ class _EditChatImageState extends State<EditChatImage> {
           GestureDetector(
             onTap: () {
               _pickerImage();
+              setState(() {});
             },
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: const BoxDecoration(
-                color: AppColors.veryDarkGrey,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: chatData.chatImage.isEmpty
-                  ? const Icon(
-                      Icons.add,
-                      color: Colors.grey,
-                      size: 40,
-                    )
-                  : CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 40,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          chatData.chatImage.toString(),
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
+            child: Obx(
+              () => Container(
+                width: 100,
+                height: 100,
+                decoration: const BoxDecoration(
+                  color: AppColors.veryDarkGrey,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: chatData.chatImage.isEmpty
+                    ? const Icon(
+                        Icons.add,
+                        color: Colors.grey,
+                        size: 40,
+                      )
+                    : CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 40,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            chatData.chatImage.toString(),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.center,
+                          ),
                         ),
                       ),
-                    ),
+              ),
             ),
           ),
 
@@ -117,9 +116,6 @@ class _EditChatImageState extends State<EditChatImage> {
           TextButton.icon(
             onPressed: () {
               try {
-                if (pickedImage != null) {
-                  _pickedImageSave();
-                }
                 Navigator.of(context).pop();
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
