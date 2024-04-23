@@ -1,6 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/edit/edit_chat_image.dart';
+import 'package:MusicIsLife/main/tab/messenger/chat_widget/edit/edit_chat_name.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,6 +41,19 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
     );
   }
 
+  // 채팅방 이름 수정 팝업창
+  void showAlertChatName(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Dialog(
+          backgroundColor: Colors.transparent,
+          child: EditChatName(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -70,7 +84,6 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                   child: GestureDetector(
                     onTap: () {
                       showAlertChatImage(context);
-                      print(chatData.chatImage);
                     },
                     child: Container(
                       width: 100,
@@ -108,27 +121,34 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
-                          width: 120,
-                          child: Text(
-                            chatData.chatName.isEmpty
-                                ? '채팅방 이름'
-                                : chatData.chatName.toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                        GestureDetector(
+                          onTap: () {
+                            showAlertChatName(context);
+                          },
+                          child: SizedBox(
+                            width: 120,
+                            child: Text(
+                              chatData.chatName.isEmpty
+                                  ? '채팅방 이름'
+                                  : chatData.chatName.toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                        Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          ),
-                        )
+
+                        /// 알람 아이콘
+                        // Container(
+                        //   width: 10,
+                        //   height: 10,
+                        //   decoration: const BoxDecoration(
+                        //     color: Colors.grey,
+                        //     borderRadius: BorderRadius.all(Radius.circular(30)),
+                        //   ),
+                        // )
                       ],
                     ),
                     SizedBox(
