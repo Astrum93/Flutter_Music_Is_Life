@@ -3,7 +3,6 @@ import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class EditChatName extends StatefulWidget {
   const EditChatName({super.key});
@@ -14,12 +13,6 @@ class EditChatName extends StatefulWidget {
 
 class _EditChatNameState extends State<EditChatName> with ChatDataProvider {
   String? chatName;
-
-  @override
-  void initState() {
-    Get.put(ChatData());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +53,10 @@ class _EditChatNameState extends State<EditChatName> with ChatDataProvider {
                   borderSide: BorderSide(color: Colors.white),
                 ),
               ),
-              onSaved: (value) {
-                chatName = value;
+              onChanged: (value) {
+                setState(() {
+                  chatName = value;
+                });
               },
             ),
           ),
@@ -73,8 +68,33 @@ class _EditChatNameState extends State<EditChatName> with ChatDataProvider {
             icon: Icons.check,
             iconColor: Colors.greenAccent,
             onTap: () {
-              chatData.chatName.value = chatName.toString();
-              Navigator.of(context).pop();
+              if (chatName != null) {
+                chatData.chatName.value = chatName.toString();
+                print(chatData.chatName);
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.redAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                    ),
+                    content: Text(
+                      '알수없는 오류로 실행 되지 않았습니다.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              }
             },
           ),
         ],

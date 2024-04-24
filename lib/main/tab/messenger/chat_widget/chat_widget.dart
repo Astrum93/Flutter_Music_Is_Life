@@ -22,12 +22,6 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    Get.delete<ChatData>();
-    super.dispose();
-  }
-
   // 이미지 수정 팝업창
   void showAlertChatImage(BuildContext context) {
     showDialog(

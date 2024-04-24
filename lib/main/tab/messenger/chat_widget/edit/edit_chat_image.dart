@@ -20,12 +20,6 @@ class _EditChatImageState extends State<EditChatImage> with ChatDataProvider {
   File? pickedImage;
   bool isUploading = false;
 
-  @override
-  void initState() {
-    Get.put(ChatData());
-    super.initState();
-  }
-
   // Image Picker
   void _pickerImage() async {
     setState(() {
