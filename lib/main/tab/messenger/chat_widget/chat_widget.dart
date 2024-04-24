@@ -102,7 +102,7 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                               backgroundColor: Colors.transparent,
                               radius: 40,
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
                                   chatData.chatImage.toString(),
                                   fit: BoxFit.cover,
@@ -113,6 +113,7 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                     ),
                   ),
                 ),
+
                 width20,
 
                 /// 채팅방 이름
@@ -151,6 +152,8 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
                         // )
                       ],
                     ),
+
+                    /// 채팅 멤버
                     SizedBox(
                       width: 120,
                       child: Text(
