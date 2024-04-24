@@ -1,5 +1,6 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/edit/edit_chat_image.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/edit/edit_chat_name.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
@@ -15,7 +16,8 @@ class ChatWidget extends StatefulWidget {
   State<ChatWidget> createState() => _ChatWidgetState();
 }
 
-class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
+class _ChatWidgetState extends State<ChatWidget>
+    with ChatDataProvider, FirebaseAuthUser {
   @override
   void initState() {
     Get.put(ChatData());
@@ -172,12 +174,15 @@ class _ChatWidgetState extends State<ChatWidget> with ChatDataProvider {
             top: 10,
             right: 35,
             child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.stars_rounded,
-                  color: Colors.grey,
-                  size: 30,
-                )),
+              onPressed: () {},
+              icon: Icon(
+                Icons.stars_rounded,
+                color: chatData.likedMember.contains(user)
+                    ? Colors.amberAccent
+                    : Colors.grey,
+                size: 30,
+              ),
+            ),
           ),
 
           /// 채팅방 인원 수
