@@ -7,6 +7,7 @@ abstract mixin class ChatDataProvider {
 class ChatData extends GetxController {
   RxString chatImage = "".obs;
   RxString chatName = "".obs;
+  RxString manager = "".obs;
   RxList member = [].obs;
   RxList likedMember = [].obs;
 }
