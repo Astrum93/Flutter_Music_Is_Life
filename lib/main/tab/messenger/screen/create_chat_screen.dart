@@ -1,10 +1,12 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:MusicIsLife/main/tab/messenger/screen/friends_list_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,7 @@ class CreateChatScreen extends StatefulWidget {
 }
 
 class _CreateChatScreenState extends State<CreateChatScreen>
-    with MessengerDataProvider, ChatDataProvider {
+    with MessengerDataProvider, ChatDataProvider, FirebaseAuthUser {
   @override
   void initState() {
     Get.put(MessengerData());
@@ -103,10 +105,73 @@ class _CreateChatScreenState extends State<CreateChatScreen>
                   icon: Icons.check,
                   iconColor: Colors.greenAccent,
                   borderColor: AppColors.veryDarkGrey,
-                  onTap: () {
-                    print(chatData.chatImage);
-                    print(chatData.member);
-                    print(chatData.chatName);
+                  onTap: () async {
+                    try {
+                      if (chatData.member.isNotEmpty &&
+                          chatData.manager.isNotEmpty &&
+                          chatData.chatName.isNotEmpty) {
+                        chatData.manager.value = user!.email.toString();
+                        chatData.member.add(user!.displayName.toString());
+                        await FirebaseFirestore.instance
+                            .collection('UserChats')
+                            .doc(chatData.chatName.toString())
+                            .set({
+                          'chatImage': chatData.chatImage.toString(),
+                          'chatName': chatData.chatName.toString(),
+                          'manager': chatData.manager.toString(),
+                          'member': chatData.member.toList(),
+                          'likedMember': chatData.likedMember.toList(),
+                          'createdAt': Timestamp.now(),
+                        });
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.redAccent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0),
+                                topRight: Radius.circular(10.0),
+                              ),
+                            ),
+                            content: Text(
+                              '필요한 정보를 입력 해 주세요.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.grey,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.0),
+                                topRight: Radius.circular(10.0),
+                              ),
+                            ),
+                            content: Text(
+                              '알수 없는 오류가 발생하였습니다.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
+                    }
                   },
                 ),
               )
