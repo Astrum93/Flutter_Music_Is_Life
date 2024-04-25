@@ -204,7 +204,7 @@ class _ChatWidgetState extends State<ChatWidget>
                     size: 20,
                   ),
                   width10,
-                  Text('${chatData.member.length + 1}',
+                  Text('${chatData.member.length}',
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
