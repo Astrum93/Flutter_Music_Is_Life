@@ -8,10 +8,12 @@ abstract mixin class MessengerDataProvider {
 
 class MessengerData extends GetxController {
   RxList friendsUserInfoDocs = [].obs;
+  RxList chatRooms = [].obs;
 
   @override
   void onInit() {
     FireStoreDataUtil.currentUserFriendsDoc();
+    FireStoreDataUtil.getUserChats();
     super.onInit();
   }
 
@@ -26,5 +28,9 @@ class MessengerData extends GetxController {
           .doc(id)
           .get());
     }
+  }
+
+  void getUserChatRooms() async {
+    chatRooms.value = await FireStoreDataUtil.getUserChats();
   }
 }
