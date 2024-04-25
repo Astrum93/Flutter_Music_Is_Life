@@ -2,7 +2,6 @@ import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/mypage/add_friends/friend_profile_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
-import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +13,7 @@ class FriendsListWidget extends StatefulWidget {
 }
 
 class _FriendsListWidgetState extends State<FriendsListWidget>
-    with MessengerDataProvider, ChatDataProvider {
+    with ChatDataProvider {
   @override
   void initState() {
     Get.put(ChatData());
@@ -34,11 +33,11 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
         width: MediaQuery.of(context).size.width,
         height: 200,
         child: ListView.builder(
-          itemCount: messengerData.friendsUserInfoDocs.length,
+          itemCount: chatData.friendsUserInfoDocs.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             String userName =
-                messengerData.friendsUserInfoDocs[index].get('userName');
+                chatData.friendsUserInfoDocs[index].get('userName');
             return GestureDetector(
               onTap: () {
                 setState(() {
@@ -52,7 +51,7 @@ class _FriendsListWidgetState extends State<FriendsListWidget>
               child: Column(
                 children: [
                   FriendProfileWidget(
-                      rxList: messengerData.friendsUserInfoDocs,
+                      rxList: chatData.friendsUserInfoDocs,
                       index: index,
                       boxColor: Colors.transparent,
                       borderColor: chatData.member.contains(userName)

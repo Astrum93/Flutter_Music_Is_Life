@@ -22,9 +22,8 @@ class _CreateChatScreenState extends State<CreateChatScreen>
     with MessengerDataProvider, ChatDataProvider, FirebaseAuthUser {
   @override
   void initState() {
-    Get.put(MessengerData());
     Get.put(ChatData());
-    messengerData.getFriendsUserInfo();
+    chatData.getFriendsUserInfo();
     chatData.member.add(user!.displayName.toString());
     chatData.manager.value = user!.email.toString();
     super.initState();
@@ -32,7 +31,6 @@ class _CreateChatScreenState extends State<CreateChatScreen>
 
   @override
   void dispose() {
-    Get.delete<MessengerData>();
     Get.delete<ChatData>();
     super.dispose();
   }
@@ -94,8 +92,8 @@ class _CreateChatScreenState extends State<CreateChatScreen>
               height20,
 
               /// 친구 목록
-              GetBuilder<MessengerData>(
-                builder: (messengerData) {
+              GetBuilder<ChatData>(
+                builder: (chatData) {
                   return const FriendsListWidget();
                 },
               ),
