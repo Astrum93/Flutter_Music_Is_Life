@@ -41,7 +41,11 @@ class _MessengerScreenState extends State<MessengerScreen>
         if (collectionDocs.isEmpty) {
           return const Center(
             child: Text(
-              '우측 상단의 + 버튼을 눌러 새로운 채팅을 시작해 보세요.',
+              '우측 상단의 ➕ 버튼을 눌러 새로운 채팅을 시작해 보세요.',
+              style: TextStyle(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           );
         }
