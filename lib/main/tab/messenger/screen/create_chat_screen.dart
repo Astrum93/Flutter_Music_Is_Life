@@ -5,7 +5,6 @@ import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
 import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
-import 'package:MusicIsLife/main/tab/messenger/data/messenger_data.dart';
 import 'package:MusicIsLife/main/tab/messenger/screen/friends_list_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class CreateChatScreen extends StatefulWidget {
 }
 
 class _CreateChatScreenState extends State<CreateChatScreen>
-    with MessengerDataProvider, ChatDataProvider, FirebaseAuthUser {
+    with ChatDataProvider, FirebaseAuthUser {
   @override
   void initState() {
     Get.put(ChatData());

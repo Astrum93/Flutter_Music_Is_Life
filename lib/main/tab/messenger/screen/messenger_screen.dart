@@ -1,6 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:MusicIsLife/main/tab/messenger/screen/chat_bubble_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,16 +53,26 @@ class _MessengerScreenState extends State<MessengerScreen>
 
         return Scaffold(
           body: ListView.builder(
-              itemCount: collectionDocs.length,
-              itemBuilder: (context, index) {
-                var doc = collectionDocs[index];
-                var chatImage = doc.get('chatImage');
-                var chatName = doc.get('chatName');
-                var member = doc.get('member');
-                var likedMember = doc.get('likedMember');
-                return Column(
-                  children: [
-                    Stack(
+            itemCount: collectionDocs.length,
+            itemBuilder: (context, index) {
+              var doc = collectionDocs[index];
+              var chatImage = doc.get('chatImage');
+              var chatName = doc.get('chatName');
+              var member = doc.get('member');
+              var likedMember = doc.get('likedMember');
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ChatBubbleScreen(
+                            doc: collectionDocs[index],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Stack(
                       alignment: Alignment.center,
                       clipBehavior: Clip.none,
                       children: [
@@ -213,10 +224,12 @@ class _MessengerScreenState extends State<MessengerScreen>
                         ),
                       ],
                     ),
-                    height20,
-                  ],
-                );
-              }),
+                  ),
+                  height20,
+                ],
+              );
+            },
+          ),
         );
       },
     );
