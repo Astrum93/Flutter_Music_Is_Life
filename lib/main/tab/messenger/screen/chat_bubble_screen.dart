@@ -17,12 +17,42 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
   final _controller = TextEditingController();
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
+  /// FireStore에 저장하는 함수
+  Future<void> saveFireStore(
+    chatName,
+  ) async {
+    DateTime now = DateTime.now();
+    DateTime hourTimestamp = DateTime(now.year, now.month, now.day);
+
+    String userDocPath = '${user!.displayName}';
+    String hourDocPath = '$userDocPath/${hourTimestamp.toString()}';
+    String messagesCollectionPath = '$hourDocPath/messages';
+
+    await _fireStore
+        .collection('UserChats')
+        .doc(chatName)
+        .collection(messagesCollectionPath)
+        .add({
+      'sender': user!.displayName,
+      'text': _userMessage,
+      'timestamp': Timestamp.fromDate(now),
+    });
+
+    setState(() {
+      _userMessage = '';
+    });
+
+    _controller.clear();
+
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var chatImage = widget.doc.get('chatImage');
+    // var chatImage = widget.doc.get('chatImage');
     var chatName = widget.doc.get('chatName');
-    var member = widget.doc.get('member');
-    var likedMember = widget.doc.get('likedMember');
+    //var member = widget.doc.get('member');
+    //var likedMember = widget.doc.get('likedMember');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -36,6 +66,11 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: Colors.white,
+                  // image: DecorationImage(
+                  //   fit: BoxFit.fill,
+                  //   opacity: 0.5,
+                  //   image: NetworkImage(chatImage),
+                  // ),
                 ),
                 child: Text(chatName),
               ),
@@ -90,34 +125,5 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
         ),
       ),
     );
-  }
-
-  Future<void> saveFireStore(
-    chatName,
-  ) async {
-    DateTime now = DateTime.now();
-    DateTime hourTimestamp = DateTime(now.year, now.month, now.day);
-
-    String userDocPath = '${user!.displayName}';
-    String hourDocPath = '$userDocPath/${hourTimestamp.toString()}';
-    String messagesCollectionPath = '$hourDocPath/messages';
-
-    await _fireStore
-        .collection('UserChats')
-        .doc(chatName)
-        .collection(messagesCollectionPath)
-        .add({
-      'sender': user!.displayName,
-      'text': _userMessage,
-      'timestamp': Timestamp.fromDate(now),
-    });
-
-    setState(() {
-      _userMessage = '';
-    });
-
-    _controller.clear();
-
-    FocusManager.instance.primaryFocus?.unfocus();
   }
 }
