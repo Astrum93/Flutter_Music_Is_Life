@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ class ChatBubbleScreen extends StatefulWidget {
   State<ChatBubbleScreen> createState() => _ChatBubbleScreenState();
 }
 
-class _ChatBubbleScreenState extends State<ChatBubbleScreen> {
+class _ChatBubbleScreenState extends State<ChatBubbleScreen>
+    with FirebaseAuthUser {
   var _userMessage = '';
 
   @override
@@ -51,7 +53,19 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: _userMessage.trim().isEmpty ? null : () {},
+                    onPressed: _userMessage.trim().isEmpty
+                        ? null
+                        : () {
+                            FirebaseFirestore.instance
+                                .collection('UserChats')
+                                .doc(chatName)
+                                .collection('Chats')
+                                .doc(displayName)
+                                .set({
+                              'chat': _userMessage,
+                              'time': Timestamp.now(),
+                            });
+                          },
                     icon: const Icon(
                       Icons.send,
                       color: Colors.blueAccent,
