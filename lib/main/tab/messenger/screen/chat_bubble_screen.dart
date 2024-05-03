@@ -51,7 +51,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _userMessage.trim().isEmpty ? null : () {},
                     icon: const Icon(
                       Icons.send,
                       color: Colors.blueAccent,
