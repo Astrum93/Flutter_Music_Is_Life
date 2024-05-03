@@ -15,6 +15,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     with FirebaseAuthUser {
   var _userMessage = '';
   final _controller = TextEditingController();
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +92,24 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     );
   }
 
-  Future<void> saveFireStore(chatName) async {
-    await FirebaseFirestore.instance
+  Future<void> saveFireStore(
+    chatName,
+  ) async {
+    DateTime now = DateTime.now();
+    DateTime hourTimestamp = DateTime(now.year, now.month, now.day);
+
+    String userDocPath = '${user!.displayName}';
+    String hourDocPath = '$userDocPath/${hourTimestamp.toString()}';
+    String messagesCollectionPath = '$hourDocPath/messages';
+
+    await _fireStore
         .collection('UserChats')
         .doc(chatName)
-        .collection('Chats')
+        .collection(messagesCollectionPath)
         .add({
-      'user': displayName,
-      'chat': {_userMessage.toString(): Timestamp.now()},
+      'sender': user!.displayName,
+      'text': _userMessage,
+      'timestamp': Timestamp.fromDate(now),
     });
 
     setState(() {
