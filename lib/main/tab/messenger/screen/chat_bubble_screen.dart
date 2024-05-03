@@ -45,6 +45,23 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                 children: [
                   Expanded(
                     child: TextField(
+                      textInputAction: TextInputAction.send,
+                      cursorColor: Colors.grey,
+                      keyboardType: TextInputType.text,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.amber)),
+                        hintText: '메세지를 입력 해주세요.',
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        contentPadding: EdgeInsets.all(4),
+                      ),
                       onChanged: (value) {
                         setState(() {
                           _userMessage = value;
