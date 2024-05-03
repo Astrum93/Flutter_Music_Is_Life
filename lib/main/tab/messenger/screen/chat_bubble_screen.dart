@@ -11,6 +11,8 @@ class ChatBubbleScreen extends StatefulWidget {
 }
 
 class _ChatBubbleScreenState extends State<ChatBubbleScreen> {
+  var _userMessage = '';
+
   @override
   Widget build(BuildContext context) {
     var chatImage = widget.doc.get('chatImage');
@@ -19,14 +21,46 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen> {
     var likedMember = widget.doc.get('likedMember');
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text(chatName)),
-        body: Container(
-          width: 100,
-          height: 100,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Text(chatName),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(chatName),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Text(chatName),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 4),
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _userMessage = value;
+                        });
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.send,
+                      color: Colors.blueAccent,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
