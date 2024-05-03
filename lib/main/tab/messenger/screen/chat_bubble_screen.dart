@@ -14,6 +14,7 @@ class ChatBubbleScreen extends StatefulWidget {
 class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     with FirebaseAuthUser {
   var _userMessage = '';
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +46,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                 children: [
                   Expanded(
                     child: TextField(
+                      controller: _controller,
                       textInputAction: TextInputAction.send,
                       cursorColor: Colors.grey,
                       keyboardType: TextInputType.text,
@@ -72,16 +74,8 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                   IconButton(
                     onPressed: _userMessage.trim().isEmpty
                         ? null
-                        : () {
-                            FirebaseFirestore.instance
-                                .collection('UserChats')
-                                .doc(chatName)
-                                .collection('Chats')
-                                .doc(displayName)
-                                .set({
-                              'chat': _userMessage,
-                              'time': Timestamp.now(),
-                            });
+                        : () async {
+                            await saveFireStore(chatName);
                           },
                     icon: const Icon(
                       Icons.send,
@@ -95,5 +89,24 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
         ),
       ),
     );
+  }
+
+  Future<void> saveFireStore(chatName) async {
+    await FirebaseFirestore.instance
+        .collection('UserChats')
+        .doc(chatName)
+        .collection('Chats')
+        .add({
+      'user': displayName,
+      'chat': {_userMessage.toString(): Timestamp.now()},
+    });
+
+    setState(() {
+      _userMessage = '';
+    });
+
+    _controller.clear();
+
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 }
