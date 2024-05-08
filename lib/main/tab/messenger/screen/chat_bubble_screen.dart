@@ -72,7 +72,45 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                   //   image: NetworkImage(chatImage),
                   // ),
                 ),
-                child: Text(chatName),
+                child: StreamBuilder(
+                  stream: _fireStore
+                      .collection('UserChats')
+                      .doc(chatName)
+                      .collection('messages')
+                      .orderBy('timestamp', descending: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    List<QueryDocumentSnapshot> messages = snapshot.data!.docs;
+
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (!snapshot.hasData ||
+                        snapshot.data == null ||
+                        messages.isEmpty) {
+                      return const Center(
+                        child: Text('작성된 메세지가 없습니다.'),
+                      );
+                    }
+
+                    return ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        var message = messages[index];
+                        return ListTile(
+                          title: Text(message['text']),
+                          subtitle: Text(message['sender']),
+                          // Display other message details as needed
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
             Container(
