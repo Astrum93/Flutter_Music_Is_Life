@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
                           borderRadius: BorderRadius.circular(50),
                           child: loggedUser.isEmpty
                               ? const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: SizedBox(),
                                 )
                               : Image.network(loggedUser['userProfileImage']),
                         );

@@ -18,7 +18,10 @@ class _HotContentsState extends State<HotContents>
       stream: userContentsCollection.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 500,
+          );
         }
 
         if (!snapshot.hasData || snapshot.data == null) {
