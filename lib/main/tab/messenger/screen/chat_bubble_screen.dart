@@ -28,8 +28,9 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     await _fireStore
         .collection('UserChats')
         .doc(chatName)
-        .collection('$hourTimestamp')
-        .add({
+        .collection('messages')
+        .doc('$hourTimestamp')
+        .set({
       'sender': user!.displayName,
       'text': _userMessage,
       'timestamp': Timestamp.fromDate(now),
@@ -73,6 +74,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                   stream: _fireStore
                       .collection('UserChats')
                       .doc(chatName)
+                      .collection('messages')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
