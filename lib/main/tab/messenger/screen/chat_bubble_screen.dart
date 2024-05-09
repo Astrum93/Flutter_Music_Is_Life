@@ -22,16 +22,13 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     chatName,
   ) async {
     DateTime now = DateTime.now();
-    DateTime hourTimestamp = DateTime(now.year, now.month, now.day);
-
-    String userDocPath = '${user!.displayName}';
-    String hourDocPath = '$userDocPath/${hourTimestamp.toString()}';
-    String messagesCollectionPath = '$hourDocPath/messages';
+    DateTime hourTimestamp = DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.microsecond);
 
     await _fireStore
         .collection('UserChats')
         .doc(chatName)
-        .collection(messagesCollectionPath)
+        .collection('$hourTimestamp')
         .add({
       'sender': user!.displayName,
       'text': _userMessage,
@@ -76,12 +73,8 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                   stream: _fireStore
                       .collection('UserChats')
                       .doc(chatName)
-                      .collection('messages')
-                      .orderBy('timestamp', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
-                    List<QueryDocumentSnapshot> messages = snapshot.data!.docs;
-
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     }
@@ -90,23 +83,18 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                         child: CircularProgressIndicator(),
                       );
                     }
-                    if (!snapshot.hasData ||
-                        snapshot.data == null ||
-                        messages.isEmpty) {
+                    if (!snapshot.hasData || snapshot.data == null) {
                       return const Center(
                         child: Text('작성된 메세지가 없습니다.'),
                       );
                     }
 
+                    print(messages);
                     return ListView.builder(
                       itemCount: messages.length,
                       itemBuilder: (context, index) {
                         var message = messages[index];
-                        return ListTile(
-                          title: Text(message['text']),
-                          subtitle: Text(message['sender']),
-                          // Display other message details as needed
-                        );
+                        return Text(message['text']);
                       },
                     );
                   },
