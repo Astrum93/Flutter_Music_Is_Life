@@ -18,9 +18,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   /// FireStore에 저장하는 함수
-  Future<void> saveFireStore(
-    chatName,
-  ) async {
+  Future<void> saveFireStore(chatName) async {
     DateTime now = DateTime.now();
     DateTime hourTimestamp = DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.microsecond);
@@ -62,6 +60,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(4),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   // image: DecorationImage(
@@ -75,30 +74,40 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       .collection('UserChats')
                       .doc(chatName)
                       .collection('messages')
+                      .orderBy('timestamp', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
+                    /// error가 발생한 경우
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     }
+
+                    /// connnectionState가 waiting인 경우
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
+
+                    /// snapshot에 데이터가 없는 경우
                     if (!snapshot.hasData || snapshot.data == null) {
                       return const Center(
                         child: Text('작성된 메세지가 없습니다.'),
                       );
                     }
+
                     QuerySnapshot messagesSnapshot = snapshot.data!;
                     List<QueryDocumentSnapshot> messagesDocs =
                         messagesSnapshot.docs;
-                    print(messagesDocs);
                     return ListView.builder(
                       itemCount: messagesDocs.length,
                       itemBuilder: (context, index) {
+                        /// 각 메세지 문서
                         var message = messagesDocs[index];
-                        return Text(message['text']);
+                        return Text(
+                          message['text'],
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        );
                       },
                     );
                   },
