@@ -90,12 +90,14 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                         child: Text('작성된 메세지가 없습니다.'),
                       );
                     }
-
-                    print(messages);
+                    QuerySnapshot messagesSnapshot = snapshot.data!;
+                    List<QueryDocumentSnapshot> messagesDocs =
+                        messagesSnapshot.docs;
+                    print(messagesDocs);
                     return ListView.builder(
-                      itemCount: messages.length,
+                      itemCount: messagesDocs.length,
                       itemBuilder: (context, index) {
-                        var message = messages[index];
+                        var message = messagesDocs[index];
                         return Text(message['text']);
                       },
                     );
