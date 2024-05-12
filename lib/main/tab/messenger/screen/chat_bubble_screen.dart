@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_bubble_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -106,9 +107,16 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       itemBuilder: (context, index) {
                         /// 각 메세지 문서
                         var message = messagesDocs[index];
-                        return ChatBubbleWidget(
-                          message['text'],
-                          message['sender'].toString() == user!.displayName,
+                        return Column(
+                          children: [
+                            ChatBubbleWidget(
+                              message['text'],
+                              message['sender'].toString() == user!.displayName,
+                              message['sender'],
+                              'https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp',
+                            ),
+                            height10,
+                          ],
                         );
                       },
                     );

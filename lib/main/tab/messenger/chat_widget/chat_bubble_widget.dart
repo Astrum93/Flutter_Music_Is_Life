@@ -18,28 +18,16 @@ class ChatBubbleWidget extends StatelessWidget {
       children: [
         /// 보내는 사람이 본인인 경우
         if (isMe)
-          Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: ChatBubble(
-              clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
-              alignment: Alignment.topRight,
-              margin: const EdgeInsets.only(top: 20),
-              backGroundColor: Colors.blue,
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 40,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        profileImage,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
-                      ),
-                    ),
-                  ),
-                  Container(
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: ChatBubble(
+                  clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
+                  alignment: Alignment.topRight,
+                  margin: const EdgeInsets.only(top: 20),
+                  backGroundColor: Colors.blue,
+                  child: Container(
                     constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.7,
                     ),
@@ -48,24 +36,13 @@ class ChatBubbleWidget extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-
-        /// 보내는 사람이 본인이 아닌 경우
-        if (!isMe)
-          Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: ChatBubble(
-              clipper: ChatBubbleClipper6(type: BubbleType.receiverBubble),
-              backGroundColor: const Color(0xffE7E7ED),
-              margin: const EdgeInsets.only(top: 20),
-              child: Row(
+              Column(
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    radius: 40,
+                    radius: 25,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
@@ -75,7 +52,47 @@ class ChatBubbleWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
+                  Text(
+                    userName,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+        /// 보내는 사람이 본인이 아닌 경우
+        if (!isMe)
+          Row(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 25,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        profileImage,
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    userName,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: ChatBubble(
+                  clipper: ChatBubbleClipper6(type: BubbleType.receiverBubble),
+                  backGroundColor: const Color(0xffE7E7ED),
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Container(
                     constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width * 0.7,
                     ),
@@ -84,9 +101,9 @@ class ChatBubbleWidget extends StatelessWidget {
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           )
       ],
     );
