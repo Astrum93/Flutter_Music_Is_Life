@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_bubble_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -105,15 +106,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       itemBuilder: (context, index) {
                         /// 각 메세지 문서
                         var message = messagesDocs[index];
-                        return Row(
-                          children: [
-                            Text(
-                              message['text'],
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        );
+                        return ChatBubbleWidget(message['text'], true);
                       },
                     );
                   },
