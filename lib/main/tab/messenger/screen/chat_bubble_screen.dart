@@ -75,7 +75,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       .collection('UserChats')
                       .doc(chatName)
                       .collection('messages')
-                      .orderBy('timestamp')
+                      .orderBy('timestamp', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     /// error가 발생한 경우
