@@ -13,33 +13,39 @@ class ChatBubbleWidget extends StatelessWidget {
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         if (isMe)
-          ChatBubble(
-            clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
-            alignment: Alignment.topRight,
-            margin: const EdgeInsets.only(top: 20),
-            backGroundColor: Colors.blue,
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
-              ),
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: ChatBubble(
+              clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
+              alignment: Alignment.topRight,
+              margin: const EdgeInsets.only(top: 20),
+              backGroundColor: Colors.blue,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  message,
+                  style: const TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
         if (!isMe)
-          ChatBubble(
-            clipper: ChatBubbleClipper6(type: BubbleType.receiverBubble),
-            backGroundColor: const Color(0xffE7E7ED),
-            margin: const EdgeInsets.only(top: 20),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
-              ),
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.black),
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: ChatBubble(
+              clipper: ChatBubbleClipper6(type: BubbleType.receiverBubble),
+              backGroundColor: const Color(0xffE7E7ED),
+              margin: const EdgeInsets.only(top: 20),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  message,
+                  style: const TextStyle(color: Colors.black),
+                ),
               ),
             ),
           )
