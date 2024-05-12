@@ -25,6 +25,14 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     DateTime hourTimestamp = DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.microsecond);
 
+    DocumentSnapshot userProfileSnapshot = await FirebaseFirestore.instance
+        .collection('UserInfo')
+        .doc(
+            user!.displayName) // Assuming user's displayName is the document ID
+        .get();
+
+    String? userProfileImage = userProfileSnapshot.get('userProfileImage');
+
     await _fireStore
         .collection('UserChats')
         .doc(chatName)
@@ -33,6 +41,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
         .set({
       'sender': user!.displayName,
       'text': _userMessage,
+      'senderProfileImage': userProfileImage,
       'timestamp': Timestamp.fromDate(now),
     });
 
@@ -113,7 +122,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                               message['text'],
                               message['sender'].toString() == user!.displayName,
                               message['sender'],
-                              'https://i.namu.wiki/i/Bge3xnYd4kRe_IKbm2uqxlhQJij2SngwNssjpjaOyOqoRhQlNwLrR2ZiK-JWJ2b99RGcSxDaZ2UCI7fiv4IDDQ.webp',
+                              message['senderProfileImage'],
                             ),
                             height10,
                           ],
