@@ -61,6 +61,7 @@ dependencies:
   dio: ^5.4.0
   path: ^1.8.3
   beautiful_soup_dart: ^0.3.0
+  flutter_chat_bubble: ^2.0.2
 
 
 dev_dependencies:

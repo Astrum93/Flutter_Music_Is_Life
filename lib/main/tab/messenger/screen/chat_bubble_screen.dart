@@ -47,8 +47,8 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
   Widget build(BuildContext context) {
     // var chatImage = widget.doc.get('chatImage');
     var chatName = widget.doc.get('chatName');
-    //var member = widget.doc.get('member');
-    //var likedMember = widget.doc.get('likedMember');
+    // var member = widget.doc.get('member');
+    // var likedMember = widget.doc.get('likedMember');
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -74,7 +74,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       .collection('UserChats')
                       .doc(chatName)
                       .collection('messages')
-                      .orderBy('timestamp', descending: true)
+                      .orderBy('timestamp')
                       .snapshots(),
                   builder: (context, snapshot) {
                     /// error가 발생한 경우
@@ -82,7 +82,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       return Text('Error: ${snapshot.error}');
                     }
 
-                    /// connnectionState가 waiting인 경우
+                    /// connectionState가 waiting인 경우
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       const Center(
                         child: CircularProgressIndicator(),
@@ -101,12 +101,18 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                         messagesSnapshot.docs;
                     return ListView.builder(
                       itemCount: messagesDocs.length,
+                      reverse: true,
                       itemBuilder: (context, index) {
                         /// 각 메세지 문서
                         var message = messagesDocs[index];
-                        return Text(
-                          message['text'],
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        return Row(
+                          children: [
+                            Text(
+                              message['text'],
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         );
                       },
                     );
