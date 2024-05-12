@@ -106,7 +106,10 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       itemBuilder: (context, index) {
                         /// 각 메세지 문서
                         var message = messagesDocs[index];
-                        return ChatBubbleWidget(message['text'], true);
+                        return ChatBubbleWidget(
+                          message['text'],
+                          message['sender'].toString() == user!.displayName,
+                        );
                       },
                     );
                   },
