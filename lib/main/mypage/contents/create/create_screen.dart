@@ -10,7 +10,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:path/path.dart' as path;
 
 import '../../../../common/widget/box/expanded_box.dart';
 import '../../../../common/widget/box/hash_tag_input_box.dart';
@@ -168,9 +167,6 @@ class _CreateScreenState extends State<CreateScreen> {
     final List hashTags = [];
     hashTags.addAll([hashtag1, hashtag2, hashtag3]);
 
-    // 이미지를 Firebase Storage에 업로드
-    final fileName = path.basename(pickedImage!.path);
-
     // 클라우드 스토리지 버킷에 경로 생성
     final refContentsImage = _storage
         .ref()
@@ -179,8 +175,6 @@ class _CreateScreenState extends State<CreateScreen> {
         .child(title)
         .child('$title.png');
     await refContentsImage.putFile(pickedImage!);
-
-    // 게시글 정보를 Firestore에 저장
 
     // 저장한 이미지 url로 변환
     final myurl = await refContentsImage.getDownloadURL();

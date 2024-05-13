@@ -1,6 +1,8 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/hash_tag_text_button.dart';
+import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HotContents extends StatefulWidget {
@@ -11,7 +13,7 @@ class HotContents extends StatefulWidget {
 }
 
 class _HotContentsState extends State<HotContents>
-    with FirebaseCollectionReference {
+    with FirebaseCollectionReference, FirebaseAuthUser {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -47,7 +49,7 @@ class _HotContentsState extends State<HotContents>
               var contentsImage = doc.get('contentsImage');
               var time = doc.get('time');
               var hashTags = doc.get('hashTags');
-              var likeCount = doc.get('likeCount').toString();
+              var likedMember = doc.get('likedMember');
               var name = doc.get('name');
 
               // Timestamp를 DateTime으로 변환
@@ -218,9 +220,24 @@ class _HotContentsState extends State<HotContents>
                     child: IconButton(
                       color: Colors.white,
                       iconSize: 25,
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border_outlined,
+                      onPressed: () {
+                        if (!likedMember.contains(user!.displayName)) {
+                          userContentsCollection.doc(title).update({
+                            'likedMember':
+                                FieldValue.arrayUnion([user!.displayName])
+                          });
+                        }
+                        if (likedMember.contains(user!.displayName)) {
+                          userContentsCollection.doc(title).update({
+                            'likedMember':
+                                FieldValue.arrayRemove([user!.displayName])
+                          });
+                        }
+                      },
+                      icon: Icon(
+                        likedMember.contains(user!.displayName)
+                            ? Icons.favorite_outlined
+                            : Icons.favorite_border_outlined,
                         color: Colors.pink,
                       ),
                     ),
@@ -231,7 +248,7 @@ class _HotContentsState extends State<HotContents>
                     right: 28,
                     bottom: 50,
                     child: Text(
-                      likeCount,
+                      likedMember.length.toString(),
                       style: TextStyle(
                         color: Colors.pinkAccent.shade100,
                         fontWeight: FontWeight.bold,

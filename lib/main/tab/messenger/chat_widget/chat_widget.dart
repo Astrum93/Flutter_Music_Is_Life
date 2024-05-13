@@ -177,7 +177,7 @@ class _ChatWidgetState extends State<ChatWidget>
               onPressed: () {},
               icon: Icon(
                 Icons.stars_rounded,
-                color: chatData.likedMember.contains(user)
+                color: chatData.likedMember.contains(user!.displayName)
                     ? Colors.amberAccent
                     : Colors.grey,
                 size: 30,
