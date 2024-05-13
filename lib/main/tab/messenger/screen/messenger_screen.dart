@@ -3,7 +3,6 @@ import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/main/tab/messenger/screen/chat_bubble_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MessengerScreen extends StatefulWidget {
@@ -20,8 +19,7 @@ class _MessengerScreenState extends State<MessengerScreen>
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('UserChats')
-          .where('member',
-              arrayContains: FirebaseAuth.instance.currentUser!.displayName)
+          .where('member', arrayContains: user!.displayName)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -181,10 +179,29 @@ class _MessengerScreenState extends State<MessengerScreen>
                           top: 10,
                           right: 35,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (!likedMember.contains(user!.displayName)) {
+                                await FirebaseFirestore.instance
+                                    .collection('UserChats')
+                                    .doc(chatName)
+                                    .update({
+                                  'likedMember': FieldValue.arrayUnion(
+                                      [user!.displayName]),
+                                });
+                              }
+                              if (likedMember.contains(user!.displayName)) {
+                                await FirebaseFirestore.instance
+                                    .collection('UserChats')
+                                    .doc(chatName)
+                                    .update({
+                                  'likedMember': FieldValue.arrayRemove(
+                                      [user!.displayName]),
+                                });
+                              }
+                            },
                             icon: Icon(
                               Icons.stars_rounded,
-                              color: likedMember.contains(user)
+                              color: likedMember.contains(user!.displayName)
                                   ? Colors.amberAccent
                                   : Colors.grey,
                               size: 30,
