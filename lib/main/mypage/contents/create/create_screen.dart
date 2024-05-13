@@ -25,7 +25,7 @@ class CreateScreen extends StatefulWidget {
 
 class _CreateScreenState extends State<CreateScreen> {
 // 좋아요 카운트 변수
-  var likecount = 0;
+  final likedMember = [];
 
   // Firebase 인증된 uid
   final _uid = FirebaseAuth.instance.currentUser!.uid;
@@ -193,7 +193,7 @@ class _CreateScreenState extends State<CreateScreen> {
       'contents': content,
       'time': Timestamp.now(),
       'id': _uid,
-      'likeCount': likecount,
+      'likedMember': likedMember,
       'hashTags': hashTags,
     });
 
