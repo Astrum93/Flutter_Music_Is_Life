@@ -40,15 +40,21 @@ class ChatBubbleWidget extends StatelessWidget {
               ),
               Column(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 25,
-                    child: ClipRRect(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.amber),
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        profileImage,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 25,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          profileImage,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
                   ),
@@ -68,15 +74,21 @@ class ChatBubbleWidget extends StatelessWidget {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    radius: 25,
-                    child: ClipRRect(
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        profileImage,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 25,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          profileImage,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
                   ),
