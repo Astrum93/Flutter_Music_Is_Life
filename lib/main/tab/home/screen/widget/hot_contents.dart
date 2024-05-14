@@ -173,7 +173,7 @@ class _HotContentsState extends State<HotContents>
                             );
                           }
 
-                          // 유저 게시물 컬렉션의 모든 문서
+                          // 유저 정보 컬렉션의 모든 문서
                           final userInfoDoc = snapshot.data!;
 
                           var name = userInfoDoc.get('userName');
