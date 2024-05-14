@@ -72,7 +72,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
             Expanded(
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   // image: DecorationImage(

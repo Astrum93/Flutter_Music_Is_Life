@@ -14,6 +14,8 @@ class HotContents extends StatefulWidget {
 
 class _HotContentsState extends State<HotContents>
     with FirebaseCollectionReference, FirebaseAuthUser {
+  bool isTouched = false;
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -93,26 +95,40 @@ class _HotContentsState extends State<HotContents>
                   /// 게시물 사진
                   Positioned(
                     top: 0,
-                    child: Container(
-                      width: 350,
-                      height: 350,
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                        child: contentsImage.isEmpty
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : Image.network(
-                                contentsImage,
-                                fit: BoxFit.contain,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isTouched = !isTouched;
+                        });
+                        print(isTouched.toString());
+                      },
+                      child: isTouched
+                          ? Container(
+                              width: 350,
+                              height: 350,
+                              child: Placeholder(),
+                            )
+                          : Container(
+                              width: 350,
+                              height: 350,
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent,
                               ),
-                      ),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
+                                child: contentsImage.isEmpty
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : Image.network(
+                                        contentsImage,
+                                        fit: BoxFit.contain,
+                                      ),
+                              ),
+                            ),
                     ),
                   ),
 
