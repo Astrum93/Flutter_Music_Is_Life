@@ -1,3 +1,4 @@
+import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 
@@ -42,8 +43,14 @@ class ChatBubbleWidget extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: -15,
-                      child: Text(time),
+                      bottom: -18,
+                      right: 0,
+                      child: Text(
+                        time,
+                        style: TextStyle(
+                          color: AppColors.veryDarkGrey.withOpacity(0.7),
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -110,19 +117,35 @@ class ChatBubbleWidget extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 5),
-                child: ChatBubble(
-                  clipper: ChatBubbleClipper6(type: BubbleType.receiverBubble),
-                  backGroundColor: const Color(0xffE7E7ED),
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.7,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ChatBubble(
+                      clipper:
+                          ChatBubbleClipper6(type: BubbleType.receiverBubble),
+                      backGroundColor: const Color(0xffE7E7ED),
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.7,
+                        ),
+                        child: Text(
+                          message,
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      message,
-                      style: const TextStyle(color: Colors.black),
-                    ),
-                  ),
+                    Positioned(
+                      bottom: -18,
+                      left: 0,
+                      child: Text(
+                        time,
+                        style: TextStyle(
+                          color: AppColors.veryDarkGrey.withOpacity(0.7),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],

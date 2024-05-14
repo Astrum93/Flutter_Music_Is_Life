@@ -3,6 +3,7 @@ import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_use
 import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_bubble_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChatBubbleScreen extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>> doc;
@@ -121,7 +122,8 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                         DateTime dateTime = message['timestamp'].toDate();
 
                         // DateTime을 포맷팅
-                        String formattedDateTime = dateTime.toString();
+                        String formattedDateTime =
+                            DateFormat.Hm().format(dateTime).toString();
                         return Column(
                           children: [
                             ChatBubbleWidget(
