@@ -116,6 +116,12 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                       itemBuilder: (context, index) {
                         /// 각 메세지 문서
                         var message = messagesDocs[index];
+
+                        // Timestamp를 DateTime으로 변환
+                        DateTime dateTime = message['timestamp'].toDate();
+
+                        // DateTime을 포맷팅
+                        String formattedDateTime = dateTime.toString();
                         return Column(
                           children: [
                             ChatBubbleWidget(
@@ -123,6 +129,7 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                               message['sender'].toString() == user!.displayName,
                               message['sender'],
                               message['senderProfileImage'],
+                              formattedDateTime,
                             ),
                             height10,
                           ],

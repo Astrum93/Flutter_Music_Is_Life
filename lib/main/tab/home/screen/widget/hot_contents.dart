@@ -201,13 +201,13 @@ class _HotContentsState extends State<HotContents>
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                '10.3k',
-                                style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13),
-                              )
+                              // Text(
+                              //   '0',
+                              //   style: TextStyle(
+                              //       color: Colors.grey.shade600,
+                              //       fontWeight: FontWeight.bold,
+                              //       fontSize: 13),
+                              // )
                             ],
                           );
                         }),

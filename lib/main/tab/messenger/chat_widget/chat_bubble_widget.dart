@@ -5,10 +5,11 @@ class ChatBubbleWidget extends StatelessWidget {
   final String message;
   final String profileImage;
   final String userName;
+  final String time;
   final bool isMe;
 
   const ChatBubbleWidget(
-      this.message, this.isMe, this.userName, this.profileImage,
+      this.message, this.isMe, this.userName, this.profileImage, this.time,
       {super.key});
 
   @override
@@ -22,20 +23,29 @@ class ChatBubbleWidget extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),
-                child: ChatBubble(
-                  clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
-                  alignment: Alignment.topRight,
-                  margin: const EdgeInsets.only(top: 20),
-                  backGroundColor: Colors.blue,
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.7,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ChatBubble(
+                      clipper: ChatBubbleClipper6(type: BubbleType.sendBubble),
+                      alignment: Alignment.topRight,
+                      margin: const EdgeInsets.only(top: 20),
+                      backGroundColor: Colors.blue,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.7,
+                        ),
+                        child: Text(
+                          message,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      message,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
+                    Positioned(
+                      bottom: -15,
+                      child: Text(time),
+                    )
+                  ],
                 ),
               ),
               Column(
