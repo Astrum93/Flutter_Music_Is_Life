@@ -117,10 +117,14 @@ class _HomeScreenState extends State<HomeScreen>
                               isTouched = !isTouched;
                             });
                           },
-                          child: const Icon(
-                            Icons.sync,
+                          child: Icon(
+                            isTouched
+                                ? Icons.my_library_music
+                                : Icons.dynamic_feed,
                             size: 20,
-                            color: Colors.amberAccent,
+                            color: isTouched
+                                ? Colors.redAccent
+                                : Colors.blueAccent,
                           ),
                         )
                       ],
