@@ -3,6 +3,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_r
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents_music.dart';
 import 'package:MusicIsLife/main/tab/home/screen/widget/search_music.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,13 +21,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
+  late bool isTouched = false;
+
   @override
   void initState() {
+    super.initState();
     Get.put(HomeData());
     homeData.docsProvider();
     FcmManager.requestPermission();
     FcmManager.initialize();
-    super.initState();
   }
 
   @override
@@ -89,21 +92,28 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
             drawer: const HomeDrawer(),
-            body: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 13),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 13),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [],
+                    ),
+                    const SizedBox(height: 10),
 
                     /// 인기 게시물
-                    HotContents(),
+                    if (isTouched)
+                      const HotContentsMusic()
+                    else
+                      const HotContents(),
 
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
                     /// 메인 컬럼 세 번째 열
-                    Center(
+                    const Center(
                       child: Text(
                         '음악 검색',
                         style: TextStyle(
@@ -115,12 +125,12 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
 
                     /// 메인 컬럼 SizedBox
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                    SearchMusic(),
+                    const SearchMusic(),
 
                     /// 메인 컬럼 SizedBox
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
