@@ -1,9 +1,9 @@
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents_music.dart';
 import 'package:MusicIsLife/main/tab/home/screen/widget/search_music.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with FirebaseCollectionReference, FirebaseAuthUser, HomeDataProvider {
-  late bool isTouched = false;
+  bool isTouched = false;
 
   @override
   void initState() {
@@ -100,15 +100,37 @@ class _HomeScreenState extends State<HomeScreen>
                   children: [
                     const SizedBox(height: 10),
                     Row(
-                      children: [],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Hot Contents🔥',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        width10,
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isTouched = !isTouched;
+                            });
+                          },
+                          child: const Icon(
+                            Icons.sync,
+                            size: 20,
+                            color: Colors.amberAccent,
+                          ),
+                        )
+                      ],
                     ),
                     const SizedBox(height: 10),
 
                     /// 인기 게시물
-                    if (isTouched)
-                      const HotContentsMusic()
-                    else
-                      const HotContents(),
+                    HotContents(
+                      isTouched: isTouched,
+                    ),
 
                     const SizedBox(height: 40),
 
