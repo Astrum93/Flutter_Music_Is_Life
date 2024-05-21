@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../../common/constants.dart';
 
 class HotContents extends StatefulWidget {
-  final bool isTouched;
-
-  const HotContents({required this.isTouched, super.key});
+  const HotContents({super.key});
 
   @override
   State<HotContents> createState() => _HotContentsState();
@@ -18,6 +16,9 @@ class HotContents extends StatefulWidget {
 
 class _HotContentsState extends State<HotContents>
     with FirebaseCollectionReference, FirebaseAuthUser {
+  // 각 게시물의 isTouched
+  List<ValueNotifier<bool>> isTouchedList = [];
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -39,6 +40,12 @@ class _HotContentsState extends State<HotContents>
 
         // 유저 게시물 컬렉션의 모든 문서
         final contentsDocs = snapshot.data!.docs;
+
+        // isTouchedList를 문서 수에 맞춰 초기화
+        if (isTouchedList.length != contentsDocs.length) {
+          isTouchedList = List.generate(
+              contentsDocs.length, (index) => ValueNotifier<bool>(false));
+        }
 
         return SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -62,282 +69,298 @@ class _HotContentsState extends State<HotContents>
               // DateTime을 포맷팅
               String formattedDateTime = dateTime.toString();
 
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  /// 배경
-                  /// 전체 컨테이너
-                  Container(
-                    width: 350,
-                    height: 500,
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                    ),
-                  ),
-
-                  /// 하단 컨테이너
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      width: 350,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        border: Border.all(
-                          color: AppColors.veryDarkGrey,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  /// 게시물 사진
-                  Positioned(
-                    top: 0,
-                    child: Container(
-                      width: 350,
-                      height: 350,
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                        child: contentsImage.isEmpty
-                            ? const Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : widget.isTouched
-                                ? Image.asset(
-                                    '$basePath/thumb/Thumb_Test.jpeg',
-                                    fit: BoxFit.contain,
-                                  )
-                                : Image.network(
-                                    contentsImage,
-                                    fit: BoxFit.contain,
-                                  ),
-                      ),
-                    ),
-                  ),
-
-                  /// 게시물 생성 날짜
-                  Positioned(
-                    right: 10,
-                    bottom: 120,
-                    child: widget.isTouched
-                        ? const SizedBox()
-                        : Text(
-                            formattedDateTime.substring(0, 10),
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey,
+              return ValueListenableBuilder<bool>(
+                  valueListenable: isTouchedList[index],
+                  builder: (context, isTouched, child) {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        /// 배경
+                        /// 전체 컨테이너
+                        Container(
+                          width: 350,
+                          height: 500,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
                             ),
                           ),
-                  ),
+                        ),
 
-                  /// 게시물 제목
-                  Positioned(
-                    left: 10,
-                    bottom: 110,
-                    child: widget.isTouched
-                        ? const SizedBox()
-                        : Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Colors.amber,
-                                width: 2,
-                              ),
-                            ),
-                            child: Text(
-                              title,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                  ),
-
-                  /// 프로필 정보
-                  Positioned(
-                    left: 10,
-                    bottom: 50,
-                    child: widget.isTouched
-                        ? const SizedBox()
-                        : StreamBuilder(
-                            stream: userInfoCollection.doc(name).snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              }
-
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return const Text(
-                                  'No data available',
-                                  style: TextStyle(color: Colors.red),
-                                );
-                              }
-
-                              // 유저 정보 컬렉션의 모든 문서
-                              final userInfoDoc = snapshot.data!;
-
-                              var name = userInfoDoc.get('userName');
-                              var profileImage =
-                                  userInfoDoc.get('userProfileImage');
-
-                              return Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 25,
-                                    backgroundColor: Colors.greenAccent,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Image.network(
-                                        profileImage,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  // Text(
-                                  //   '0',
-                                  //   style: TextStyle(
-                                  //       color: Colors.grey.shade600,
-                                  //       fontWeight: FontWeight.bold,
-                                  //       fontSize: 13),
-                                  // )
-                                ],
-                              );
-                            }),
-                  ),
-
-                  /// 좋아요 버튼
-                  Positioned(
-                    right: 10,
-                    bottom: 60,
-                    child: widget.isTouched
-                        ? const SizedBox()
-                        : IconButton(
-                            color: Colors.white,
-                            iconSize: 25,
-                            onPressed: () {
-                              if (!likedMember.contains(user!.displayName)) {
-                                userContentsCollection.doc(title).update({
-                                  'likedMember':
-                                      FieldValue.arrayUnion([user!.displayName])
-                                });
-                              }
-                              if (likedMember.contains(user!.displayName)) {
-                                userContentsCollection.doc(title).update({
-                                  'likedMember': FieldValue.arrayRemove(
-                                      [user!.displayName])
-                                });
-                              }
-                            },
-                            icon: Icon(
-                              likedMember.contains(user!.displayName)
-                                  ? Icons.favorite_outlined
-                                  : Icons.favorite_border_outlined,
-                              color: Colors.pink,
-                            ),
-                          ),
-                  ),
-
-                  /// 좋아요 개수
-                  Positioned(
-                    right: widget.isTouched ? 0 : 28,
-                    bottom: 50,
-                    child: widget.isTouched
-                        ? SizedBox(
+                        /// 하단 컨테이너
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
                             width: 350,
-                            height: 80,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Let Me Leave You',
-                                    style: TextStyle(
+                            height: 150,
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              border: Border.all(
+                                color: AppColors.veryDarkGrey,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        /// 게시물 사진
+                        Positioned(
+                          top: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              isTouchedList[index].value =
+                                  !isTouchedList[index].value;
+                            },
+                            child: Container(
+                              width: 350,
+                              height: 350,
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
+                                child: contentsImage.isEmpty
+                                    ? const Center(
+                                        child: CircularProgressIndicator(),
+                                      )
+                                    : isTouchedList[index].value
+                                        ? Image.asset(
+                                            '$basePath/thumb/Thumb_Test.jpeg',
+                                            fit: BoxFit.contain,
+                                          )
+                                        : Image.network(
+                                            contentsImage,
+                                            fit: BoxFit.contain,
+                                          ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        /// 게시물 생성 날짜
+                        Positioned(
+                          right: 10,
+                          bottom: 120,
+                          child: isTouchedList[index].value
+                              ? const SizedBox()
+                              : Text(
+                                  formattedDateTime.substring(0, 10),
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                        ),
+
+                        /// 게시물 제목
+                        Positioned(
+                          left: 10,
+                          bottom: 110,
+                          child: isTouchedList[index].value
+                              ? const SizedBox()
+                              : Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Colors.amber,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    title,
+                                    style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                   ),
-                                  Text(
-                                    '그루비룸 (GroovyRoom), GEMINI (제미나이)',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Text(
-                            likedMember.length.toString(),
-                            style: TextStyle(
-                              color: Colors.pinkAccent.shade100,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                  ),
+                                ),
+                        ),
 
-                  /// HashTags
-                  Positioned(
-                    bottom: widget.isTouched ? 10 : 0,
-                    child: widget.isTouched
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.play_circle_outline_rounded,
-                              color: Colors.grey,
-                              size: 45,
-                            ),
-                          )
-                        : Row(
-                            children: [
-                              HashTagTextButton(
-                                onPressed: () {},
-                                text: hashTags[0],
-                              ),
-                              HashTagTextButton(
-                                onPressed: () {},
-                                text: hashTags[1],
-                              ),
-                              HashTagTextButton(
-                                onPressed: () {},
-                                text: hashTags[2],
-                              ),
-                            ],
-                          ),
-                  ),
-                ],
-              );
+                        /// 프로필 정보
+                        Positioned(
+                          left: 10,
+                          bottom: 50,
+                          child: isTouchedList[index].value
+                              ? const SizedBox()
+                              : StreamBuilder(
+                                  stream:
+                                      userInfoCollection.doc(name).snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
+
+                                    if (!snapshot.hasData ||
+                                        snapshot.data == null) {
+                                      return const Text(
+                                        'No data available',
+                                        style: TextStyle(color: Colors.red),
+                                      );
+                                    }
+
+                                    // 유저 정보 컬렉션의 모든 문서
+                                    final userInfoDoc = snapshot.data!;
+
+                                    var name = userInfoDoc.get('userName');
+                                    var profileImage =
+                                        userInfoDoc.get('userProfileImage');
+
+                                    return Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 25,
+                                          backgroundColor: Colors.greenAccent,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: Image.network(
+                                              profileImage,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          name,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        // Text(
+                                        //   '0',
+                                        //   style: TextStyle(
+                                        //       color: Colors.grey.shade600,
+                                        //       fontWeight: FontWeight.bold,
+                                        //       fontSize: 13),
+                                        // )
+                                      ],
+                                    );
+                                  }),
+                        ),
+
+                        /// 좋아요 버튼
+                        Positioned(
+                          right: 10,
+                          bottom: 60,
+                          child: isTouchedList[index].value
+                              ? const SizedBox()
+                              : IconButton(
+                                  color: Colors.white,
+                                  iconSize: 25,
+                                  onPressed: () {
+                                    if (!likedMember
+                                        .contains(user!.displayName)) {
+                                      userContentsCollection.doc(title).update({
+                                        'likedMember': FieldValue.arrayUnion(
+                                            [user!.displayName])
+                                      });
+                                    }
+                                    if (likedMember
+                                        .contains(user!.displayName)) {
+                                      userContentsCollection.doc(title).update({
+                                        'likedMember': FieldValue.arrayRemove(
+                                            [user!.displayName])
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(
+                                    likedMember.contains(user!.displayName)
+                                        ? Icons.favorite_outlined
+                                        : Icons.favorite_border_outlined,
+                                    color: Colors.pink,
+                                  ),
+                                ),
+                        ),
+
+                        /// 좋아요 개수
+                        Positioned(
+                          right: isTouchedList[index].value ? 0 : 28,
+                          bottom: 50,
+                          child: isTouchedList[index].value
+                              ? SizedBox(
+                                  width: 350,
+                                  height: 80,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Let Me Leave You',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        Text(
+                                          '그루비룸 (GroovyRoom), GEMINI (제미나이)',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  likedMember.length.toString(),
+                                  style: TextStyle(
+                                    color: Colors.pinkAccent.shade100,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                        ),
+
+                        /// HashTags
+                        Positioned(
+                          bottom: isTouchedList[index].value ? 10 : 0,
+                          child: isTouchedList[index].value
+                              ? IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.play_circle_outline_rounded,
+                                    color: Colors.grey,
+                                    size: 45,
+                                  ),
+                                )
+                              : Row(
+                                  children: [
+                                    HashTagTextButton(
+                                      onPressed: () {},
+                                      text: hashTags[0],
+                                    ),
+                                    HashTagTextButton(
+                                      onPressed: () {},
+                                      text: hashTags[1],
+                                    ),
+                                    HashTagTextButton(
+                                      onPressed: () {},
+                                      text: hashTags[2],
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      ],
+                    );
+                  });
             },
             separatorBuilder: (context, index) => const SizedBox(width: 20),
           ),
