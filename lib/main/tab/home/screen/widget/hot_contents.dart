@@ -2,9 +2,10 @@ import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/button/hash_tag_text_button.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents_music.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../common/constants.dart';
 
 class HotContents extends StatefulWidget {
   final bool isTouched;
@@ -61,235 +62,282 @@ class _HotContentsState extends State<HotContents>
               // DateTime을 포맷팅
               String formattedDateTime = dateTime.toString();
 
-              if (!widget.isTouched) {
-                return Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    /// 배경
-                    Container(
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  /// 배경
+                  /// 전체 컨테이너
+                  Container(
+                    width: 350,
+                    height: 500,
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                  ),
+
+                  /// 하단 컨테이너
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
                       width: 350,
-                      height: 500,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(
+                          color: AppColors.veryDarkGrey,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  /// 게시물 사진
+                  Positioned(
+                    top: 0,
+                    child: Container(
+                      width: 350,
+                      height: 350,
                       decoration: const BoxDecoration(
                         color: Colors.transparent,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
                         ),
+                        child: contentsImage.isEmpty
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : widget.isTouched
+                                ? Image.asset(
+                                    '$basePath/thumb/Thumb_Test.jpeg',
+                                    fit: BoxFit.contain,
+                                  )
+                                : Image.network(
+                                    contentsImage,
+                                    fit: BoxFit.contain,
+                                  ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        width: 350,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          border: Border.all(
-                            color: AppColors.veryDarkGrey,
+                  ),
+
+                  /// 게시물 생성 날짜
+                  Positioned(
+                    right: 10,
+                    bottom: 120,
+                    child: widget.isTouched
+                        ? const SizedBox()
+                        : Text(
+                            formattedDateTime.substring(0, 10),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.grey,
+                            ),
                           ),
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
+                  ),
+
+                  /// 게시물 제목
+                  Positioned(
+                    left: 10,
+                    bottom: 110,
+                    child: widget.isTouched
+                        ? const SizedBox()
+                        : Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.amber,
+                                width: 2,
+                              ),
+                            ),
+                            child: Text(
+                              title,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                  ),
 
-                    /// 게시물 사진
-                    Positioned(
-                      top: 0,
-                      child: Container(
-                        width: 350,
-                        height: 350,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50),
-                          ),
-                          child: contentsImage.isEmpty
-                              ? const Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : Image.network(
-                                  contentsImage,
-                                  fit: BoxFit.contain,
-                                ),
-                        ),
-                      ),
-                    ),
+                  /// 프로필 정보
+                  Positioned(
+                    left: 10,
+                    bottom: 50,
+                    child: widget.isTouched
+                        ? const SizedBox()
+                        : StreamBuilder(
+                            stream: userInfoCollection.doc(name).snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              }
 
-                    /// 게시물 생성 날짜
-                    Positioned(
-                      right: 10,
-                      bottom: 120,
-                      child: Text(
-                        formattedDateTime.substring(0, 10),
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return const Text(
+                                  'No data available',
+                                  style: TextStyle(color: Colors.red),
+                                );
+                              }
 
-                    /// 게시물 제목
-                    Positioned(
-                      left: 10,
-                      bottom: 110,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.amber,
-                            width: 2,
-                          ),
-                        ),
-                        child: Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
+                              // 유저 정보 컬렉션의 모든 문서
+                              final userInfoDoc = snapshot.data!;
 
-                    /// 프로필 정보
-                    Positioned(
-                      left: 10,
-                      bottom: 50,
-                      child: StreamBuilder(
-                          stream: userInfoCollection.doc(name).snapshots(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const CircularProgressIndicator();
-                            }
+                              var name = userInfoDoc.get('userName');
+                              var profileImage =
+                                  userInfoDoc.get('userProfileImage');
 
-                            if (!snapshot.hasData || snapshot.data == null) {
-                              return const Text(
-                                'No data available',
-                                style: TextStyle(color: Colors.red),
-                              );
-                            }
-
-                            // 유저 정보 컬렉션의 모든 문서
-                            final userInfoDoc = snapshot.data!;
-
-                            var name = userInfoDoc.get('userName');
-                            var profileImage =
-                                userInfoDoc.get('userProfileImage');
-
-                            return Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 25,
-                                  backgroundColor: Colors.greenAccent,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Image.network(
-                                      profileImage,
+                              return Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 25,
+                                    backgroundColor: Colors.greenAccent,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        profileImage,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                // Text(
-                                //   '0',
-                                //   style: TextStyle(
-                                //       color: Colors.grey.shade600,
-                                //       fontWeight: FontWeight.bold,
-                                //       fontSize: 13),
-                                // )
-                              ],
-                            );
-                          }),
-                    ),
+                                  // Text(
+                                  //   '0',
+                                  //   style: TextStyle(
+                                  //       color: Colors.grey.shade600,
+                                  //       fontWeight: FontWeight.bold,
+                                  //       fontSize: 13),
+                                  // )
+                                ],
+                              );
+                            }),
+                  ),
 
-                    /// 좋아요 버튼
-                    Positioned(
-                      right: 10,
-                      bottom: 60,
-                      child: IconButton(
-                        color: Colors.white,
-                        iconSize: 25,
-                        onPressed: () {
-                          if (!likedMember.contains(user!.displayName)) {
-                            userContentsCollection.doc(title).update({
-                              'likedMember':
-                                  FieldValue.arrayUnion([user!.displayName])
-                            });
-                          }
-                          if (likedMember.contains(user!.displayName)) {
-                            userContentsCollection.doc(title).update({
-                              'likedMember':
-                                  FieldValue.arrayRemove([user!.displayName])
-                            });
-                          }
-                        },
-                        icon: Icon(
-                          likedMember.contains(user!.displayName)
-                              ? Icons.favorite_outlined
-                              : Icons.favorite_border_outlined,
-                          color: Colors.pink,
-                        ),
-                      ),
-                    ),
-
-                    /// 좋아요 개수
-                    Positioned(
-                      right: 28,
-                      bottom: 50,
-                      child: Text(
-                        likedMember.length.toString(),
-                        style: TextStyle(
-                          color: Colors.pinkAccent.shade100,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-
-                    /// HashTags
-                    Positioned(
-                      bottom: 0,
-                      child: Row(
-                        children: [
-                          HashTagTextButton(
-                            onPressed: () {},
-                            text: hashTags[0],
+                  /// 좋아요 버튼
+                  Positioned(
+                    right: 10,
+                    bottom: 60,
+                    child: widget.isTouched
+                        ? const SizedBox()
+                        : IconButton(
+                            color: Colors.white,
+                            iconSize: 25,
+                            onPressed: () {
+                              if (!likedMember.contains(user!.displayName)) {
+                                userContentsCollection.doc(title).update({
+                                  'likedMember':
+                                      FieldValue.arrayUnion([user!.displayName])
+                                });
+                              }
+                              if (likedMember.contains(user!.displayName)) {
+                                userContentsCollection.doc(title).update({
+                                  'likedMember': FieldValue.arrayRemove(
+                                      [user!.displayName])
+                                });
+                              }
+                            },
+                            icon: Icon(
+                              likedMember.contains(user!.displayName)
+                                  ? Icons.favorite_outlined
+                                  : Icons.favorite_border_outlined,
+                              color: Colors.pink,
+                            ),
                           ),
-                          HashTagTextButton(
-                            onPressed: () {},
-                            text: hashTags[1],
-                          ),
-                          HashTagTextButton(
-                            onPressed: () {},
-                            text: hashTags[2],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }
+                  ),
 
-              /// hot contents 게시글의 음악 정보 위젯
-              if (widget.isTouched) {
-                return const HotContentsMusic();
-              }
-              return null;
+                  /// 좋아요 개수
+                  Positioned(
+                    right: widget.isTouched ? 0 : 28,
+                    bottom: 50,
+                    child: widget.isTouched
+                        ? SizedBox(
+                            width: 350,
+                            height: 80,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Let Me Leave You',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    '그루비룸 (GroovyRoom), GEMINI (제미나이)',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        : Text(
+                            likedMember.length.toString(),
+                            style: TextStyle(
+                              color: Colors.pinkAccent.shade100,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                  ),
+
+                  /// HashTags
+                  Positioned(
+                    bottom: widget.isTouched ? 10 : 0,
+                    child: widget.isTouched
+                        ? IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.play_circle_outline_rounded,
+                              color: Colors.grey,
+                              size: 45,
+                            ),
+                          )
+                        : Row(
+                            children: [
+                              HashTagTextButton(
+                                onPressed: () {},
+                                text: hashTags[0],
+                              ),
+                              HashTagTextButton(
+                                onPressed: () {},
+                                text: hashTags[1],
+                              ),
+                              HashTagTextButton(
+                                onPressed: () {},
+                                text: hashTags[2],
+                              ),
+                            ],
+                          ),
+                  ),
+                ],
+              );
             },
             separatorBuilder: (context, index) => const SizedBox(width: 20),
           ),
