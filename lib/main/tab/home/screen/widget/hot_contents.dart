@@ -130,7 +130,7 @@ class _HotContentsState extends State<HotContents>
                                     ? const Center(
                                         child: CircularProgressIndicator(),
                                       )
-                                    : isTouchedList[index].value
+                                    : isTouched
                                         ? Image.asset(
                                             '$basePath/thumb/Thumb_Test.jpeg',
                                             fit: BoxFit.contain,
@@ -148,7 +148,7 @@ class _HotContentsState extends State<HotContents>
                         Positioned(
                           right: 10,
                           bottom: 120,
-                          child: isTouchedList[index].value
+                          child: isTouched
                               ? const SizedBox()
                               : Text(
                                   formattedDateTime.substring(0, 10),
@@ -163,7 +163,7 @@ class _HotContentsState extends State<HotContents>
                         Positioned(
                           left: 10,
                           bottom: 110,
-                          child: isTouchedList[index].value
+                          child: isTouched
                               ? const SizedBox()
                               : Container(
                                   padding: const EdgeInsets.all(4),
@@ -190,7 +190,7 @@ class _HotContentsState extends State<HotContents>
                         Positioned(
                           left: 10,
                           bottom: 50,
-                          child: isTouchedList[index].value
+                          child: isTouched
                               ? const SizedBox()
                               : StreamBuilder(
                                   stream:
@@ -254,7 +254,7 @@ class _HotContentsState extends State<HotContents>
                         Positioned(
                           right: 10,
                           bottom: 60,
-                          child: isTouchedList[index].value
+                          child: isTouched
                               ? const SizedBox()
                               : IconButton(
                                   color: Colors.white,
@@ -286,9 +286,9 @@ class _HotContentsState extends State<HotContents>
 
                         /// 좋아요 개수
                         Positioned(
-                          right: isTouchedList[index].value ? 0 : 28,
+                          right: isTouched ? 0 : 28,
                           bottom: 50,
-                          child: isTouchedList[index].value
+                          child: isTouched
                               ? SizedBox(
                                   width: 350,
                                   height: 80,
@@ -331,8 +331,8 @@ class _HotContentsState extends State<HotContents>
 
                         /// HashTags
                         Positioned(
-                          bottom: isTouchedList[index].value ? 10 : 0,
-                          child: isTouchedList[index].value
+                          bottom: isTouched ? 10 : 0,
+                          child: isTouched
                               ? IconButton(
                                   onPressed: () {},
                                   icon: const Icon(
