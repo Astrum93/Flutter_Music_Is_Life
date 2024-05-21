@@ -4,6 +4,7 @@ import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_use
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../../common/constants.dart';
 
@@ -134,7 +135,7 @@ class _HotContentsState extends State<HotContents>
                                         ? Image.asset(
                                             '$basePath/thumb/Thumb_Test.jpeg',
                                             fit: BoxFit.contain,
-                                          )
+                                          ).animate().fade(duration: 3.seconds)
                                         : Image.network(
                                             contentsImage,
                                             fit: BoxFit.contain,
