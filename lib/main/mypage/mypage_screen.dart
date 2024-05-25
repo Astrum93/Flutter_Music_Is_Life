@@ -1,6 +1,7 @@
 import 'package:MusicIsLife/common/widget/button/mini_button.dart';
 import 'package:MusicIsLife/common/widget/music_player.dart';
 import 'package:MusicIsLife/main/mypage/add_friends/add_friends_fragment.dart';
+import 'package:MusicIsLife/main/mypage/music/music_collection/music_collection_screen.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
 import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
@@ -236,16 +237,9 @@ class _MyScreenState extends State<MyScreen> {
                         /// 개인 음악 모음
                         IconButton(
                           onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  '개발 중 입니다.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const MusicCollectionScreen()));
                           },
                           icon: const Icon(
                             Icons.library_music_outlined,
