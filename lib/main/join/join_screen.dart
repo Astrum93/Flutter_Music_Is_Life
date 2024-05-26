@@ -6,7 +6,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/user_info/user_info_d
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../common/constants.dart';
+import '../../common/constant/constants.dart';
 import '../../data/memory/user_join_data.dart';
 import '../login/login_screen.dart';
 

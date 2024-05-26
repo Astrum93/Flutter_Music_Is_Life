@@ -3,7 +3,7 @@ import 'package:MusicIsLife/data/memory/user_join_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../../../common/constants.dart';
+import '../../../../../common/constant/constants.dart';
 
 // Firebase Authentication Instance
 final _auth = FirebaseAuth.instance;

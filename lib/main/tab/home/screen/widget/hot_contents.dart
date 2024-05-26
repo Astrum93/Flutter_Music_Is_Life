@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../../../common/constants.dart';
+import '../../../../../common/constant/constants.dart';
 
 class HotContents extends StatefulWidget {
   const HotContents({super.key});

@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/common/constants.dart';
+import 'package:MusicIsLife/common/constant/constants.dart';
 import 'package:flutter/material.dart';
 
 class MusicPlayer extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/constants.dart';
+import 'package:MusicIsLife/common/constant/constants.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
 
