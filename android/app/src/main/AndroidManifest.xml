@@ -32,6 +32,6 @@
             />
         <meta-data
             android:name="spotifyClientId"
-            android:value="@string/CLIENT_ID" />
+            android:value="com.example.naspace:string/CLIENT_ID" />
     </application>
 </manifest>
