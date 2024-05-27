@@ -1,5 +1,6 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/constant/constants.dart';
+import 'package:MusicIsLife/common/spotify/spotify.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ class MusicCollectionScreen extends StatefulWidget {
 }
 
 class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
+  final Spotify spotify = Spotify();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -245,7 +248,7 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // playSong();
+            spotify.playSong();
           },
           backgroundColor: AppColors.veryDarkGrey,
           splashColor: Colors.amberAccent.withOpacity(0.5),
@@ -258,15 +261,4 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
       ),
     );
   }
-
-// playSong() async {
-//   var res = await SpotifySdk.connectToSpotifyRemote(
-//       clientId: ,
-//       redirectUrl: "YOUR_APP_NAME://",
-//       scope:
-//           "app-remote-control,user-modify-playback-state,playlist-read-private");
-//   print(res);
-//   var trackId = "0ct6r3EGTcMLPtrXHDvVjc";
-//   SpotifySdk.play(spotifyUri: "spotify:track:$trackId");
-// }
 }
