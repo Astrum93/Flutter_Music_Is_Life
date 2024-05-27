@@ -30,8 +30,5 @@
             android:name="flutterEmbedding"
             android:value="2"
             />
-        <meta-data
-            android:name="spotifyClientId"
-            android:value="com.example.naspace:string/CLIENT_ID" />
     </application>
 </manifest>

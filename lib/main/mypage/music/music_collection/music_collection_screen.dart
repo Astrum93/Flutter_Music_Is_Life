@@ -244,7 +244,9 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            // playSong();
+          },
           backgroundColor: AppColors.veryDarkGrey,
           splashColor: Colors.amberAccent.withOpacity(0.5),
           child: const Icon(
@@ -256,4 +258,15 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
       ),
     );
   }
+
+// playSong() async {
+//   var res = await SpotifySdk.connectToSpotifyRemote(
+//       clientId: ,
+//       redirectUrl: "YOUR_APP_NAME://",
+//       scope:
+//           "app-remote-control,user-modify-playback-state,playlist-read-private");
+//   print(res);
+//   var trackId = "0ct6r3EGTcMLPtrXHDvVjc";
+//   SpotifySdk.play(spotifyUri: "spotify:track:$trackId");
+// }
 }
