@@ -247,8 +247,9 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            spotify.playSong();
+          onPressed: () async {
+            final musics = await spotify.searchMusic('바람이 분다');
+            debugPrint(musics.toString());
           },
           backgroundColor: AppColors.veryDarkGrey,
           splashColor: Colors.amberAccent.withOpacity(0.5),
