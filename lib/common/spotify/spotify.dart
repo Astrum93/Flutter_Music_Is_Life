@@ -27,6 +27,24 @@ class Spotify {
     }
   }
 
+  Future<List<dynamic>> searchMusic(String query) async {
+    final token = await getAccessToken();
+    final response = await http.get(
+      Uri.parse('https://api.spotify.com/v1/search?q=$query&type=track'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      return json['tracks']['items'];
+    } else {
+      throw Exception('Failed to search tracks');
+    }
+  }
+
+  /// 기기에 Spotify 앱이 설치되어 있어야 사용 가능
   playSong() async {
     var res = await SpotifySdk.connectToSpotifyRemote(
         clientId: clientId,
