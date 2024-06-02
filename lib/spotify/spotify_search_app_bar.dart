@@ -1,11 +1,13 @@
 import 'package:MusicIsLife/main/mypage/music/music_collection/music_collection_screen.dart';
+import 'package:MusicIsLife/spotify/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 
 class SpotifySearchAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final TextEditingController? controller;
+  final SpotifyWebApiService spotifyWebApiService = SpotifyWebApiService();
 
-  const SpotifySearchAppBar({this.controller, super.key});
+  SpotifySearchAppBar({this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,9 @@ class SpotifySearchAppBar extends StatelessWidget
                     ),
                     contentPadding: EdgeInsets.all(10),
                   ),
+                  onChanged: (value) {
+                    spotifyWebApiService.searchMusic(value);
+                  },
                 ),
               ),
             ],
