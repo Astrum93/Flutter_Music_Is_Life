@@ -1,4 +1,3 @@
-import 'package:MusicIsLife/main/mypage/music/music_collection/music_collection_screen.dart';
 import 'package:MusicIsLife/spotify/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +19,7 @@ class SpotifySearchAppBar extends StatelessWidget
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const MusicCollectionScreen()));
+                  Navigator.of(context).pop();
                 },
                 child: const Icon(
                   Icons.arrow_back_ios,
