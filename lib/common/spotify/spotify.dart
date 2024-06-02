@@ -28,8 +28,8 @@ class Spotify {
     }
   }
 
-  Future<List<dynamic>> searchMusic(String query) async {
-    List<dynamic> result = [];
+  Future<List<Map<dynamic, dynamic>>> searchMusic(String query) async {
+    List<Map<dynamic, dynamic>> result = [];
     final token = await getAccessToken();
     final response = await http.get(
       Uri.parse('https://api.spotify.com/v1/search?q=$query&type=track'),
@@ -40,14 +40,22 @@ class Spotify {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-      final String trackImage =
-          json['tracks']['items'][0]['album']['images'][0]['url'];
-      debugPrint(trackImage);
-      final String trackName = json['tracks']['items'][1]['name'];
-      debugPrint(trackName);
-      final String artistsName =
-          json['tracks']['items'][0]['album']['artists'][0]['name'];
-      debugPrint(artistsName);
+
+      for (var item in json['tracks']['items']) {
+        final String trackImage = item['album']['images'][0]['url'];
+        final String trackName = item['name'];
+        final String artistsName = item['artists'][0]['name'];
+
+        Map<dynamic, dynamic> trackInfo = {
+          'trackImage': trackImage,
+          'trackName': trackName,
+          'artistsName': artistsName,
+        };
+
+        result.add(trackInfo);
+      }
+      debugPrint(result.toString());
+
       return result;
     } else {
       throw Exception('Failed to search tracks');
@@ -61,7 +69,7 @@ class Spotify {
         redirectUrl: "YOUR_APP_NAME://",
         scope:
             "app-remote-control,user-modify-playback-state,playlist-read-private");
-    print(res);
+    debugPrint(res.toString());
     SpotifySdk.play(spotifyUri: "spotify:track:$trackId");
   }
 }
