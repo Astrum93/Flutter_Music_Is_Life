@@ -3,7 +3,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_r
 import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
 import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
 import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/search_music.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/search_youtube_music.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen>
                   /// 메인 컬럼 SizedBox
                   SizedBox(height: 20),
 
-                  SearchMusic(),
+                  SearchYoutubeMusic(),
 
                   /// 메인 컬럼 SizedBox
                   SizedBox(height: 40),
