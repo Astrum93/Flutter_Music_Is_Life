@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen>
                   /// 메인 컬럼 세 번째 열
                   Center(
                     child: Text(
-                      '음악 검색',
+                      'Youtube 영상 검색',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
