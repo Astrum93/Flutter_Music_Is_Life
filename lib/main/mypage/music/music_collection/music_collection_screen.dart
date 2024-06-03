@@ -1,8 +1,8 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/constant/constants.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
 import 'package:MusicIsLife/spotify/sporify_search_screen.dart';
-import 'package:MusicIsLife/spotify/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 
 class MusicCollectionScreen extends StatefulWidget {

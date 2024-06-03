@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:spotify_sdk/spotify_sdk.dart';
 
-class SpotifyWebApiService {
+class SpotifyWebApiService extends GetxController {
   final String clientId = dotenv.env['CLIENT_ID'] ?? '';
   final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
 

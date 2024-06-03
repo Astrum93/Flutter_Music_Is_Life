@@ -1,4 +1,4 @@
-import 'package:MusicIsLife/spotify/spotify_web_api_service.dart';
+import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 
 class SpotifySearchAppBar extends StatelessWidget
