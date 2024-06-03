@@ -1,14 +1,10 @@
-import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
+import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
 import 'package:flutter/material.dart';
 
 class SpotifySearchAppBar extends StatelessWidget
-    with SpotifyWebApiServiceDataProvider
+    with SpotifySearchDataProvider
     implements PreferredSizeWidget {
-  final TextEditingController? controller;
-
-  SpotifySearchAppBar({required this.controller, super.key});
-
-  final SpotifyWebApiService spotifyWebApiService = SpotifyWebApiService();
+  SpotifySearchAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +18,7 @@ class SpotifySearchAppBar extends StatelessWidget
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop();
-                  spotifyData.searchResult.clear();
+                  spotifySearchData.searchResult.clear();
                 },
                 child: const Icon(
                   Icons.arrow_back_ios,
@@ -31,7 +27,6 @@ class SpotifySearchAppBar extends StatelessWidget
               ),
               Expanded(
                 child: TextFormField(
-                  controller: controller,
                   textInputAction: TextInputAction.search,
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
@@ -49,8 +44,8 @@ class SpotifySearchAppBar extends StatelessWidget
                     ),
                     contentPadding: EdgeInsets.all(10),
                   ),
-                  onChanged: (value) {
-                    spotifyWebApiService.searchMusic(value);
+                  onFieldSubmitted: (value) async {
+                    await spotifySearchData.searchMusic(value);
                   },
                 ),
               ),
