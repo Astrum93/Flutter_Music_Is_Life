@@ -47,16 +47,10 @@ class SpotifySearchAppBar extends StatelessWidget
                     ),
                     contentPadding: EdgeInsets.all(10),
                   ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  spotifySearchData.searchResult.clear();
-                  spotifySearchData.searchMusic(controller.text);
-                },
-                child: const Icon(
-                  Icons.search_rounded,
-                  color: Colors.amberAccent,
+                  onFieldSubmitted: (value) {
+                    spotifySearchData.searchResult.clear();
+                    spotifySearchData.searchMusic(value);
+                  },
                 ),
               ),
             ],
