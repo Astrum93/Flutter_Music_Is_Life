@@ -2,11 +2,13 @@ import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 
 class SpotifySearchAppBar extends StatelessWidget
+    with SpotifyWebApiServiceDataProvider
     implements PreferredSizeWidget {
   final TextEditingController? controller;
-  final SpotifyWebApiService spotifyWebApiService = SpotifyWebApiService();
 
-  SpotifySearchAppBar({this.controller, super.key});
+  SpotifySearchAppBar({required this.controller, super.key});
+
+  final SpotifyWebApiService spotifyWebApiService = SpotifyWebApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class SpotifySearchAppBar extends StatelessWidget
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop();
+                  spotifyData.searchResult.clear();
                 },
                 child: const Icon(
                   Icons.arrow_back_ios,
