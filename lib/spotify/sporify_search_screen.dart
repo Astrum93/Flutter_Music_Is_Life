@@ -3,6 +3,7 @@ import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
 import 'package:MusicIsLife/spotify/spotify_search_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SpotifySearchScreen extends StatefulWidget {
   const SpotifySearchScreen({super.key});
@@ -11,8 +12,27 @@ class SpotifySearchScreen extends StatefulWidget {
   State<SpotifySearchScreen> createState() => _SpotifySearchScreenState();
 }
 
-class _SpotifySearchScreenState extends State<SpotifySearchScreen> {
+class _SpotifySearchScreenState extends State<SpotifySearchScreen>
+    with SpotifyWebApiServiceDataProvider {
   final SpotifyWebApiService spotifyWebApiService = SpotifyWebApiService();
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    Get.put(SpotifyWebApiService());
+    controller.addListener(() {
+      /// 유저 정보를 검색하는 searchUserInfo 실행
+      spotifyData.spotifySearchMusic(controller.text);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    /// *** delete는 Generic Type으로 관리 ***
+    Get.delete<SpotifyWebApiService>();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +40,9 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            SpotifySearchAppBar(),
+            SpotifySearchAppBar(
+              controller: controller,
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: 5,
