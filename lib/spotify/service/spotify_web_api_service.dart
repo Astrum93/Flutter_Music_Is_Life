@@ -68,6 +68,15 @@ class SpotifyWebApiService extends GetxController {
     }
   }
 
+  /// 스포티파이 음악 검색 AppBar
+  void spotifySearchMusic(String keyword) async {
+    if (keyword.isEmpty) {
+      searchResult.clear();
+      return;
+    }
+    await searchMusic(keyword);
+  }
+
   /// 기기에 Spotify 앱이 설치 되어 있어야 사용 가능
   playSong(String trackId) async {
     var res = await SpotifySdk.connectToSpotifyRemote(
