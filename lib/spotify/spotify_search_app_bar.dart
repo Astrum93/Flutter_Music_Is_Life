@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class SpotifySearchAppBar extends StatelessWidget
     with SpotifySearchDataProvider
     implements PreferredSizeWidget {
-  SpotifySearchAppBar({super.key});
+  final TextEditingController controller;
+
+  SpotifySearchAppBar({required this.controller, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,8 @@ class SpotifySearchAppBar extends StatelessWidget
               ),
               Expanded(
                 child: TextFormField(
-                  textInputAction: TextInputAction.search,
+                  controller: controller,
+                  textInputAction: TextInputAction.done,
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.text,
                   style: const TextStyle(
@@ -44,9 +47,16 @@ class SpotifySearchAppBar extends StatelessWidget
                     ),
                     contentPadding: EdgeInsets.all(10),
                   ),
-                  onFieldSubmitted: (value) async {
-                    await spotifySearchData.searchMusic(value);
-                  },
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  spotifySearchData.searchResult.clear();
+                  spotifySearchData.searchMusic(controller.text);
+                },
+                child: const Icon(
+                  Icons.search_rounded,
+                  color: Colors.amberAccent,
                 ),
               ),
             ],

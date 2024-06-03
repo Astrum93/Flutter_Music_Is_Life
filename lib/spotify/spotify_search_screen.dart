@@ -14,7 +14,7 @@ class SpotifySearchScreen extends StatefulWidget {
 
 class _SpotifySearchScreenState extends State<SpotifySearchScreen>
     with SpotifySearchDataProvider {
-  // final TextEditingController controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -39,14 +39,16 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
       child: Scaffold(
         body: Column(
           children: [
-            SpotifySearchAppBar(),
-            spotifySearchData.searchResult.isEmpty
-                ? const Text(
-                    '스포티파이를 사용하는 검색입니다. \n되도록 영어로 써주세요!',
-                    style: TextStyle(color: Colors.redAccent),
-                  )
-                : Obx(
-                    () => Expanded(
+            SpotifySearchAppBar(
+              controller: controller,
+            ),
+            Obx(
+              () => spotifySearchData.searchResult.isEmpty
+                  ? const Text(
+                      '스포티파이를 사용하는 검색입니다. \n되도록 영어로 써주세요!',
+                      style: TextStyle(color: Colors.redAccent),
+                    )
+                  : Expanded(
                       child: ListView.builder(
                         itemCount: spotifySearchData.searchResult.length,
                         itemBuilder: (context, index) {
@@ -101,7 +103,7 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                         },
                       ),
                     ),
-                  ),
+            )
           ],
         ),
       ),
