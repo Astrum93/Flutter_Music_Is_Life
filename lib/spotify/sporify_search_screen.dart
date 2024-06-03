@@ -43,52 +43,59 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
             SpotifySearchAppBar(
               controller: controller,
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      width: MediaQuery.of(context).size.width - 10,
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 30,
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(30),
+            Obx(
+              () => Expanded(
+                child: ListView.builder(
+                  itemCount: spotifyData.searchResult.length,
+                  itemBuilder: (context, index) {
+                    var result = spotifyData.searchResult[index];
+                    var trackImage = result['trackImage'] ?? baseProfileImage;
+                    var trackName = result['trackName'] ?? '';
+                    var artistsName = result['artistsName'] ?? '';
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          width: MediaQuery.of(context).size.width - 10,
+                          height: 150,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                          ),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                radius: 30,
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                  child: Image.network(trackImage),
+                                ),
                               ),
-                              child: Image.network(baseProfileImage),
-                            ),
+                              Text(
+                                trackName,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                artistsName,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
                           ),
-                          const Text(
-                            '음악 제목',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const Text(
-                            '가수 이름',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    height10,
-                  ],
+                        ),
+                        height10,
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
