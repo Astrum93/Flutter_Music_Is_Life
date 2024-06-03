@@ -6,9 +6,15 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:spotify_sdk/spotify_sdk.dart';
 
+abstract mixin class SpotifyWebApiServiceDataProvider {
+  /// late 키워드를 사용하는 이유는 state생성이 initState보다 빠르기 때문
+  late final spotifyData = Get.find<SpotifyWebApiService>();
+}
+
 class SpotifyWebApiService extends GetxController {
   final String clientId = dotenv.env['CLIENT_ID'] ?? '';
   final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
+  final RxList searchResult = [].obs;
 
   Future<String> getAccessToken() async {
     final response = await http.post(
@@ -29,8 +35,7 @@ class SpotifyWebApiService extends GetxController {
     }
   }
 
-  Future<List<Map<dynamic, dynamic>>> searchMusic(String query) async {
-    List<Map<dynamic, dynamic>> result = [];
+  Future<RxList> searchMusic(String query) async {
     final token = await getAccessToken();
     final response = await http.get(
       Uri.parse('https://api.spotify.com/v1/search?q=$query&type=track'),
@@ -53,11 +58,11 @@ class SpotifyWebApiService extends GetxController {
           'artistsName': artistsName,
         };
 
-        result.add(trackInfo);
+        searchResult.add(trackInfo);
       }
-      debugPrint(result.toString());
+      debugPrint(searchResult.toString());
 
-      return result;
+      return searchResult;
     } else {
       throw Exception('Failed to search tracks');
     }
