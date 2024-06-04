@@ -1,7 +1,10 @@
 import 'package:MusicIsLife/common/constant/constants.dart';
+import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
 import 'package:MusicIsLife/spotify/spotify_search_app_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,16 +16,12 @@ class SpotifySearchScreen extends StatefulWidget {
 }
 
 class _SpotifySearchScreenState extends State<SpotifySearchScreen>
-    with SpotifySearchDataProvider {
+    with SpotifySearchDataProvider, FirebaseAuthUser {
   final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     Get.put(SpotifySearchData());
-    // controller.addListener(() {
-    //   /// 유저 정보를 검색하는 searchUserInfo 실행
-    //   spotifySearchData.searchMusic(controller.text);
-    // });
     super.initState();
   }
 
@@ -31,6 +30,33 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
     /// *** delete는 Generic Type으로 관리 ***
     Get.delete<SpotifySearchData>();
     super.dispose();
+  }
+
+  void saveFireStore(trackName, trackImage, artistsName) async {
+    try {
+      if (user!.displayName!.isNotEmpty &&
+          trackName != null &&
+          trackImage != null &&
+          artistsName != null) {
+        await FirebaseFirestore.instance
+            .collection('UserInfo')
+            .doc(user!.displayName)
+            .collection('UserPlayList')
+            .doc(trackName)
+            .set({
+          'trackName': trackName,
+          'trackImage': trackImage,
+          'artistsName': artistsName,
+          'time': DateTime.now(),
+        });
+        if (mounted) {
+          CustomSnackBar.buildTopRoundedSnackBar(
+              context, '추가가 완료되었습니다.', Colors.greenAccent, Colors.black, 3);
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override
@@ -101,6 +127,23 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey,
                                             ),
+                                          ),
+                                          height20,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  saveFireStore(trackName,
+                                                      trackImage, artistsName);
+                                                },
+                                                child: const Icon(
+                                                  Icons.add,
+                                                  color: Colors.greenAccent,
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ],
                                       ),

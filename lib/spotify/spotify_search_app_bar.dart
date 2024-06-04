@@ -6,7 +6,7 @@ class SpotifySearchAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final TextEditingController controller;
 
-  SpotifySearchAppBar({required this.controller, Key? key}) : super(key: key);
+  SpotifySearchAppBar({required this.controller, super.key});
 
   @override
   Widget build(BuildContext context) {
