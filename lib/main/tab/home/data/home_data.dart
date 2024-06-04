@@ -1,4 +1,5 @@
 import 'package:MusicIsLife/data/memory/firebase/firestore/fire_store_data_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -12,14 +13,22 @@ class HomeData extends GetxController {
   List homeContentsData = [];
   RxList userInfo = [].obs;
   RxList contents = [].obs;
+  RxList userPlayList = [].obs;
   RxMap loggedUser = {}.obs;
 
   @override
   void onInit() {
     FireStoreDataUtil.getUserInfoDoc();
     FireStoreDataUtil.getContentsDoc();
+    FireStoreDataUtil.getUserPlayListDoc();
     FireStoreDataUtil.currentUserDoc();
     super.onInit();
+  }
+
+  void userPlayListCreate() async {
+    final List<DocumentSnapshot> userPlayListDataDocs =
+        await FireStoreDataUtil.getUserPlayListDoc();
+    userPlayList.value = userPlayListDataDocs.toList();
   }
 
   Future<void> docsProvider() async {
