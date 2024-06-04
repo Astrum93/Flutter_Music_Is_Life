@@ -48,6 +48,17 @@ class FireStoreDataUtil {
     final docs = userChatSnapshot.docs;
     return docs;
   }
+
+  /// 모든 UserPlayList Docs
+  static Future<List<DocumentSnapshot>> getUserPlayListDoc() async {
+    final userPlayListSnapshot = await FirebaseFirestore.instance
+        .collection('UserInfo')
+        .doc(FirebaseAuth.instance.currentUser!.displayName)
+        .collection('UserPlayList')
+        .get();
+    final docs = userPlayListSnapshot.docs;
+    return docs;
+  }
 }
 
 /// DocumentSnapshot을 RxMap으로 바꿔주는 extension
