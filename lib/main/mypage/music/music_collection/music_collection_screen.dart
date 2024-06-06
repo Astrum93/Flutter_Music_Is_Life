@@ -17,6 +17,8 @@ class MusicCollectionScreen extends StatefulWidget {
 
 class _MusicCollectionScreenState extends State<MusicCollectionScreen>
     with FirebaseAuthUser, HomeDataProvider {
+  void deleteTrack() {}
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,51 +60,76 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
                     var artistsName = track['artistsName'] ?? '';
                     return Column(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          width: MediaQuery.of(context).size.width - 10,
-                          height: 150,
-                          decoration: const BoxDecoration(
-                            color: Colors.transparent,
+                        Dismissible(
+                          key: ValueKey(index),
+                          background: Container(
+                            decoration: const BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(8),
+                              ),
+                            ),
+                            child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Width(20),
+                                Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.white,
+                                ),
+                                Width(20),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(30),
+                          onDismissed: (direction) {
+                            deleteTrack();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            width: MediaQuery.of(context).size.width - 10,
+                            height: 150,
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                  child: Image.network(trackImage),
                                 ),
-                                child: Image.network(trackImage),
-                              ),
-                              width30,
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      trackName,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                width30,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        trackName,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      artistsName,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
+                                      Text(
+                                        artistsName,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         height10,
