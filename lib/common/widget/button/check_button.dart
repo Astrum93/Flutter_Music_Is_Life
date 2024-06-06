@@ -8,16 +8,19 @@ class CheckButton extends StatelessWidget {
   final Color borderColor;
   final IconData? icon;
   final Color? iconColor;
+  final double? iconSize;
 
-  const CheckButton(
-      {super.key,
-      this.onTap,
-      this.width,
-      this.height,
-      this.boxColor,
-      required this.borderColor,
-      this.icon,
-      this.iconColor});
+  const CheckButton({
+    super.key,
+    this.onTap,
+    this.width,
+    this.height,
+    this.boxColor,
+    required this.borderColor,
+    this.icon,
+    this.iconColor,
+    this.iconSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class CheckButton extends StatelessWidget {
           child: Icon(
             icon,
             color: iconColor,
+            size: iconSize,
           ),
         ),
       ),
