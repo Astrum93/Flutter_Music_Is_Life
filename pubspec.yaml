@@ -116,12 +116,10 @@ flutter:
     - assets/image/pink_planet.png
 
     # Logo
-    - assets/logo/NA1.png
-    - assets/logo/NA2.png
     - assets/logo/NAspace.png
-    - assets/logo/NAspace2.png
-    - assets/logo/logo5.png
+    - assets/logo/something.png
     - assets/logo/music_is_life.png
+    - assets/logo/music_is_life_logo.png
 
 
     # profile
