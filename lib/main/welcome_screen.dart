@@ -24,17 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               right: 0,
               top: 100,
               child: Image.asset(
-                'assets/logo/logo5.png',
-                scale: 0.5,
-              ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 300,
-              child: Image.asset(
-                'assets/logo/music_is_life.png',
-                scale: 0.5,
+                'assets/logo/music_is_life_logo.png',
               ),
             ),
             Positioned(
