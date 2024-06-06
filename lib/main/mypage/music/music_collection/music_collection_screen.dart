@@ -17,7 +17,15 @@ class MusicCollectionScreen extends StatefulWidget {
 
 class _MusicCollectionScreenState extends State<MusicCollectionScreen>
     with FirebaseAuthUser, HomeDataProvider {
-  void deleteTrack() {}
+  void deleteTrack(int index, String trackName) {
+    FirebaseFirestore.instance
+        .collection('UserInfo')
+        .doc(FirebaseAuth.instance.currentUser!.displayName)
+        .collection('UserPlayList')
+        .doc(trackName)
+        .delete();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +90,7 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
                             ),
                           ),
                           onDismissed: (direction) {
-                            deleteTrack();
+                            deleteTrack(index, trackName);
                           },
                           child: Container(
                             padding: const EdgeInsets.all(8),
