@@ -2,7 +2,9 @@
 
 import 'dart:io';
 
+import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/short_line.dart';
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../common/widget/box/expanded_box.dart';
 import '../../../../common/widget/box/hash_tag_input_box.dart';
 import '../../mypage_screen.dart';
 
@@ -336,7 +337,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     radius: const Radius.circular(10),
                                     dashPattern: const [10, 4],
                                     strokeCap: StrokeCap.round,
-                                    color: Colors.blue.shade400,
+                                    color: Colors.white,
                                     child: _buildImagePreview(),
                                   ),
                                 ),
@@ -353,7 +354,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   radius: const Radius.circular(10),
                                   dashPattern: const [10, 4],
                                   strokeCap: StrokeCap.round,
-                                  color: Colors.blue.shade400,
+                                  color: Colors.white,
 
                                   // 입력 창
                                   child: TextField(
@@ -362,6 +363,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     decoration: const InputDecoration(
                                       hintText: ' 게시물 제목을 입력해 주세요.',
                                       hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
@@ -374,7 +376,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   radius: const Radius.circular(10),
                                   dashPattern: const [10, 4],
                                   strokeCap: StrokeCap.round,
-                                  color: Colors.blue.shade400,
+                                  color: Colors.white,
 
                                   // 입력 창
                                   child: TextField(
@@ -383,6 +385,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     decoration: const InputDecoration(
                                       hintText: ' 내용을 입력해 주세요.',
                                       hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
@@ -393,6 +396,8 @@ class _CreateScreenState extends State<CreateScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       // 해시태그
                                       HashTagInputBox(
@@ -400,14 +405,10 @@ class _CreateScreenState extends State<CreateScreen> {
                                         controller: _hashtagController1,
                                       ),
 
-                                      const ExpandedBox(),
-
                                       HashTagInputBox(
                                         text: ' 해시태그',
                                         controller: _hashtagController2,
                                       ),
-
-                                      const ExpandedBox(),
 
                                       HashTagInputBox(
                                         text: ' 해시태그',
@@ -417,11 +418,35 @@ class _CreateScreenState extends State<CreateScreen> {
                                   ),
                                 ),
 
-                                const SizedBox(height: 20),
+                                const Height(40),
+                                const ShortLine(color: Colors.amber),
+                                const Height(10),
 
-                                // Create 버튼 ( time , contents 저장)
-                                TextButton.icon(
-                                  onPressed: () async {
+                                // 게시물 작성
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '게시물 음악 선택',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                const Height(10),
+                                const ShortLine(color: Colors.amber),
+                                const Height(40),
+
+                                CheckButton(
+                                  width: 60,
+                                  height: 60,
+                                  borderColor: Colors.greenAccent,
+                                  icon: Icons.add_rounded,
+                                  iconColor: Colors.greenAccent,
+                                  iconSize: 40,
+                                  onTap: () async {
                                     setState(() {
                                       _loading = true;
                                     });
@@ -432,15 +457,6 @@ class _CreateScreenState extends State<CreateScreen> {
                                       _loading = false;
                                     });
                                   },
-                                  icon: const Icon(
-                                    Icons.arrow_circle_up_rounded,
-                                    size: 50,
-                                  ),
-                                  label: const Text(
-                                    'Create',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 20),
-                                  ),
                                 ),
                               ],
                             )
