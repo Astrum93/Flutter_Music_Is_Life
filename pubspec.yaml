@@ -56,18 +56,21 @@ dependencies:
   nav: ^1.4.3
   intl: ^0.18.1
   flutter_animate: ^4.5.0
+  flutter_chat_bubble: ^2.0.2
 
   # network
   http: ^1.1.0
   dio: ^4.0.6
   path: ^1.8.3
   beautiful_soup_dart: ^0.3.0
-  flutter_chat_bubble: ^2.0.2
 
   # api
   spotify_sdk: ^2.3.1
-  flutter_dotenv: ^5.1.0
 
+  # env
+  flutter_dotenv: ^5.1.0
+  flutter_native_splash: ^2.4.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
