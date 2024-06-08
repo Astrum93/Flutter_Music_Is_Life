@@ -134,11 +134,11 @@ class _HotContentsState extends State<HotContents>
                                     : isTouched
                                         ? Image.asset(
                                             '$basePath/thumb/Thumb_Test.jpeg',
-                                            fit: BoxFit.contain,
+                                            fit: BoxFit.fill,
                                           ).animate().fade(duration: 3.seconds)
                                         : Image.network(
                                             contentsImage,
-                                            fit: BoxFit.contain,
+                                            fit: BoxFit.fill,
                                           ),
                               ),
                             ),
