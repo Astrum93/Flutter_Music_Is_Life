@@ -427,7 +427,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '게시물 음악 선택',
+                                      '게시물 음악 검색',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -437,6 +437,38 @@ class _CreateScreenState extends State<CreateScreen> {
                                 ),
                                 const Height(10),
                                 const ShortLine(color: Colors.amber),
+                                const Height(40),
+
+                                DottedBorder(
+                                  borderType: BorderType.RRect,
+                                  radius: const Radius.circular(10),
+                                  dashPattern: const [10, 4],
+                                  strokeCap: StrokeCap.round,
+                                  color: Colors.white,
+                                  child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 200,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          'assets/logo/spotify_logo.png',
+                                          scale: 2,
+                                        ),
+                                        height10,
+                                        const Text(
+                                          'Spotify에서 검색하기',
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
                                 const Height(40),
 
                                 CheckButton(

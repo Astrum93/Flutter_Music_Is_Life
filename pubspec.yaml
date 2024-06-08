@@ -70,7 +70,7 @@ dependencies:
   # env
   flutter_dotenv: ^5.1.0
   flutter_native_splash: ^2.4.0
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -123,6 +123,7 @@ flutter:
     - assets/logo/something.png
     - assets/logo/music_is_life.png
     - assets/logo/music_is_life_logo.png
+    - assets/logo/spotify_logo.png
 
 
     # profile
