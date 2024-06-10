@@ -418,7 +418,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   ),
                                 ),
 
-                                const Height(40),
+                                const Height(80),
                                 const ShortLine(color: Colors.amber),
                                 const Height(10),
 
@@ -439,33 +439,17 @@ class _CreateScreenState extends State<CreateScreen> {
                                 const ShortLine(color: Colors.amber),
                                 const Height(40),
 
-                                DottedBorder(
-                                  borderType: BorderType.RRect,
-                                  radius: const Radius.circular(10),
-                                  dashPattern: const [10, 4],
-                                  strokeCap: StrokeCap.round,
-                                  color: Colors.white,
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 200,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          'assets/logo/spotify_logo.png',
-                                          scale: 2,
-                                        ),
-                                        height10,
-                                        const Text(
-                                          'Spotify에서 검색하기',
-                                          style: TextStyle(
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                GestureDetector(
+                                  onTap: () {
+                                    debugPrint('click');
+                                  },
+                                  child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(10),
+                                    dashPattern: const [10, 4],
+                                    strokeCap: StrokeCap.round,
+                                    color: Colors.white,
+                                    child: const SpotifySearch(),
                                   ),
                                 ),
 
@@ -474,9 +458,9 @@ class _CreateScreenState extends State<CreateScreen> {
                                 CheckButton(
                                   width: 60,
                                   height: 60,
-                                  borderColor: Colors.greenAccent,
-                                  icon: Icons.add_rounded,
-                                  iconColor: Colors.greenAccent,
+                                  borderColor: Colors.redAccent,
+                                  icon: Icons.check,
+                                  iconColor: Colors.white,
                                   iconSize: 40,
                                   onTap: () async {
                                     setState(() {
@@ -500,6 +484,37 @@ class _CreateScreenState extends State<CreateScreen> {
                 : const Center(child: CircularProgressIndicator());
           },
         ),
+      ),
+    );
+  }
+}
+
+class SpotifySearch extends StatelessWidget {
+  const SpotifySearch({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 200,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/logo/spotify_logo.png',
+            scale: 2,
+          ),
+          height10,
+          const Text(
+            'Spotify에서 검색하기',
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
       ),
     );
   }
