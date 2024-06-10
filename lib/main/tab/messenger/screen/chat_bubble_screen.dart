@@ -26,14 +26,6 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
     DateTime hourTimestamp = DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.microsecond);
 
-    DocumentSnapshot userProfileSnapshot = await FirebaseFirestore.instance
-        .collection('UserInfo')
-        .doc(
-            user!.displayName) // Assuming user's displayName is the document ID
-        .get();
-
-    String? userProfileImage = userProfileSnapshot.get('userProfileImage');
-
     await _fireStore
         .collection('UserChats')
         .doc(chatName)
@@ -42,7 +34,6 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
         .set({
       'sender': user!.displayName,
       'text': _userMessage,
-      'senderProfileImage': userProfileImage,
       'timestamp': Timestamp.fromDate(now),
     });
 
@@ -57,10 +48,8 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
 
   @override
   Widget build(BuildContext context) {
-    // var chatImage = widget.doc.get('chatImage');
     var chatName = widget.doc.get('chatName');
-    // var member = widget.doc.get('member');
-    // var likedMember = widget.doc.get('likedMember');
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -75,11 +64,6 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                 padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  // image: DecorationImage(
-                  //   fit: BoxFit.fill,
-                  //   opacity: 0.5,
-                  //   image: NetworkImage(chatImage),
-                  // ),
                 ),
                 child: StreamBuilder(
                   stream: _fireStore
@@ -130,7 +114,6 @@ class _ChatBubbleScreenState extends State<ChatBubbleScreen>
                               message['text'],
                               message['sender'].toString() == user!.displayName,
                               message['sender'],
-                              message['senderProfileImage'],
                               formattedDateTime,
                             ),
                             height10,
