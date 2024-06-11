@@ -24,17 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               right: 0,
               top: 100,
               child: Image.asset(
-                'assets/logo/logo5.png',
-                scale: 0.5,
-              ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              top: 300,
-              child: Image.asset(
-                'assets/logo/music_is_life.png',
-                scale: 0.5,
+                'assets/logo/music_is_life_logo.png',
               ),
             ),
             Positioned(
@@ -45,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // 로그인 버튼
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -80,7 +70,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   const SizedBox(height: 15),
 
                   // 메인 Column의 회원가입 버튼
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

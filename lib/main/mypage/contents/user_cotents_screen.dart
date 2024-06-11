@@ -12,7 +12,7 @@ class UserContentsScreen extends StatefulWidget {
 }
 
 class _UserContentsScreenState extends State<UserContentsScreen> {
-  // FireStore UserContents collection 참조 변수
+  // FireStore user_contents collection 참조 변수
   CollectionReference userContentsCollection =
       FirebaseFirestore.instance.collection('UserContents');
 

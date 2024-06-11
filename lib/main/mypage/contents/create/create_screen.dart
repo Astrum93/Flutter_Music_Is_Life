@@ -2,7 +2,9 @@
 
 import 'dart:io';
 
+import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/short_line.dart';
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,9 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:path/path.dart' as path;
 
-import '../../../../common/widget/box/expanded_box.dart';
 import '../../../../common/widget/box/hash_tag_input_box.dart';
 import '../../mypage_screen.dart';
 
@@ -25,7 +25,7 @@ class CreateScreen extends StatefulWidget {
 
 class _CreateScreenState extends State<CreateScreen> {
 // 좋아요 카운트 변수
-  var likecount = 0;
+  final likedMember = [];
 
   // Firebase 인증된 uid
   final _uid = FirebaseAuth.instance.currentUser!.uid;
@@ -168,9 +168,6 @@ class _CreateScreenState extends State<CreateScreen> {
     final List hashTags = [];
     hashTags.addAll([hashtag1, hashtag2, hashtag3]);
 
-    // 이미지를 Firebase Storage에 업로드
-    final fileName = path.basename(pickedImage!.path);
-
     // 클라우드 스토리지 버킷에 경로 생성
     final refContentsImage = _storage
         .ref()
@@ -179,8 +176,6 @@ class _CreateScreenState extends State<CreateScreen> {
         .child(title)
         .child('$title.png');
     await refContentsImage.putFile(pickedImage!);
-
-    // 게시글 정보를 Firestore에 저장
 
     // 저장한 이미지 url로 변환
     final myurl = await refContentsImage.getDownloadURL();
@@ -193,7 +188,7 @@ class _CreateScreenState extends State<CreateScreen> {
       'contents': content,
       'time': Timestamp.now(),
       'id': _uid,
-      'likeCount': likecount,
+      'likedMember': likedMember,
       'hashTags': hashTags,
     });
 
@@ -342,7 +337,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     radius: const Radius.circular(10),
                                     dashPattern: const [10, 4],
                                     strokeCap: StrokeCap.round,
-                                    color: Colors.blue.shade400,
+                                    color: Colors.white,
                                     child: _buildImagePreview(),
                                   ),
                                 ),
@@ -359,7 +354,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   radius: const Radius.circular(10),
                                   dashPattern: const [10, 4],
                                   strokeCap: StrokeCap.round,
-                                  color: Colors.blue.shade400,
+                                  color: Colors.white,
 
                                   // 입력 창
                                   child: TextField(
@@ -368,6 +363,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     decoration: const InputDecoration(
                                       hintText: ' 게시물 제목을 입력해 주세요.',
                                       hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
@@ -380,7 +376,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                   radius: const Radius.circular(10),
                                   dashPattern: const [10, 4],
                                   strokeCap: StrokeCap.round,
-                                  color: Colors.blue.shade400,
+                                  color: Colors.white,
 
                                   // 입력 창
                                   child: TextField(
@@ -389,6 +385,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                     decoration: const InputDecoration(
                                       hintText: ' 내용을 입력해 주세요.',
                                       hintStyle: TextStyle(color: Colors.grey),
+                                      border: InputBorder.none,
                                     ),
                                   ),
                                 ),
@@ -399,6 +396,8 @@ class _CreateScreenState extends State<CreateScreen> {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 4),
                                   child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       // 해시태그
                                       HashTagInputBox(
@@ -406,14 +405,10 @@ class _CreateScreenState extends State<CreateScreen> {
                                         controller: _hashtagController1,
                                       ),
 
-                                      const ExpandedBox(),
-
                                       HashTagInputBox(
                                         text: ' 해시태그',
                                         controller: _hashtagController2,
                                       ),
-
-                                      const ExpandedBox(),
 
                                       HashTagInputBox(
                                         text: ' 해시태그',
@@ -423,11 +418,51 @@ class _CreateScreenState extends State<CreateScreen> {
                                   ),
                                 ),
 
-                                const SizedBox(height: 20),
+                                const Height(80),
+                                const ShortLine(color: Colors.amber),
+                                const Height(10),
 
-                                // Create 버튼 ( time , contents 저장)
-                                TextButton.icon(
-                                  onPressed: () async {
+                                // 게시물 작성
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '게시물 음악 검색',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                const Height(10),
+                                const ShortLine(color: Colors.amber),
+                                const Height(40),
+
+                                GestureDetector(
+                                  onTap: () {
+                                    debugPrint('click');
+                                  },
+                                  child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(10),
+                                    dashPattern: const [10, 4],
+                                    strokeCap: StrokeCap.round,
+                                    color: Colors.white,
+                                    child: const SpotifySearch(),
+                                  ),
+                                ),
+
+                                const Height(40),
+
+                                CheckButton(
+                                  width: 60,
+                                  height: 60,
+                                  borderColor: Colors.redAccent,
+                                  icon: Icons.check,
+                                  iconColor: Colors.white,
+                                  iconSize: 40,
+                                  onTap: () async {
                                     setState(() {
                                       _loading = true;
                                     });
@@ -438,15 +473,6 @@ class _CreateScreenState extends State<CreateScreen> {
                                       _loading = false;
                                     });
                                   },
-                                  icon: const Icon(
-                                    Icons.arrow_circle_up_rounded,
-                                    size: 50,
-                                  ),
-                                  label: const Text(
-                                    'Create',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 20),
-                                  ),
                                 ),
                               ],
                             )
@@ -458,6 +484,37 @@ class _CreateScreenState extends State<CreateScreen> {
                 : const Center(child: CircularProgressIndicator());
           },
         ),
+      ),
+    );
+  }
+}
+
+class SpotifySearch extends StatelessWidget {
+  const SpotifySearch({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 200,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/logo/spotify_logo.png',
+            scale: 2,
+          ),
+          height10,
+          const Text(
+            'Spotify에서 검색하기',
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
       ),
     );
   }

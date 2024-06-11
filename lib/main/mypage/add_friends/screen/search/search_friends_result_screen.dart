@@ -1,5 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/friend_profile_widget.dart';
+import 'package:MusicIsLife/main/mypage/add_friends/request_friends_dialog.dart';
 import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,39 +33,32 @@ class SearchFriendsResultScreen extends StatelessWidget {
                       mainAxisExtent: 150,
                     ),
                     itemCount: searchData.searchFriends.length,
-                    itemBuilder: (context, index) => Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                              color: AppColors.veryDarkGrey,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
-                              ),
-                            ),
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              radius: 40,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.network(
-                                  searchData.searchFriends[index]
-                                      .get('userProfileImage'),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.center,
-                                ),
-                              ),
-                            ),
+                    itemBuilder: (context, index) => GestureDetector(
+                      onLongPress: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => RequestFriendDialog(
+                            rxList: searchData.searchFriends,
+                            index: index,
+                            data:
+                                searchData.searchFriends[index].get('userName'),
                           ),
-                        ),
-                        height10,
-                        Text(
-                          searchData.searchFriends[index].get('userName'),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          FriendProfileWidget(
+                              rxList: searchData.searchFriends,
+                              index: index,
+                              boxColor: AppColors.veryDarkGrey,
+                              borderColor: Colors.amberAccent),
+                          height10,
+                          Text(
+                            searchData.searchFriends[index].get('userName'),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

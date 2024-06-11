@@ -30,12 +30,14 @@ class _SearchFriendsTabBarViewState extends State<SearchFriendsTabBarView>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SearchInputWidget(controller: controller),
-        SearchFriendsResultScreen(searchData: searchData),
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SearchInputWidget(controller: controller),
+          SearchFriendsResultScreen(searchData: searchData),
+        ],
+      ),
     );
   }
 }

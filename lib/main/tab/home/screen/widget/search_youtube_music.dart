@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class SearchMusic extends StatefulWidget {
-  const SearchMusic({super.key});
+class SearchYoutubeMusic extends StatefulWidget {
+  const SearchYoutubeMusic({super.key});
 
   @override
-  State<SearchMusic> createState() => _SearchMusicState();
+  State<SearchYoutubeMusic> createState() => _SearchYoutubeMusicState();
 }
 
-class _SearchMusicState extends State<SearchMusic> {
+class _SearchYoutubeMusicState extends State<SearchYoutubeMusic> {
   String singer = '';
   String titleOfSong = '';
   String youtubeUrl = '';

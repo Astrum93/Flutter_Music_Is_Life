@@ -3,7 +3,7 @@ import 'package:MusicIsLife/data/memory/user_join_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../../../common/constants.dart';
+import '../../../../../common/constant/constants.dart';
 
 // Firebase Authentication Instance
 final _auth = FirebaseAuth.instance;
@@ -54,7 +54,7 @@ class UserInfoData with FirebaseCollectionReference {
   }
 }
 
-/// 회원 가입시 UserInfo Collection에 데이터를 저장하는 함수
+/// 회원 가입시 user_info Collection에 데이터를 저장하는 함수
 void saveUserData(UserJoinData userJoinData) async {
   await _auth.createUserWithEmailAndPassword(
     email: userJoinData.mail,
@@ -65,7 +65,7 @@ void saveUserData(UserJoinData userJoinData) async {
 
   // Firestore의 UserInfo에 저장
   await FirebaseFirestore.instance
-      .collection('UserInfo')
+      .collection('user_info')
       .doc(userJoinData.name)
       .set({
     'userName': userJoinData.name,
@@ -74,5 +74,13 @@ void saveUserData(UserJoinData userJoinData) async {
     'userProfileImage': baseProfileImage,
     'userProfileInfo': '',
     'userProfileBgImage': baseProfileBgImage,
+  });
+
+  // Firestore의 UserInfo에 저장
+  await FirebaseFirestore.instance
+      .collection('UserFriends')
+      .doc(userJoinData.name)
+      .set({
+    'friends': [],
   });
 }

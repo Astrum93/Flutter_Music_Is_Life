@@ -18,12 +18,13 @@ class HomeData extends GetxController {
   void onInit() {
     FireStoreDataUtil.getUserInfoDoc();
     FireStoreDataUtil.getContentsDoc();
-    FireStoreDataUtil.loggedUserDoc();
+    FireStoreDataUtil.getUserPlayListDoc();
+    FireStoreDataUtil.currentUserDoc();
     super.onInit();
   }
 
   Future<void> docsProvider() async {
-    final loggedUserDoc = await FireStoreDataUtil.loggedUserDoc();
+    final loggedUserDoc = await FireStoreDataUtil.currentUserDoc();
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         loggedUser = loggedUserDoc.toRxMap();

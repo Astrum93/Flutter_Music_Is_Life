@@ -50,3 +50,6 @@ app.*.map.json
 /macos/Runner/GoogleService-Info.plist
 /macos/firebase_app_id_file.json
 /lib/firebase_options.dart
+
+# Config
+*.env

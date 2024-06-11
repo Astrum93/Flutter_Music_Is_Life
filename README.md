@@ -2,8 +2,8 @@
 
 <br>
 <div align = center>
-  
-![image](https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/f74f9b9e-094f-4b75-8c8b-9cc8e46cbb41)
+
+![image](https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/b9dde506-523a-4437-800b-6d81f22783dd)
 
 
 </div>
@@ -22,6 +22,7 @@ IDE : Android Studio
 Platform : Android
 
 ```
+
 <br>
 <hr>
 <br>
@@ -173,7 +174,6 @@ https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/b83e9a9c-6910
 <hr>
 <br>
 
-
 #### 라운지
 
 <br>
@@ -195,3 +195,20 @@ https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/5237f3f0-4ba4
 <hr>
 <br>
 
+#### 채팅
+
+<br>
+
+<div align = center>
+
+
+https://github.com/Astrum93/Flutter_Music_Is_Life/assets/116700688/fb007bbf-da34-4b5d-a11c-4b249a37391c
+
+
+
+</div>
+
+
+<br>
+<hr>
+<br>
