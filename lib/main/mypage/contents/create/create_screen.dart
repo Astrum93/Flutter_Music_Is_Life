@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/short_line.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
+import 'package:MusicIsLife/main/mypage/contents/create/spotify_search_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -441,7 +442,10 @@ class _CreateScreenState extends State<CreateScreen> {
 
                                 GestureDetector(
                                   onTap: () {
-                                    debugPrint('click');
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SpotifySearchScree()));
                                   },
                                   child: DottedBorder(
                                     borderType: BorderType.RRect,
