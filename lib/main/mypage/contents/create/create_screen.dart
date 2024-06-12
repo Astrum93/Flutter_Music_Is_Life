@@ -6,11 +6,13 @@ import 'package:MusicIsLife/common/widget/button/check_button.dart';
 import 'package:MusicIsLife/common/widget/short_line.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/mypage/contents/create/spotify_search_screen_for_create.dart';
+import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -24,7 +26,8 @@ class CreateScreen extends StatefulWidget {
   State<CreateScreen> createState() => _CreateScreenState();
 }
 
-class _CreateScreenState extends State<CreateScreen> {
+class _CreateScreenState extends State<CreateScreen>
+    with SpotifySearchDataProvider {
 // 좋아요 카운트 변수
   final likedMember = [];
 
@@ -81,7 +84,15 @@ class _CreateScreenState extends State<CreateScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Get.put(SpotifySearchData());
     _getUserInfo();
+  }
+
+  @override
+  void dispose() {
+    /// *** delete는 Generic Type으로 관리 ***
+    Get.delete<SpotifySearchData>();
+    super.dispose();
   }
 
   // 컨텐츠 이미지
