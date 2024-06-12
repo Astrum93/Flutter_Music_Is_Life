@@ -13,6 +13,7 @@ abstract mixin class SpotifySearchDataProvider {
 
 class SpotifySearchData extends GetxController with SpotifyWebApiService {
   final RxList searchResult = [].obs;
+  final RxList selectTrack = [].obs;
 
   Future searchMusic(String query) async {
     final token = await getAccessToken();
