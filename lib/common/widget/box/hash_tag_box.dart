@@ -38,14 +38,16 @@ class HashTagBox extends StatelessWidget {
               size: 18,
             ),
             const SizedBox(width: 10),
-            Text(
-              text,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.fade,
+            Expanded(
+              child: Text(
+                text,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+              ),
             ),
           ],
         ),
