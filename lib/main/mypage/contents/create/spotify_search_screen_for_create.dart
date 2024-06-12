@@ -1,6 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/constant/constants.dart';
 import 'package:MusicIsLife/common/widget/button/check_button.dart';
+import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
 import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
@@ -29,9 +30,11 @@ class _SpotifySearchScreenForCreateState
 
   @override
   void dispose() {
+    super.dispose();
+
     /// *** delete는 Generic Type으로 관리 ***
     Get.delete<SpotifySearchData>();
-    super.dispose();
+    spotifySearchData.searchResult.clear();
   }
 
   @override
@@ -58,20 +61,20 @@ class _SpotifySearchScreenForCreateState
                       children: [
                         GestureDetector(
                           onTap: () {
-                            debugPrint('on Tap');
                             showDialog(
                               context: context,
                               builder: (context) => Dialog(
                                 child: Container(
                                   width: 100,
-                                  height: 300,
+                                  height: 150,
                                   decoration: const BoxDecoration(
                                     color: AppColors.veryDarkGrey,
                                   ),
                                   child: Stack(
+                                    clipBehavior: Clip.none,
                                     children: [
                                       const Positioned(
-                                        top: 100,
+                                        top: 40,
                                         left: 0,
                                         right: 0,
                                         child:
@@ -83,10 +86,10 @@ class _SpotifySearchScreenForCreateState
                                                 textAlign: TextAlign.center),
                                       ),
 
-                                      /// 친구 추가 버튼
+                                      /// 추가 버튼
                                       Positioned(
                                         right: 30,
-                                        bottom: 55,
+                                        bottom: 10,
                                         child: CheckButton(
                                           width: 40,
                                           height: 40,
@@ -94,14 +97,39 @@ class _SpotifySearchScreenForCreateState
                                           borderColor: Colors.greenAccent,
                                           icon: Icons.check,
                                           iconColor: Colors.greenAccent,
-                                          onTap: () {},
+                                          onTap: () {
+                                            if (spotifySearchData
+                                                .selectTrack.isEmpty) {
+                                              spotifySearchData.selectTrack
+                                                  .add(track);
+                                              CustomSnackBar
+                                                  .buildTopRoundedSnackBar(
+                                                      context,
+                                                      '추가가 완료되었습니다.',
+                                                      Colors.greenAccent,
+                                                      Colors.black,
+                                                      3);
+                                              Navigator.pop(context);
+                                            }
+                                            if (spotifySearchData
+                                                .selectTrack.isNotEmpty) {
+                                              CustomSnackBar
+                                                  .buildTopRoundedSnackBar(
+                                                      context,
+                                                      '게시물당 한 곡만 가능합니다.',
+                                                      Colors.redAccent,
+                                                      Colors.black,
+                                                      3);
+                                              Navigator.pop(context);
+                                            }
+                                          },
                                         ),
                                       ),
 
                                       /// 취소 버튼
                                       Positioned(
-                                        left: 0,
-                                        bottom: 55,
+                                        left: 30,
+                                        bottom: 10,
                                         child: CheckButton(
                                           width: 40,
                                           height: 40,
@@ -112,6 +140,21 @@ class _SpotifySearchScreenForCreateState
                                           onTap: () {
                                             Navigator.pop(context);
                                           },
+                                        ),
+                                      ),
+
+                                      /// info Icon
+                                      const Positioned(
+                                        top: -30,
+                                        left: 0,
+                                        right: 0,
+                                        child: CheckButton(
+                                          width: 40,
+                                          height: 40,
+                                          borderColor: Colors.transparent,
+                                          icon: Icons.info_outline_rounded,
+                                          iconColor: Colors.yellowAccent,
+                                          iconSize: 40,
                                         ),
                                       ),
                                     ],
