@@ -56,6 +56,9 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
               var id = doc.get('id');
               var time = doc.get('time');
               var hashTags = doc.get('hashTags');
+              var trackName = doc.get('trackName');
+              var trackImage = doc.get('trackImage');
+              var artistsName = doc.get('artistsName');
 
               // Timestamp를 DateTime으로 변환
               DateTime dateTime = time.toDate();
@@ -76,6 +79,9 @@ class _UserContentsScreenState extends State<UserContentsScreen> {
                           id: id,
                           formattedDateTime: formattedDateTime,
                           hashTags: hashTags,
+                          trackName: trackName,
+                          trackImage: trackImage,
+                          artistsName: artistsName,
                         ),
                       ),
                     );

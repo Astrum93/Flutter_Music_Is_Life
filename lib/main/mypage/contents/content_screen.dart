@@ -5,11 +5,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/widget/music_player.dart';
 import '../../../common/widget/short_line.dart';
 
 class ContentsScreen extends StatefulWidget {
-  final String contentSubject, contents, contentsImage, id, formattedDateTime;
+  final String contentSubject,
+      contents,
+      contentsImage,
+      id,
+      formattedDateTime,
+      trackName,
+      trackImage,
+      artistsName;
   final List hashTags;
 
   const ContentsScreen({
@@ -20,6 +26,9 @@ class ContentsScreen extends StatefulWidget {
     required this.id,
     required this.formattedDateTime,
     required this.hashTags,
+    required this.trackName,
+    required this.trackImage,
+    required this.artistsName,
   });
 
   @override
@@ -143,14 +152,51 @@ class _ContentsScreenState extends State<ContentsScreen> {
                 height: 300,
                 child: Image.network(
                   widget.contentsImage,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
             const SizedBox(height: 20),
 
-            // 음악 플레이어
-            const MusicPlayer(),
+            /// 음악 정보
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                  child: Image.network(
+                    widget.trackImage,
+                    scale: 6,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.trackName,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        widget.artistsName,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
 
             const SizedBox(height: 15),
 
