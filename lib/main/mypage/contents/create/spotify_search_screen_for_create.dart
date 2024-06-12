@@ -99,28 +99,28 @@ class _SpotifySearchScreenForCreateState
                                           iconColor: Colors.greenAccent,
                                           onTap: () {
                                             if (spotifySearchData
-                                                .selectTrack.isEmpty) {
+                                                    .selectTrack.length >=
+                                                1) {
+                                              CustomSnackBar
+                                                  .buildTopRoundedSnackBar(
+                                                context,
+                                                '게시물당 한 곡만 가능합니다.',
+                                                Colors.redAccent,
+                                                Colors.black,
+                                                3,
+                                              );
+                                              Navigator.pop(context);
+                                            } else {
                                               spotifySearchData.selectTrack
                                                   .add(track);
                                               CustomSnackBar
                                                   .buildTopRoundedSnackBar(
-                                                      context,
-                                                      '추가가 완료되었습니다.',
-                                                      Colors.greenAccent,
-                                                      Colors.black,
-                                                      3);
-                                              Navigator.pop(context);
-                                            }
-                                            if (spotifySearchData
-                                                    .selectTrack.length ==
-                                                1) {
-                                              CustomSnackBar
-                                                  .buildTopRoundedSnackBar(
-                                                      context,
-                                                      '게시물당 한 곡만 가능합니다.',
-                                                      Colors.redAccent,
-                                                      Colors.black,
-                                                      3);
+                                                context,
+                                                '추가가 완료되었습니다.',
+                                                Colors.greenAccent,
+                                                Colors.black,
+                                                3,
+                                              );
                                               Navigator.pop(context);
                                             }
                                           },
