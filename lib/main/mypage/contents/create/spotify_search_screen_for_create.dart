@@ -112,7 +112,8 @@ class _SpotifySearchScreenForCreateState
                                               Navigator.pop(context);
                                             }
                                             if (spotifySearchData
-                                                .selectTrack.isNotEmpty) {
+                                                    .selectTrack.length >
+                                                1) {
                                               CustomSnackBar
                                                   .buildTopRoundedSnackBar(
                                                       context,
