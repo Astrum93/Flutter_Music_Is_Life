@@ -450,21 +450,60 @@ class _CreateScreenState extends State<CreateScreen>
                                 const Height(10),
                                 const ShortLine(color: Colors.amber),
                                 const Height(40),
-
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SpotifySearchScreenForCreate()));
-                                  },
-                                  child: DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: const Radius.circular(10),
-                                    dashPattern: const [10, 4],
-                                    strokeCap: StrokeCap.round,
-                                    color: Colors.white,
-                                    child: const SpotifySearch(),
-                                  ),
+                                Obx(
+                                  () => spotifySearchData.selectTrack.isEmpty
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const SpotifySearchScreenForCreate()));
+                                          },
+                                          child: DottedBorder(
+                                            borderType: BorderType.RRect,
+                                            radius: const Radius.circular(10),
+                                            dashPattern: const [10, 4],
+                                            strokeCap: StrokeCap.round,
+                                            color: Colors.white,
+                                            child: const SpotifySearch(),
+                                          ),
+                                        )
+                                      : Column(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(30),
+                                              ),
+                                              child: Image.network(
+                                                spotifySearchData.selectTrack[0]
+                                                    ['trackImage'],
+                                                scale: 3.5,
+                                              ),
+                                            ),
+                                            height10,
+                                            Text(
+                                              spotifySearchData.selectTrack[0]
+                                                  ['trackName'],
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            Text(
+                                              spotifySearchData.selectTrack[0]
+                                                  ['artistsName'],
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                 ),
 
                                 const Height(40),
