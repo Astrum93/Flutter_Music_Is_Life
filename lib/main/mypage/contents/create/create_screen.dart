@@ -202,6 +202,9 @@ class _CreateScreenState extends State<CreateScreen>
       'id': _uid,
       'likedMember': likedMember,
       'hashTags': hashTags,
+      'trackName': spotifySearchData.selectTrack[0]['trackName'],
+      'trackImage': spotifySearchData.selectTrack[0]['trackImage'],
+      'artistsName': spotifySearchData.selectTrack[0]['artistsName'],
     });
 
     //작성 완료 후 입력 필드 초기화
@@ -211,6 +214,7 @@ class _CreateScreenState extends State<CreateScreen>
     _hashtagController1.clear();
     _hashtagController2.clear();
     _hashtagController3.clear();
+    spotifySearchData.selectTrack.clear();
     setState(() {
       pickedImage = null;
     });
