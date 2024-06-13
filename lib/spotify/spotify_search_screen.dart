@@ -7,6 +7,7 @@ import 'package:MusicIsLife/spotify/spotify_search_app_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
 
 class SpotifySearchScreen extends StatefulWidget {
   const SpotifySearchScreen({super.key});
@@ -105,47 +106,95 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                     ),
                                     width30,
                                     Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            trackName,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            trackName.length > 20
+                                                ? SizedBox(
+                                                    width: trackName.length *
+                                                        11.toDouble(),
+                                                    height: 50,
+                                                    child: Marquee(
+                                                      text: trackName,
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                        color: Colors.white,
+                                                      ),
+                                                      scrollAxis:
+                                                          Axis.horizontal,
+                                                      velocity: 30,
+                                                      blankSpace: 40,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    trackName,
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                            artistsName.length > 15
+                                                ? SizedBox(
+                                                    width: artistsName.length *
+                                                        11.toDouble(),
+                                                    height: 50,
+                                                    child: Marquee(
+                                                      text: artistsName,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15,
+                                                        color: Colors
+                                                            .grey.shade600,
+                                                      ),
+                                                      scrollAxis:
+                                                          Axis.horizontal,
+                                                      velocity: 30,
+                                                      blankSpace: 40,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    artistsName,
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          Colors.grey.shade600,
+                                                    ),
+                                                  ),
+                                            height20,
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    saveFireStore(
+                                                        trackName,
+                                                        trackImage,
+                                                        artistsName);
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Colors.greenAccent,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          Text(
-                                            artistsName,
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          height20,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  saveFireStore(trackName,
-                                                      trackImage, artistsName);
-                                                },
-                                                child: const Icon(
-                                                  Icons.add,
-                                                  color: Colors.greenAccent,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
