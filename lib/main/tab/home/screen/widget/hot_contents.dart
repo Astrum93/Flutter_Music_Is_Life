@@ -6,6 +6,7 @@ import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_r
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:marquee/marquee.dart';
 
 class HotContents extends StatefulWidget {
   const HotContents({super.key});
@@ -301,21 +302,67 @@ class _HotContentsState extends State<HotContents>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        trackName,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
+                                      Expanded(
+                                        child: trackName.length > 20
+                                            ? SizedBox(
+                                                width: trackName.length *
+                                                    11.toDouble(),
+                                                child: Marquee(
+                                                  text: trackName,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                    color: Colors.white,
+                                                  ),
+                                                  scrollAxis: Axis.horizontal,
+                                                  velocity: 30,
+                                                  blankSpace: 50,
+                                                  pauseAfterRound:
+                                                      const Duration(
+                                                          seconds: 1),
+                                                ),
+                                              )
+                                            : Text(
+                                                trackName,
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                       ),
-                                      Text(
-                                        artistsName,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey.shade600,
-                                        ),
+                                      Expanded(
+                                        child: artistsName.length > 15
+                                            ? SizedBox(
+                                                width: artistsName.length *
+                                                    11.toDouble(),
+                                                child: Marquee(
+                                                  text: artistsName,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                    color: Colors.grey.shade600,
+                                                  ),
+                                                  scrollAxis: Axis.horizontal,
+                                                  velocity: 30,
+                                                  blankSpace: 50,
+                                                  pauseAfterRound:
+                                                      const Duration(
+                                                          seconds: 1),
+                                                ),
+                                              )
+                                            : Text(
+                                                artistsName,
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey.shade600,
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                       ),
                                     ],
                                   ),
