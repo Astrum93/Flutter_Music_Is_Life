@@ -4,6 +4,7 @@ import 'package:MusicIsLife/common/widget/subject_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 
 import '../../../common/widget/short_line.dart';
 
@@ -172,28 +173,67 @@ class _ContentsScreenState extends State<ContentsScreen> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          widget.trackName,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          widget.artistsName,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          widget.trackName.length > 20
+                              ? SizedBox(
+                                  width:
+                                      widget.trackName.length * 11.toDouble(),
+                                  height: 50,
+                                  child: Marquee(
+                                    text: widget.trackName,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                    scrollAxis: Axis.horizontal,
+                                    velocity: 30,
+                                    blankSpace: 40,
+                                    pauseAfterRound: const Duration(seconds: 1),
+                                  ),
+                                )
+                              : Text(
+                                  widget.trackName,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                          widget.artistsName.length > 15
+                              ? SizedBox(
+                                  width:
+                                      widget.artistsName.length * 11.toDouble(),
+                                  height: 50,
+                                  child: Marquee(
+                                    text: widget.artistsName,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                    scrollAxis: Axis.horizontal,
+                                    velocity: 30,
+                                    blankSpace: 40,
+                                    pauseAfterRound: const Duration(seconds: 1),
+                                  ),
+                                )
+                              : Text(
+                                  widget.artistsName,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

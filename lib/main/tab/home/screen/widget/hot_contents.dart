@@ -316,7 +316,7 @@ class _HotContentsState extends State<HotContents>
                                                   ),
                                                   scrollAxis: Axis.horizontal,
                                                   velocity: 30,
-                                                  blankSpace: 50,
+                                                  blankSpace: 40,
                                                   pauseAfterRound:
                                                       const Duration(
                                                           seconds: 1),
@@ -347,7 +347,7 @@ class _HotContentsState extends State<HotContents>
                                                   ),
                                                   scrollAxis: Axis.horizontal,
                                                   velocity: 30,
-                                                  blankSpace: 50,
+                                                  blankSpace: 40,
                                                   pauseAfterRound:
                                                       const Duration(
                                                           seconds: 1),
