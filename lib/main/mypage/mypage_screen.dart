@@ -22,7 +22,7 @@ class MyScreen extends StatefulWidget {
   State<MyScreen> createState() => _MyScreenState();
 }
 
-class _MyScreenState extends State<MyScreen> {
+class _MyScreenState extends State<MyScreen> with TickerProviderStateMixin {
   // 현재 인증된 유저 이름
   final _displayName = FirebaseAuth.instance.currentUser!.displayName;
 

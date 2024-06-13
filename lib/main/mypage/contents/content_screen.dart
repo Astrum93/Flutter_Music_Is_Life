@@ -193,7 +193,6 @@ class _ContentsScreenState extends State<ContentsScreen> {
                                     scrollAxis: Axis.horizontal,
                                     velocity: 30,
                                     blankSpace: 40,
-                                    pauseAfterRound: const Duration(seconds: 1),
                                   ),
                                 )
                               : Text(
@@ -221,7 +220,6 @@ class _ContentsScreenState extends State<ContentsScreen> {
                                     scrollAxis: Axis.horizontal,
                                     velocity: 30,
                                     blankSpace: 40,
-                                    pauseAfterRound: const Duration(seconds: 1),
                                   ),
                                 )
                               : Text(
