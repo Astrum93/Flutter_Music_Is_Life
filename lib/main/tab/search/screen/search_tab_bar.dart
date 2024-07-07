@@ -60,7 +60,7 @@ class SearchTabBar extends StatelessWidget {
       labelStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
-      overlayColor: MaterialStatePropertyAll(
+      overlayColor: WidgetStatePropertyAll(
         Colors.lightBlue.withOpacity(0.2),
       ),
       indicatorWeight: 0.1,
