@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract mixin class FirebaseAuthUser {
-  // Firebase Authentication Instance
-  final _auth = FirebaseAuth.instance;
-
   // Firebase 인증된 현재 유저
   final User? user = FirebaseAuth.instance.currentUser;
 
