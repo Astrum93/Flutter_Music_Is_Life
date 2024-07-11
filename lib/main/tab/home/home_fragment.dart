@@ -1,5 +1,7 @@
 import 'package:MusicIsLife/common/constant/app_colors.dart';
 import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
+import 'package:MusicIsLife/common/widget/button/check_button.dart';
+import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:MusicIsLife/main/tab/home/screen/home_screen.dart';
 import 'package:MusicIsLife/main/tab/lounge/lounge_fragment.dart';
 import 'package:MusicIsLife/main/tab/messenger/messenger_fragment.dart';
@@ -101,6 +103,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
         color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: 300,
@@ -121,6 +124,33 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
                 ),
               ),
             ),
+            height20,
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CheckButton(
+                  width: 40,
+                  height: 40,
+                  boxColor: AppColors.veryDarkGrey,
+                  borderColor: Colors.redAccent,
+                  icon: Icons.close,
+                  iconColor: Colors.redAccent,
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const Width(150),
+                CheckButton(
+                  width: 40,
+                  height: 40,
+                  boxColor: AppColors.veryDarkGrey,
+                  borderColor: Colors.greenAccent,
+                  icon: Icons.check,
+                  iconColor: Colors.greenAccent,
+                  onTap: () {},
+                ),
+              ],
+            )
           ],
         ),
       ),
