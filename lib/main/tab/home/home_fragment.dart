@@ -42,36 +42,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
       canPop: false,
       onPopInvoked: (bool didPop) {
         if (!didPop) {
-          showDialog(
-            context: context,
-            builder: (context) => Material(
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 300,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      border: Border.all(color: Colors.redAccent),
-                      color: AppColors.veryDarkGrey,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        '현제 계정에서 \n로그아웃 하시겠습니까?',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+          showPopDialog(context);
         }
       },
       child: StreamBuilder(
@@ -119,6 +90,39 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
           }
           return const WelcomeScreen();
         },
+      ),
+    );
+  }
+
+  void showPopDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Material(
+        color: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 300,
+              height: 200,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                border: Border.all(color: Colors.redAccent),
+                color: AppColors.veryDarkGrey,
+              ),
+              child: const Center(
+                child: Text(
+                  '현제 계정에서 \n로그아웃 하시겠습니까?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
