@@ -100,8 +100,7 @@ class _SpotifySearchScreenForCreateState
                                           iconColor: Colors.greenAccent,
                                           onTap: () {
                                             if (spotifySearchData
-                                                    .selectTrack.length >=
-                                                1) {
+                                                .selectTrack.isNotEmpty) {
                                               CustomSnackBar
                                                   .buildTopRoundedSnackBar(
                                                 context,
