@@ -147,7 +147,13 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
                   borderColor: Colors.greenAccent,
                   icon: Icons.check,
                   iconColor: Colors.greenAccent,
-                  onTap: () {},
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                    if (mounted) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen()));
+                    }
+                  },
                 ),
               ],
             )
