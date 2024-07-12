@@ -220,6 +220,8 @@ class _HotContentsState extends State<HotContents>
                                   var name = userInfoDoc.get('userName');
                                   var profileImage =
                                       userInfoDoc.get('userProfileImage');
+                                  var userProfileInfo =
+                                      userInfoDoc.get('userProfileInfo');
 
                                   return GestureDetector(
                                     onTap: () {
@@ -229,6 +231,7 @@ class _HotContentsState extends State<HotContents>
                                         builder: (context) => UserInfoMini(
                                           profileImage: profileImage,
                                           name: name,
+                                          userProfileInfo: userProfileInfo,
                                         ),
                                       );
                                     },
