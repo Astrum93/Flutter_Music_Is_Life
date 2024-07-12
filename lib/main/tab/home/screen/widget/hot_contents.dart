@@ -3,6 +3,7 @@ import 'package:MusicIsLife/common/widget/button/hash_tag_text_button.dart';
 import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
 import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:MusicIsLife/main/tab/home/screen/widget/user_info_mini.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -220,36 +221,48 @@ class _HotContentsState extends State<HotContents>
                                   var profileImage =
                                       userInfoDoc.get('userProfileImage');
 
-                                  return Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 25,
-                                        backgroundColor: Colors.greenAccent,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          child: Image.network(
-                                            profileImage,
+                                  return GestureDetector(
+                                    onTap: () {
+                                      debugPrint('tap');
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) => UserInfoMini(
+                                          profileImage: profileImage,
+                                          name: name,
+                                        ),
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 25,
+                                          backgroundColor: Colors.greenAccent,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: Image.network(
+                                              profileImage,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        name,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          name,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      // Text(
-                                      //   '0',
-                                      //   style: TextStyle(
-                                      //       color: Colors.grey.shade600,
-                                      //       fontWeight: FontWeight.bold,
-                                      //       fontSize: 13),
-                                      // )
-                                    ],
+                                        // Text(
+                                        //   '0',
+                                        //   style: TextStyle(
+                                        //       color: Colors.grey.shade600,
+                                        //       fontWeight: FontWeight.bold,
+                                        //       fontSize: 13),
+                                        // )
+                                      ],
+                                    ),
                                   );
                                 }),
                       ),
