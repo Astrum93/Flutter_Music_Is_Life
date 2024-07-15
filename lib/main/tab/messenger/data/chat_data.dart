@@ -1,6 +1,6 @@
-import 'package:MusicIsLife/data/memory/firebase/firestore/fire_store_data_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/fire_store_data_util.dart';
 
 abstract mixin class ChatDataProvider {
   late final chatData = Get.find<ChatData>();

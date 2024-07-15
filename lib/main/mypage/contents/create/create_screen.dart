@@ -2,11 +2,6 @@
 
 import 'dart:io';
 
-import 'package:MusicIsLife/common/widget/button/check_button.dart';
-import 'package:MusicIsLife/common/widget/short_line.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/mypage/contents/create/spotify_search_screen_for_create.dart';
-import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:music_is_life/common/widget/button/check_button.dart';
+import 'package:music_is_life/common/widget/short_line.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/main/mypage/contents/create/spotify_search_screen_for_create.dart';
+import 'package:music_is_life/spotify/data/spotify_search_data.dart';
 
 import '../../../../common/widget/box/hash_tag_input_box.dart';
 import '../../mypage_screen.dart';

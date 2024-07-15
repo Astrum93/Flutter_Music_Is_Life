@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/constant/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/constant/constants.dart';
 
 class ChatBubbleWidget extends StatefulWidget {
   final String message;

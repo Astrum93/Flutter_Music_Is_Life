@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/main/mypage/add_friends/screen/recommend_friends_tab_bar_view.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/screen/search_friends_tab_bar_view.dart';
-import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/main/mypage/add_friends/screen/recommend_friends_tab_bar_view.dart';
+import 'package:music_is_life/main/mypage/add_friends/screen/search_friends_tab_bar_view.dart';
+import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class AddFriendsTabBarView extends StatelessWidget {
   const AddFriendsTabBarView({

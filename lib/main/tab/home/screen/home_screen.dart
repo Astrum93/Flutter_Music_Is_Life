@@ -1,11 +1,11 @@
-import 'package:MusicIsLife/common/fcm/fcm_manager.dart';
-import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
-import 'package:MusicIsLife/main/tab/home/data/home_data.dart';
-import 'package:MusicIsLife/main/tab/home/drawer/home_drawer.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/hot_contents.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/search_youtube_music.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/common/fcm/fcm_manager.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:music_is_life/main/tab/home/data/home_data.dart';
+import 'package:music_is_life/main/tab/home/drawer/home_drawer.dart';
+import 'package:music_is_life/main/tab/home/screen/widget/hot_contents.dart';
+import 'package:music_is_life/main/tab/home/screen/widget/search_youtube_music.dart';
 
 import '../../../../data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import '../../../mypage/mypage_screen.dart';

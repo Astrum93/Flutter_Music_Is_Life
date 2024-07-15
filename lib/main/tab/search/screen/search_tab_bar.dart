@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
-import 'package:MusicIsLife/main/tab/search/screen/search_result_contents_screen.dart';
-import 'package:MusicIsLife/main/tab/search/screen/search_result_user_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/main/tab/search/data/search_data.dart';
+import 'package:music_is_life/main/tab/search/screen/search_result_contents_screen.dart';
+import 'package:music_is_life/main/tab/search/screen/search_result_user_info_screen.dart';
 
 class SearchTabBarView extends StatelessWidget {
   const SearchTabBarView({

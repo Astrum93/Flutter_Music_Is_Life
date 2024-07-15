@@ -1,9 +1,9 @@
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar_view.dart';
-import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar.dart';
+import 'package:music_is_life/main/mypage/add_friends/screen/tabbar/add_friends_tab_bar_view.dart';
+import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class AddFriendsFragment extends StatefulWidget {
   const AddFriendsFragment({super.key});

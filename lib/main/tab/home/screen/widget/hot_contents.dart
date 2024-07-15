@@ -1,13 +1,13 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/widget/button/hash_tag_text_button.dart';
-import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
-import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
-import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
-import 'package:MusicIsLife/main/tab/home/screen/widget/user_info_mini.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/widget/button/hash_tag_text_button.dart';
+import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:music_is_life/main/tab/home/screen/widget/user_info_mini.dart';
 
 class HotContents extends StatefulWidget {
   const HotContents({super.key});

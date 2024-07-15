@@ -1,9 +1,9 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/friend_profile_widget.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/request_friends_dialog.dart';
-import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/main/mypage/add_friends/friend_profile_widget.dart';
+import 'package:music_is_life/main/mypage/add_friends/request_friends_dialog.dart';
+import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class RecommendsFriendsTabBarView extends StatelessWidget
     with SearchDataProvider {

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:MusicIsLife/spotify/service/spotify_web_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:music_is_life/spotify/service/spotify_web_api_service.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 abstract mixin class SpotifySearchDataProvider {

@@ -1,14 +1,14 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/widget/button/check_button.dart';
-import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
-import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_widget.dart';
-import 'package:MusicIsLife/main/tab/messenger/chat_widget/friends_list_widget.dart';
-import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/widget/button/check_button.dart';
+import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/main/tab/messenger/chat_widget/chat_widget.dart';
+import 'package:music_is_life/main/tab/messenger/chat_widget/friends_list_widget.dart';
+import 'package:music_is_life/main/tab/messenger/data/chat_data.dart';
 
 class CreateChatScreen extends StatefulWidget {
   const CreateChatScreen({super.key});

@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/widget/button/check_button.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/main/tab/messenger/data/chat_data.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/widget/button/check_button.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/main/tab/messenger/data/chat_data.dart';
 
 class EditChatName extends StatefulWidget {
   const EditChatName({super.key});
@@ -70,7 +70,6 @@ class _EditChatNameState extends State<EditChatName> with ChatDataProvider {
             onTap: () {
               if (chatName != null) {
                 chatData.chatName.value = chatName.toString();
-                print(chatData.chatName);
                 Navigator.of(context).pop();
               } else {
                 Navigator.of(context).pop();

@@ -125,7 +125,6 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
                       _loading = false;
                     });
                   } catch (e) {
-                    print(e);
                     if (mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

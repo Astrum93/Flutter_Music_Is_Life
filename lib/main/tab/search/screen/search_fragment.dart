@@ -1,7 +1,7 @@
-import 'package:MusicIsLife/main/tab/search/data/search_data.dart';
-import 'package:MusicIsLife/main/tab/search/search_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_is_life/main/tab/search/data/search_data.dart';
+import 'package:music_is_life/main/tab/search/search_app_bar.dart';
 
 import 'search_tab_bar.dart';
 

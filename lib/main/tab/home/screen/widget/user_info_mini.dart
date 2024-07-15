@@ -1,13 +1,13 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
 
 class UserInfoMini extends StatelessWidget {
   final String profileImage;
   final String name;
   final String userProfileInfo;
 
-  UserInfoMini({
+  const UserInfoMini({
     super.key,
     required this.profileImage,
     required this.name,

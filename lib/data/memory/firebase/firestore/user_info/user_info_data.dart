@@ -1,7 +1,7 @@
-import 'package:MusicIsLife/data/memory/firebase/firestore/firebase_collection_reference.dart';
-import 'package:MusicIsLife/data/memory/user_join_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:music_is_life/data/memory/user_join_data.dart';
 
 import '../../../../../common/constant/constants.dart';
 

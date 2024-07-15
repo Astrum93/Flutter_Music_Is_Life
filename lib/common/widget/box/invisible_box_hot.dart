@@ -1,6 +1,6 @@
-import 'package:MusicIsLife/common/constant/constants.dart';
-import 'package:MusicIsLife/common/widget/box/hash_tag_box.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/constant/constants.dart';
+import 'package:music_is_life/common/widget/box/hash_tag_box.dart';
 
 import 'expanded_box.dart';
 

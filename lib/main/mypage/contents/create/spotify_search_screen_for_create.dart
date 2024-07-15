@@ -1,14 +1,14 @@
-import 'package:MusicIsLife/common/constant/app_colors.dart';
-import 'package:MusicIsLife/common/constant/constants.dart';
-import 'package:MusicIsLife/common/widget/button/check_button.dart';
-import 'package:MusicIsLife/common/widget/scaffold/custom_snackbar.dart';
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
-import 'package:MusicIsLife/spotify/data/spotify_search_data.dart';
-import 'package:MusicIsLife/spotify/spotify_search_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/constant/constants.dart';
+import 'package:music_is_life/common/widget/button/check_button.dart';
+import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/spotify/data/spotify_search_data.dart';
+import 'package:music_is_life/spotify/spotify_search_app_bar.dart';
 
 class SpotifySearchScreenForCreate extends StatefulWidget {
   const SpotifySearchScreenForCreate({super.key});

@@ -1,6 +1,6 @@
-import 'package:MusicIsLife/main/tab/messenger/messenger_app_bar.dart';
-import 'package:MusicIsLife/main/tab/messenger/screen/messenger_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/main/tab/messenger/messenger_app_bar.dart';
+import 'package:music_is_life/main/tab/messenger/screen/messenger_screen.dart';
 
 class MessengerFragment extends StatefulWidget {
   const MessengerFragment({super.key});

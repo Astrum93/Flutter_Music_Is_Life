@@ -1,5 +1,5 @@
-import 'package:MusicIsLife/main/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/main/welcome_screen.dart';
 
 class NAspace extends StatelessWidget {
   const NAspace({super.key});

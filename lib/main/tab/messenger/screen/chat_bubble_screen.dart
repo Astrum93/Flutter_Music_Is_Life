@@ -1,9 +1,9 @@
-import 'package:MusicIsLife/common/widget/width_height_widget.dart';
-import 'package:MusicIsLife/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
-import 'package:MusicIsLife/main/tab/messenger/chat_widget/chat_bubble_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/main/tab/messenger/chat_widget/chat_bubble_widget.dart';
 
 class ChatBubbleScreen extends StatefulWidget {
   final DocumentSnapshot<Map<String, dynamic>> doc;

@@ -1,8 +1,8 @@
-import 'package:MusicIsLife/common/widget/box/expanded_box.dart';
-import 'package:MusicIsLife/common/widget/easy_text_form_field.dart';
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:music_is_life/common/widget/box/expanded_box.dart';
+import 'package:music_is_life/common/widget/easy_text_form_field.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class SearchYoutubeMusic extends StatefulWidget {

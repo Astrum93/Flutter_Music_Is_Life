@@ -1,6 +1,6 @@
-import 'package:MusicIsLife/main/tab/lounge/slider/slider_items.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/main/tab/lounge/slider/slider_items.dart';
 
 class LoungeSliderIndicator extends StatelessWidget {
   final CarouselController _controller;

@@ -1,15 +1,15 @@
-import 'package:MusicIsLife/common/widget/button/mini_button.dart';
-import 'package:MusicIsLife/common/widget/music_player.dart';
-import 'package:MusicIsLife/main/mypage/add_friends/add_friends_fragment.dart';
-import 'package:MusicIsLife/main/mypage/music/music_collection/music_collection_screen.dart';
-import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_background%20.dart';
-import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_image.dart';
-import 'package:MusicIsLife/main/mypage/profile/edit/edit_profile_introduce.dart';
-import 'package:MusicIsLife/main/tab/home/home_fragment.dart';
-import 'package:MusicIsLife/main/tab/messenger/messenger_fragment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/widget/button/mini_button.dart';
+import 'package:music_is_life/common/widget/music_player.dart';
+import 'package:music_is_life/main/mypage/add_friends/add_friends_fragment.dart';
+import 'package:music_is_life/main/mypage/music/music_collection/music_collection_screen.dart';
+import 'package:music_is_life/main/mypage/profile/edit/edit_profile_background.dart';
+import 'package:music_is_life/main/mypage/profile/edit/edit_profile_image.dart';
+import 'package:music_is_life/main/mypage/profile/edit/edit_profile_introduce.dart';
+import 'package:music_is_life/main/tab/home/home_fragment.dart';
+import 'package:music_is_life/main/tab/messenger/messenger_fragment.dart';
 
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
