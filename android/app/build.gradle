@@ -50,6 +50,11 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        manifestPlaceholders = [
+                redirectHostName  : "com.example.naspace",
+                redirectSchemeName: "https",
+                applicationName   : "android.app.Application"
+        ]
     }
 
     buildTypes {
