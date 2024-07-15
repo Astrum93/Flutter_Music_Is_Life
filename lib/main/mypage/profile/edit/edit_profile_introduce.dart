@@ -14,9 +14,6 @@ class EditProfileIntroduce extends StatefulWidget {
 }
 
 class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
-  // 로딩 스피너 상태 변수
-  bool _loading = false;
-
   // 현재 인증된 유저
   final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -102,10 +99,6 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
               // 닫기 버튼
               TextButton.icon(
                 onPressed: () async {
-                  setState(() {
-                    _loading = true;
-                  });
-
                   try {
                     // Firestore의 UserInfo에 update
                     await FirebaseFirestore.instance
@@ -113,7 +106,7 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
                         .doc(_displayName)
                         .update({'userProfileInfo': profileInfo});
 
-                    if (mounted) {
+                    if (context.mounted) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -121,11 +114,8 @@ class _EditProfileIntroduceState extends State<EditProfileIntroduce> {
                         ),
                       );
                     }
-                    setState(() {
-                      _loading = false;
-                    });
                   } catch (e) {
-                    if (mounted) {
+                    if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(

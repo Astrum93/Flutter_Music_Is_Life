@@ -121,7 +121,7 @@ class _CreateChatScreenState extends State<CreateChatScreen>
                           'likedMember': chatData.likedMember.toList(),
                           'createdAt': Timestamp.now(),
                         });
-                        if (mounted) {
+                        if (context.mounted) {
                           Navigator.of(context).pop();
                         }
                       } else {
@@ -134,7 +134,7 @@ class _CreateChatScreenState extends State<CreateChatScreen>
                         );
                       }
                     } catch (e) {
-                      if (mounted) {
+                      if (context.mounted) {
                         CustomSnackBar.buildTopRoundedSnackBar(
                           context,
                           '알수 없는 오류가 발생 하였습니다.',
