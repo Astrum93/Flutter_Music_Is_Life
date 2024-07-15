@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:music_is_life/common/constant/app_colors.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 
-class UserInfoMini extends StatelessWidget {
+class UserInfoMini extends StatefulWidget {
   final String profileImage;
   final String name;
   final String userProfileInfo;
@@ -14,6 +16,12 @@ class UserInfoMini extends StatelessWidget {
     required this.userProfileInfo,
   });
 
+  @override
+  State<UserInfoMini> createState() => _UserInfoMiniState();
+}
+
+class _UserInfoMiniState extends State<UserInfoMini>
+    with FirebaseCollectionReference, FirebaseAuthUser {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -38,13 +46,13 @@ class UserInfoMini extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        profileImage,
+                        widget.profileImage,
                       ),
                     ),
                   ),
                   height20,
                   Text(
-                    name,
+                    widget.name,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -69,12 +77,26 @@ class UserInfoMini extends StatelessWidget {
                                 fontSize: 17),
                           ),
                           height10,
-                          Text(
-                            '0',
-                            style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                          StreamBuilder(
+                            stream: userContentsCollection
+                                .where("name", isEqualTo: widget.name)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              }
+
+                              // 로그인한 유저의 게시물 문서
+                              final collectionDocs = snapshot.data!.docs;
+                              return Text(
+                                collectionDocs.length.toString(),
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -136,7 +158,7 @@ class UserInfoMini extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       child: Center(
                         child: Text(
-                          userProfileInfo,
+                          widget.userProfileInfo,
                           textAlign: TextAlign.center,
                           maxLines: 5,
                           overflow: TextOverflow.ellipsis,
