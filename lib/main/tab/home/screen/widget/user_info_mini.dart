@@ -39,6 +39,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   CircleAvatar(
                     radius: 50,
@@ -61,8 +62,9 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   ),
                 ],
               ),
-              const Width(45),
+              const Width(20),
               Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
                     children: [
@@ -149,23 +151,21 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   height20,
 
                   /// 유저 프로필 소개
-                  Expanded(
-                    child: Container(
-                      width: 270,
-                      height: 100,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Center(
-                        child: Text(
-                          widget.userProfileInfo,
-                          textAlign: TextAlign.center,
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
+                  Container(
+                    width: 220,
+                    height: 90,
+                    decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Center(
+                      child: Text(
+                        widget.userProfileInfo,
+                        textAlign: TextAlign.center,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
                         ),
                       ),
                     ),
