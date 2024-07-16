@@ -151,21 +151,23 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   height20,
 
                   /// 유저 프로필 소개
-                  Container(
-                    width: 220,
-                    height: 90,
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Center(
-                      child: Text(
-                        widget.userProfileInfo,
-                        textAlign: TextAlign.center,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+                  Expanded(
+                    child: Container(
+                      width: 220,
+                      height: 90,
+                      decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Center(
+                        child: Text(
+                          widget.userProfileInfo,
+                          textAlign: TextAlign.center,
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
                     ),
