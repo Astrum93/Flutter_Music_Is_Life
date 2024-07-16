@@ -320,21 +320,18 @@ class _MyScreenState extends State<MyScreen>
                             style: TextStyle(color: Colors.grey),
                           ),
                           height20,
-                          Stack(
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.2),
-                                        blurRadius: 7,
-                                      )
-                                    ],
-                                  ),
-                                  child: const MusicPlayer()),
-                            ],
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.white.withOpacity(0.2),
+                                  blurRadius: 7,
+                                )
+                              ],
+                            ),
+                            child: const MusicPlayer(),
                           ),
                         ],
                       ),

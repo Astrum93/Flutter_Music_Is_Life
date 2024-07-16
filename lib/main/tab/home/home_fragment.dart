@@ -107,7 +107,7 @@ class _HomeFragmentState extends State<HomeFragment> with FirebaseAuthUser {
           children: [
             Container(
               width: 300,
-              height: 200,
+              height: 150,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 border: Border.all(color: Colors.redAccent),
