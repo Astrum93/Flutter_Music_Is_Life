@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:music_is_life/common/widget/button/mini_button.dart';
-import 'package:music_is_life/common/widget/music_player.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
@@ -30,12 +29,6 @@ class _MyScreenState extends State<MyScreen>
         FirebaseCollectionReference {
   // 컨텐츠 담을 변수
   List allContents = [];
-
-  // 현재 유저 정보를 불러오는 함수
-  _getUserInfo() async* {
-    var userInfo = await userInfoCollection.doc(displayName).get();
-    yield userInfo.data();
-  }
 
   // Contents 데이터 불러오는 함수
   _getContents() async {
@@ -90,7 +83,6 @@ class _MyScreenState extends State<MyScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getUserInfo();
     _getContents();
   }
 
@@ -99,7 +91,7 @@ class _MyScreenState extends State<MyScreen>
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: StreamBuilder(
-          stream: _getUserInfo(),
+          stream: userInfoCollection.doc(displayName).snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData || snapshot.data == null) {
               return const Text(
@@ -107,6 +99,15 @@ class _MyScreenState extends State<MyScreen>
                 style: TextStyle(color: Colors.red),
               );
             }
+            final collectionDoc = snapshot.data!;
+            var username = collectionDoc['userName'];
+            var userProfileBgImage = collectionDoc['userProfileBgImage'];
+            var userProfileImage = collectionDoc['userProfileImage'];
+            var userProfileInfo = collectionDoc['userProfileInfo'];
+            var userProfileTrackImage = collectionDoc['userProfileTrackImage'];
+            var userProfileTrackName = collectionDoc['userProfileTrackName'];
+            var userProfileTrackArtistsName =
+                collectionDoc['userProfileTrackArtistsName'];
 
             return SingleChildScrollView(
               child: Center(
@@ -128,11 +129,9 @@ class _MyScreenState extends State<MyScreen>
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      '${(snapshot.data as Map)['userProfileBgImage']}'),
+                                  image: NetworkImage(userProfileBgImage),
                                 ),
                               ),
-                              child: const Text(' '),
                             ),
                           ),
 
@@ -151,7 +150,7 @@ class _MyScreenState extends State<MyScreen>
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.network(
-                                    '${(snapshot.data as Map)['userProfileImage']}',
+                                    userProfileImage,
                                     fit: BoxFit.cover,
                                     alignment: Alignment.center,
                                   ),
@@ -185,7 +184,7 @@ class _MyScreenState extends State<MyScreen>
 
                     // UserName
                     Text(
-                      '${(snapshot.data as Map)['userName']}',
+                      username,
                       style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -298,7 +297,7 @@ class _MyScreenState extends State<MyScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  '${(snapshot.data as Map)['userProfileInfo']}',
+                                  userProfileInfo,
                                   style: const TextStyle(color: Colors.white),
                                   textAlign: TextAlign.justify,
                                 ),
@@ -331,7 +330,53 @@ class _MyScreenState extends State<MyScreen>
                                 )
                               ],
                             ),
-                            child: const MusicPlayer(),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 40,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child:
+                                          Image.network(userProfileTrackImage),
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        userProfileTrackName,
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        userProfileTrackArtistsName,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.play_circle_outline_rounded,
+                                      color: Colors.grey,
+                                      size: 45,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
