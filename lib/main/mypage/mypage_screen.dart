@@ -1,8 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:music_is_life/common/widget/button/mini_button.dart';
 import 'package:music_is_life/common/widget/music_player.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:music_is_life/main/mypage/add_friends/add_friends_fragment.dart';
 import 'package:music_is_life/main/mypage/music/music_collection/music_collection_screen.dart';
 import 'package:music_is_life/main/mypage/profile/edit/edit_profile_background.dart';
@@ -22,31 +23,24 @@ class MyScreen extends StatefulWidget {
   State<MyScreen> createState() => _MyScreenState();
 }
 
-class _MyScreenState extends State<MyScreen> with TickerProviderStateMixin {
-  // 현재 인증된 유저 이름
-  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
-
+class _MyScreenState extends State<MyScreen>
+    with
+        TickerProviderStateMixin,
+        FirebaseAuthUser,
+        FirebaseCollectionReference {
   // 컨텐츠 담을 변수
   List allContents = [];
 
-  // FireStore collection 참조 변수
-  CollectionReference userInfoCollection =
-      FirebaseFirestore.instance.collection('UserInfo');
-
-  // FireStore user_contents collection 참조 변수
-  CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('UserContents');
-
   // 현재 유저 정보를 불러오는 함수
   _getUserInfo() async* {
-    var userInfo = await userInfoCollection.doc(_displayName).get();
+    var userInfo = await userInfoCollection.doc(displayName).get();
     yield userInfo.data();
   }
 
   // Contents 데이터 불러오는 함수
   _getContents() async {
     var userContents = await userContentsCollection
-        .doc(_displayName)
+        .doc(displayName)
         .collection('Contents')
         .get();
     return userContents.docs;
@@ -193,7 +187,9 @@ class _MyScreenState extends State<MyScreen> with TickerProviderStateMixin {
                     Text(
                       '${(snapshot.data as Map)['userName']}',
                       style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
 
@@ -280,7 +276,7 @@ class _MyScreenState extends State<MyScreen> with TickerProviderStateMixin {
                             '📢 프로필 소개',
                             style: TextStyle(color: Colors.grey),
                           ),
-                          const SizedBox(height: 20),
+                          height20,
                           GestureDetector(
                             onTap: () {
                               showAlertProfileIntroduce(context);
@@ -323,19 +319,23 @@ class _MyScreenState extends State<MyScreen> with TickerProviderStateMixin {
                             '🎵 프로필 뮤직',
                             style: TextStyle(color: Colors.grey),
                           ),
-                          const SizedBox(height: 20),
-                          Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0.2),
-                                    blurRadius: 7,
-                                  )
-                                ],
-                              ),
-                              child: const MusicPlayer()),
+                          height20,
+                          Stack(
+                            children: [
+                              Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white.withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
+                                    ],
+                                  ),
+                                  child: const MusicPlayer()),
+                            ],
+                          ),
                         ],
                       ),
                     ),
