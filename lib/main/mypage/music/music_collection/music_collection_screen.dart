@@ -41,6 +41,9 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
     });
 
     setState(() {});
+    if (mounted) {
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -163,8 +166,8 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
                                           icon: Icons.check,
                                           iconColor: Colors.greenAccent,
                                           onTap: () async {
-                                            await addProfileTrack(artistsName,
-                                                trackName, trackImage);
+                                            await addProfileTrack(trackImage,
+                                                trackName, artistsName);
                                           },
                                         ),
                                       ],
