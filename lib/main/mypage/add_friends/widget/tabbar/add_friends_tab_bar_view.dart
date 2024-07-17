@@ -6,10 +6,10 @@ import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class AddFriendsTabBarView extends StatelessWidget {
   const AddFriendsTabBarView({
-    Key? key,
+    super.key,
     required this.tabController,
     required this.searchData,
-  }) : super(key: key);
+  });
 
   final TabController tabController;
   final SearchData searchData;

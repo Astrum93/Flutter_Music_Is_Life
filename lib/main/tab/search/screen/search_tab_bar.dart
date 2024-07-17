@@ -6,10 +6,10 @@ import 'package:music_is_life/main/tab/search/screen/search_result_user_info_scr
 
 class SearchTabBarView extends StatelessWidget {
   const SearchTabBarView({
-    Key? key,
+    super.key,
     required this.tabController,
     required this.searchData,
-  }) : super(key: key);
+  });
 
   final TabController tabController;
   final SearchData searchData;

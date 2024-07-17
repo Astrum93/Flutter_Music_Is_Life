@@ -4,9 +4,9 @@ import 'package:music_is_life/main/mypage/favorites/widget/following_tab_bar_vie
 
 class FavoritesTabBarView extends StatelessWidget {
   const FavoritesTabBarView({
-    Key? key,
+    super.key,
     required this.tabController,
-  }) : super(key: key);
+  });
 
   final TabController tabController;
 
