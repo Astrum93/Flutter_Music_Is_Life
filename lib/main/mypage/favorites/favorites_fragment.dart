@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:music_is_life/main/mypage/favorites/widget/favorites_tabbar.dart';
+import 'package:music_is_life/main/mypage/favorites/widget/favorites_tab_bar.dart';
+import 'package:music_is_life/main/mypage/favorites/widget/favorites_tab_bar_view.dart';
 
 class FavoritesFragment extends StatefulWidget {
   const FavoritesFragment({super.key});
@@ -35,7 +36,9 @@ class _FavoritesFragmentState extends State<FavoritesFragment>
         body: Column(
           children: [
             FavoritesTabBar(tabController: tabController),
-            //FavoritesTabbarView(),
+            FavoritesTabBarView(
+              tabController: tabController,
+            ),
           ],
         ),
       ),
