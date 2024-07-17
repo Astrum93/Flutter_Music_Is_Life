@@ -4,6 +4,7 @@ import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 import 'package:music_is_life/main/mypage/add_friends/add_friends_fragment.dart';
+import 'package:music_is_life/main/mypage/favorites/favorites_fragment.dart';
 import 'package:music_is_life/main/mypage/music/music_collection/music_collection_screen.dart';
 import 'package:music_is_life/main/mypage/profile/edit/edit_profile_background.dart';
 import 'package:music_is_life/main/mypage/profile/edit/edit_profile_image.dart';
@@ -245,16 +246,9 @@ class _MyScreenState extends State<MyScreen>
                         /// 즐겨찾기
                         IconButton(
                           onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  '개발 중 입니다.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const FavoritesFragment()));
                           },
                           icon: const Icon(
                             Icons.bolt_rounded,
