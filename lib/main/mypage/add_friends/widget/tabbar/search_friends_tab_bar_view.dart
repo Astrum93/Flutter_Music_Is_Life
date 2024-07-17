@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_is_life/main/mypage/add_friends/screen/search/search_friends_result_screen.dart';
-import 'package:music_is_life/main/mypage/add_friends/screen/search/search_input_widget.dart';
+import 'package:music_is_life/main/mypage/add_friends/widget/search/search_friends_result_screen.dart';
+import 'package:music_is_life/main/mypage/add_friends/widget/search/search_input_widget.dart';
 import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class SearchFriendsTabBarView extends StatefulWidget {

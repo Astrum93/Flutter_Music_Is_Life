@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_is_life/main/mypage/add_friends/screen/recommend_friends_tab_bar_view.dart';
-import 'package:music_is_life/main/mypage/add_friends/screen/search_friends_tab_bar_view.dart';
+import 'package:music_is_life/main/mypage/add_friends/widget/tabbar/recommend_friends_tab_bar_view.dart';
+import 'package:music_is_life/main/mypage/add_friends/widget/tabbar/search_friends_tab_bar_view.dart';
 import 'package:music_is_life/main/tab/search/data/search_data.dart';
 
 class AddFriendsTabBarView extends StatelessWidget {
