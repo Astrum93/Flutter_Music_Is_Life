@@ -178,23 +178,26 @@ class _UserInfoMiniState extends State<UserInfoMini>
               const Width(20),
               MenuAnchor(
                 builder: (BuildContext context, MenuController controller,
-                    Widget? child) {
-                  return IconButton(
-                    onPressed: () {
-                      if (controller.isOpen) {
-                        controller.close();
-                      } else {
-                        controller.open();
-                      }
-                    },
-                    icon: const Icon(Icons.more_horiz),
-                    tooltip: 'Show menu',
-                  );
-                },
-                menuChildren: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('팔로잉'),
+                        Widget? child) =>
+                    IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(Icons.more_horiz),
+                ),
+                menuChildren: const [
+                  MenuItemButton(
+                    style: ButtonStyle(),
+                    child: Text(
+                      '팔로우 하기',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),
