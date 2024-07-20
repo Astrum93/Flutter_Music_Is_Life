@@ -225,7 +225,6 @@ class _HotContentsState extends State<HotContents>
 
                                   return GestureDetector(
                                     onTap: () {
-                                      debugPrint('tap');
                                       showModalBottomSheet(
                                         context: context,
                                         builder: (context) => UserInfoMini(

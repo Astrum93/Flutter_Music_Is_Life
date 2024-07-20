@@ -36,10 +36,10 @@ class _UserInfoMiniState extends State<UserInfoMini>
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   CircleAvatar(
                     radius: 50,
@@ -67,6 +67,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /// 게시글 수
                       Column(
@@ -172,6 +173,29 @@ class _UserInfoMiniState extends State<UserInfoMini>
                       ),
                     ),
                   )
+                ],
+              ),
+              const Width(20),
+              MenuAnchor(
+                builder: (BuildContext context, MenuController controller,
+                    Widget? child) {
+                  return IconButton(
+                    onPressed: () {
+                      if (controller.isOpen) {
+                        controller.close();
+                      } else {
+                        controller.open();
+                      }
+                    },
+                    icon: const Icon(Icons.more_horiz),
+                    tooltip: 'Show menu',
+                  );
+                },
+                menuChildren: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text('팔로잉'),
+                  ),
                 ],
               ),
             ],
