@@ -189,16 +189,18 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   },
                   icon: const Icon(Icons.more_horiz),
                 ),
-                menuChildren: const [
-                  MenuItemButton(
-                    style: ButtonStyle(),
-                    child: Text(
-                      '팔로우 하기',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
+                style: const MenuStyle(
+                  padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+                    EdgeInsets.all(4),
                   ),
+                  backgroundColor: WidgetStatePropertyAll<Color>(Colors.black),
+                  shape: WidgetStatePropertyAll<OutlinedBorder>(CircleBorder()),
+                ),
+                menuChildren: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.person_add_alt_outlined),
+                  )
                 ],
               ),
             ],
