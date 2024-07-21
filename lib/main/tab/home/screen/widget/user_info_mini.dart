@@ -193,14 +193,33 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
                     EdgeInsets.all(4),
                   ),
-                  backgroundColor: WidgetStatePropertyAll<Color>(Colors.black),
-                  shape: WidgetStatePropertyAll<OutlinedBorder>(CircleBorder()),
+                  backgroundColor:
+                      WidgetStatePropertyAll<Color>(Colors.transparent),
+                  shadowColor:
+                      WidgetStatePropertyAll<Color>(Colors.transparent),
                 ),
                 menuChildren: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.person_add_alt_outlined),
-                  )
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.person_add_alt_outlined,
+                        color: Colors.amberAccent,
+                      ),
+                    ),
+                  ),
+                  height10,
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.person_remove_alt_1_outlined,
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],
