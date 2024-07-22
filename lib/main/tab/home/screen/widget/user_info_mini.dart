@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:music_is_life/common/constant/app_colors.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
@@ -22,6 +23,21 @@ class UserInfoMini extends StatefulWidget {
 
 class _UserInfoMiniState extends State<UserInfoMini>
     with FirebaseCollectionReference, FirebaseAuthUser {
+  Future<void> followAndFollowing() async {
+    await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(widget.name)
+        .update({
+      'following': FieldValue.arrayUnion([displayName])
+    });
+    await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(displayName)
+        .update({
+      'follow': FieldValue.arrayUnion([displayName])
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -179,15 +195,23 @@ class _UserInfoMiniState extends State<UserInfoMini>
               MenuAnchor(
                 builder: (BuildContext context, MenuController controller,
                         Widget? child) =>
-                    IconButton(
-                  onPressed: () {
-                    if (controller.isOpen) {
-                      controller.close();
-                    } else {
-                      controller.open();
-                    }
+                    StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('UserFriends')
+                      .doc(displayName)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    return IconButton(
+                      onPressed: () {
+                        if (controller.isOpen) {
+                          controller.close();
+                        } else {
+                          controller.open();
+                        }
+                      },
+                      icon: const Icon(Icons.more_horiz),
+                    );
                   },
-                  icon: const Icon(Icons.more_horiz),
                 ),
                 style: const MenuStyle(
                   padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
@@ -202,15 +226,17 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   CircleAvatar(
                     backgroundColor: Colors.black,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await followAndFollowing();
+                      },
                       icon: const Icon(
                         Icons.person_pin_rounded,
-                        color: Colors.green,
+                        color: Colors.grey,
                       ),
                     ),
                   ),
                   height10,
-                  Text(
+                  const Text(
                     '팔로우',
                     style: TextStyle(color: Colors.grey),
                   ),
