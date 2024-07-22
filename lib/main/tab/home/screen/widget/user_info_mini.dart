@@ -204,21 +204,15 @@ class _UserInfoMiniState extends State<UserInfoMini>
                     child: IconButton(
                       onPressed: () {},
                       icon: const Icon(
-                        Icons.person_add_alt_outlined,
-                        color: Colors.amberAccent,
+                        Icons.person_pin_rounded,
+                        color: Colors.green,
                       ),
                     ),
                   ),
                   height10,
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.person_remove_alt_1_outlined,
-                        color: Colors.redAccent,
-                      ),
-                    ),
+                  Text(
+                    '팔로우',
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
