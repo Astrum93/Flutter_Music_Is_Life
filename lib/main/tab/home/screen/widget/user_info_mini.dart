@@ -23,7 +23,7 @@ class UserInfoMini extends StatefulWidget {
 
 class _UserInfoMiniState extends State<UserInfoMini>
     with FirebaseCollectionReference, FirebaseAuthUser {
-  Future<void> followAndFollowing() async {
+  Future<void> follow() async {
     await FirebaseFirestore.instance
         .collection('UserFriends')
         .doc(widget.name)
@@ -34,7 +34,22 @@ class _UserInfoMiniState extends State<UserInfoMini>
         .collection('UserFriends')
         .doc(displayName)
         .update({
-      'follow': FieldValue.arrayUnion([displayName])
+      'follow': FieldValue.arrayUnion([widget.name])
+    });
+  }
+
+  Future<void> unFollow() async {
+    await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(widget.name)
+        .update({
+      'following': FieldValue.arrayRemove([displayName])
+    });
+    await FirebaseFirestore.instance
+        .collection('UserFriends')
+        .doc(displayName)
+        .update({
+      'follow': FieldValue.arrayRemove([widget.name])
     });
   }
 
@@ -192,10 +207,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                 ],
               ),
               const Width(20),
-              MenuAnchor(
-                builder: (BuildContext context, MenuController controller,
-                        Widget? child) =>
-                    StreamBuilder(
+              StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('UserFriends')
                       .doc(displayName)
@@ -207,47 +219,58 @@ class _UserInfoMiniState extends State<UserInfoMini>
                       );
                     }
 
-                    return IconButton(
-                      onPressed: () {
-                        if (controller.isOpen) {
-                          controller.close();
-                        } else {
-                          controller.open();
-                        }
-                      },
-                      icon: const Icon(Icons.more_horiz),
-                    );
-                  },
-                ),
-                style: const MenuStyle(
-                  padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-                    EdgeInsets.all(4),
-                  ),
-                  backgroundColor:
-                      WidgetStatePropertyAll<Color>(Colors.transparent),
-                  shadowColor:
-                      WidgetStatePropertyAll<Color>(Colors.transparent),
-                ),
-                menuChildren: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: IconButton(
-                      onPressed: () async {
-                        await followAndFollowing();
-                      },
-                      icon: const Icon(
-                        Icons.person_pin_rounded,
-                        color: Colors.grey,
+                    final userFriendsDoc = snapshot.data;
+                    var userFollowing = userFriendsDoc!.get('follow');
+
+                    return MenuAnchor(
+                      builder: (BuildContext context, MenuController controller,
+                              Widget? child) =>
+                          IconButton(
+                        onPressed: () {
+                          if (controller.isOpen) {
+                            controller.close();
+                          } else {
+                            controller.open();
+                          }
+                        },
+                        icon: const Icon(Icons.more_horiz),
                       ),
-                    ),
-                  ),
-                  height10,
-                  const Text(
-                    '팔로우',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
-              ),
+                      style: const MenuStyle(
+                        padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+                          EdgeInsets.all(4),
+                        ),
+                        backgroundColor:
+                            WidgetStatePropertyAll<Color>(Colors.transparent),
+                        shadowColor:
+                            WidgetStatePropertyAll<Color>(Colors.transparent),
+                      ),
+                      menuChildren: [
+                        CircleAvatar(
+                          backgroundColor: Colors.black,
+                          child: IconButton(
+                            onPressed: () async {
+                              if (userFollowing.contains(widget.name)) {
+                                return await unFollow();
+                              } else {
+                                await follow();
+                              }
+                            },
+                            icon: Icon(
+                              Icons.local_fire_department,
+                              color: userFollowing.contains(widget.name)
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                        height10,
+                        Text(
+                          userFollowing.contains(widget.name) ? '팔로잉' : '팔로우',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    );
+                  }),
             ],
           ),
         ),
