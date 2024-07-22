@@ -201,6 +201,12 @@ class _UserInfoMiniState extends State<UserInfoMini>
                       .doc(displayName)
                       .snapshots(),
                   builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
                     return IconButton(
                       onPressed: () {
                         if (controller.isOpen) {
