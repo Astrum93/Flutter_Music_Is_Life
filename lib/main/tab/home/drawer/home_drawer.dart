@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 
@@ -149,7 +150,15 @@ class _HomeDrawerState extends State<HomeDrawer>
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+
+                              if (!snapshot.hasData || snapshot.data == null) {
+                                return const Text(
+                                  'No data available',
+                                  style: TextStyle(color: Colors.red),
+                                );
                               }
 
                               /// 컬렉션의 로그인한 유저의 게시물 문서
@@ -240,25 +249,54 @@ class _HomeDrawerState extends State<HomeDrawer>
                                         const SizedBox(width: 30),
 
                                         /// 팔로워
-                                        const Column(
-                                          children: [
-                                            Text(
-                                              '팔로워',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 10),
-                                            Text(
-                                              '0',
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        StreamBuilder(
+                                            stream: userFriendsCollection
+                                                .doc(displayName)
+                                                .snapshots(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return const Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+
+                                              if (!snapshot.hasData ||
+                                                  snapshot.data == null) {
+                                                return const Text(
+                                                  'No data available',
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                );
+                                              }
+
+                                              final userFriendsDoc =
+                                                  snapshot.data!;
+                                              var follower = userFriendsDoc
+                                                  .get('following');
+
+                                              return Column(
+                                                children: [
+                                                  const Text(
+                                                    '팔로워',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  height10,
+                                                  Text(
+                                                    "${follower.length}",
+                                                    style: const TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            }),
                                       ],
                                     ),
                                   ),
