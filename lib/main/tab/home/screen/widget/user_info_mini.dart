@@ -24,6 +24,9 @@ class UserInfoMini extends StatefulWidget {
 class _UserInfoMiniState extends State<UserInfoMini>
     with FirebaseCollectionReference, FirebaseAuthUser {
   Future<void> follow() async {
+    if (widget.name == displayName) {
+      return;
+    }
     await FirebaseFirestore.instance
         .collection('UserFriends')
         .doc(widget.name)
