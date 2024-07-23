@@ -97,89 +97,107 @@ class _UserInfoMiniState extends State<UserInfoMini>
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// 게시글 수
-                      Column(
-                        children: [
-                          const Text(
-                            '게시글 수',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          height10,
-                          StreamBuilder(
-                            stream: userContentsCollection
-                                .where("name", isEqualTo: widget.name)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              }
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('UserFriends')
+                          .doc(displayName)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
 
-                              // 로그인한 유저의 게시물 문서
-                              final collectionDocs = snapshot.data!.docs;
-                              return Text(
-                                collectionDocs.length.toString(),
-                                style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      width30,
+                        final userFriendsDoc = snapshot.data!;
+                        var follow = userFriendsDoc.get('follow');
+                        var following = userFriendsDoc.get('following');
 
-                      /// 팔로잉
-                      Column(
-                        children: [
-                          const Text(
-                            '팔로잉',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          height10,
-                          Text(
-                            '0',
-                            style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ],
-                      ),
-                      width30,
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            /// 게시글 수
+                            Column(
+                              children: [
+                                const Text(
+                                  '게시글 수',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
+                                height10,
+                                StreamBuilder(
+                                  stream: userContentsCollection
+                                      .where("name", isEqualTo: widget.name)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const CircularProgressIndicator();
+                                    }
 
-                      /// 팔로워
-                      Column(
-                        children: [
-                          const Text(
-                            '팔로워',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          height10,
-                          Text(
-                            '0',
-                            style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                                    // 로그인한 유저의 게시물 문서
+                                    final collectionDocs = snapshot.data!.docs;
+                                    return Text(
+                                      collectionDocs.length.toString(),
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            width30,
+
+                            /// 팔로잉
+                            Column(
+                              children: [
+                                const Text(
+                                  '팔로잉',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
+                                height10,
+                                Text(
+                                  '${follow.length}',
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                            width30,
+
+                            /// 팔로워
+                            Column(
+                              children: [
+                                const Text(
+                                  '팔로워',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
+                                height10,
+                                Text(
+                                  '${following.length}',
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }),
                   height20,
 
                   /// 유저 프로필 소개
