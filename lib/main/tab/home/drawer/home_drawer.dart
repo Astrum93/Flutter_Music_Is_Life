@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
+import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({super.key});
@@ -9,34 +10,17 @@ class HomeDrawer extends StatefulWidget {
   State<HomeDrawer> createState() => _HomeDrawerState();
 }
 
-class _HomeDrawerState extends State<HomeDrawer> {
-  // 현재 인증된 유저 이름
-  final _displayName = FirebaseAuth.instance.currentUser!.displayName;
-
-  // 현재 유저 정보를 불러오는 함수
-  _getUserInfo() async {
-    var userinfo = await userInfoCollection.doc(_displayName).get();
-    return userinfo.data();
-  }
-
-  // FireStore collection 참조 변수
-  CollectionReference userInfoCollection =
-      FirebaseFirestore.instance.collection('UserInfo');
-
-  CollectionReference userContentsCollection =
-      FirebaseFirestore.instance.collection('UserContents');
-
-  @override
-  void initState() {
-    _getUserInfo();
-    super.initState();
-  }
-
+class _HomeDrawerState extends State<HomeDrawer>
+    with FirebaseCollectionReference, FirebaseAuthUser {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getUserInfo(),
+    return StreamBuilder(
+      stream: userInfoCollection.doc(displayName).snapshots(),
       builder: (context, snapshot) {
+        final userInfoDoc = snapshot.data!;
+        var name = userInfoDoc.get('userName');
+        var profileImage = userInfoDoc.get('userProfileImage');
+
         return snapshot.hasData
             ? Drawer(
                 backgroundColor: Colors.black.withOpacity(0.9),
@@ -60,8 +44,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                       Row(
                         children: [
                           Text(
-                            // 'na email',
-                            '${(snapshot.data as Map)['userName']}',
+                            name,
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -87,7 +70,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 ),
                               ),
 
-                              // User image
+                              /// User image
                               Positioned(
                                 top: -20,
                                 left: -20,
@@ -96,13 +79,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                   radius: 50,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Image.network(
-                                        '${(snapshot.data as Map)['userProfileImage']}'),
+                                    child: Image.network(profileImage),
                                   ),
                                 ),
                               ),
 
-                              // User ID UI
+                              /// User ID UI
                               Positioned(
                                 top: 20,
                                 left: 90,
@@ -134,7 +116,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                         ),
                                         const SizedBox(width: 7),
                                         Text(
-                                          "${(snapshot.data as Map)['userName']}",
+                                          name,
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 13,
@@ -150,10 +132,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 ),
                               ),
 
-                              // 게시글, Liked, Like
+                              /// 게시글, Liked, Like
                               StreamBuilder(
                                   stream: userContentsCollection
-                                      .where("name", isEqualTo: _displayName)
+                                      .where("name", isEqualTo: displayName)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     if (snapshot.connectionState ==
@@ -161,7 +143,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                       return const CircularProgressIndicator();
                                     }
 
-                                    // 컬렉션의 로그인한 유저의 게시물 문서
+                                    /// 컬렉션의 로그인한 유저의 게시물 문서
                                     final collectionDocs = snapshot.data!.docs;
                                     return Positioned(
                                       top: 90,
@@ -217,7 +199,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
                                               const SizedBox(width: 30),
 
-                                              // 좋아하는 사람
+                                              /// 좋아하는 사람
                                               const Column(
                                                 children: [
                                                   Text(
@@ -241,7 +223,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                               ),
                                               const SizedBox(width: 30),
 
-                                              // 좋아하는 사람
+                                              /// 좋아하는 사람
                                               const Column(
                                                 children: [
                                                   Text(
