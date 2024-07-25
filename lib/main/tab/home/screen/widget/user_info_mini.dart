@@ -141,7 +141,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                                       return const CircularProgressIndicator();
                                     }
 
-                                    // 로그인한 유저의 게시물 문서
+                                    /// 로그인한 유저의 게시물 문서
                                     final collectionDocs = snapshot.data!.docs;
                                     return Text(
                                       collectionDocs.length.toString(),

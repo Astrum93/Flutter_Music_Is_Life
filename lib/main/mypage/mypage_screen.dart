@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:music_is_life/common/widget/button/mini_button.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
@@ -191,6 +192,36 @@ class _MyScreenState extends State<MyScreen>
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height: 10),
+
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('UserFriends')
+                            .doc(displayName)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          final userFriendsDoc = snapshot.data!;
+                          var follower = userFriendsDoc.get('following');
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.local_fire_department,
+                                color: Colors.red,
+                              ),
+                              width10,
+                              Text('${follower.length}'),
+                            ],
+                          );
+                        }),
                     const SizedBox(height: 10),
 
                     // 프로필 상호작용 버튼들
