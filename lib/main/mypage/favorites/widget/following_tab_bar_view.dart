@@ -23,7 +23,7 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
           );
         }
         final userFriendsDoc = snapshot.data!;
-        var following = userFriendsDoc.get('following');
+        var following = userFriendsDoc.get('following') ?? [];
 
         return ListView.builder(
           itemCount: following.length,
@@ -53,27 +53,24 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border: Border.all(color: Colors.amberAccent),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(color: Colors.amberAccent),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(30),
                               ),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 40,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.network(
-                                    userProfileImage,
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.center,
-                                  ),
+                            ),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              radius: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  userProfileImage,
+                                  fit: BoxFit.cover,
+                                  alignment: Alignment.center,
                                 ),
                               ),
                             ),

@@ -208,7 +208,7 @@ class _MyScreenState extends State<MyScreen>
                           }
 
                           final userFriendsDoc = snapshot.data!;
-                          var follower = userFriendsDoc.get('following');
+                          var follower = userFriendsDoc.get('follower') ?? [];
 
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.center,

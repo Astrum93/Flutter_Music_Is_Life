@@ -23,7 +23,7 @@ class _FollowerTabBarViewState extends State<FollowerTabBarView>
           );
         }
         final userFriendsDoc = snapshot.data!;
-        var follower = userFriendsDoc.get('follower');
+        var follower = userFriendsDoc.get('follower') ?? [];
 
         return ListView.builder(
           itemCount: follower.length,
