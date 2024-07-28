@@ -22,8 +22,20 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
             child: CircularProgressIndicator(),
           );
         }
+        if (snapshot.hasError) {
+          return Text('오류: ${snapshot.error}');
+        }
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return const Text('데이터가 없습니다');
+        }
+
         final userFriendsDoc = snapshot.data!;
-        var following = userFriendsDoc.get('following') ?? [];
+        var userFriendsDocData = userFriendsDoc.data() as Map<String, dynamic>?;
+
+        var following = userFriendsDocData != null &&
+                userFriendsDocData.containsKey('following')
+            ? userFriendsDocData['following']
+            : [];
 
         return ListView.builder(
           itemCount: following.length,
@@ -40,12 +52,18 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
                   return const SizedBox();
                 }
                 if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
+                  return Text('오류: ${snapshot.error}');
                 }
-                if (snapshot.hasData) {
-                  String userName = snapshot.data!.get('userName');
+                if (snapshot.hasData && snapshot.data!.exists) {
+                  String userName =
+                      snapshot.data!.data()!.containsKey('userName')
+                          ? snapshot.data!.get('userName')
+                          : '알 수 없음';
                   String userProfileImage =
-                      snapshot.data!.get('userProfileImage');
+                      snapshot.data!.data()!.containsKey('userProfileImage')
+                          ? snapshot.data!.get('userProfileImage')
+                          : '';
+
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -87,7 +105,7 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
                     ),
                   );
                 } else {
-                  return Text('error');
+                  return const Text('데이터가 없습니다');
                 }
               },
             );
