@@ -272,8 +272,15 @@ class _HomeDrawerState extends State<HomeDrawer>
 
                                               final userFriendsDoc =
                                                   snapshot.data!;
-                                              var follower = userFriendsDoc
-                                                  .get('following');
+                                              var userFriendsDocData =
+                                                  userFriendsDoc.data()
+                                                      as Map<String, dynamic>;
+
+                                              var follower = userFriendsDocData
+                                                      .containsKey('follower')
+                                                  ? userFriendsDocData[
+                                                      'follower']
+                                                  : [];
 
                                               return Column(
                                                 children: [
