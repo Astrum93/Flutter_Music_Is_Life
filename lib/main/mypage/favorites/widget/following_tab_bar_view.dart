@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:music_is_life/common/constant/constants.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
 
@@ -62,7 +63,7 @@ class _FollowingTabBarViewState extends State<FollowingTabBarView>
                   String userProfileImage =
                       snapshot.data!.data()!.containsKey('userProfileImage')
                           ? snapshot.data!.get('userProfileImage')
-                          : '';
+                          : baseProfileImage;
 
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
