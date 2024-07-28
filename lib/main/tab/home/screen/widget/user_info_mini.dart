@@ -31,13 +31,13 @@ class _UserInfoMiniState extends State<UserInfoMini>
         .collection('UserFriends')
         .doc(widget.name)
         .update({
-      'following': FieldValue.arrayUnion([displayName])
+      'follower': FieldValue.arrayUnion([displayName])
     });
     await FirebaseFirestore.instance
         .collection('UserFriends')
         .doc(displayName)
         .update({
-      'follow': FieldValue.arrayUnion([widget.name])
+      'following': FieldValue.arrayUnion([widget.name])
     });
   }
 
@@ -46,13 +46,13 @@ class _UserInfoMiniState extends State<UserInfoMini>
         .collection('UserFriends')
         .doc(widget.name)
         .update({
-      'following': FieldValue.arrayRemove([displayName])
+      'follower': FieldValue.arrayRemove([displayName])
     });
     await FirebaseFirestore.instance
         .collection('UserFriends')
         .doc(displayName)
         .update({
-      'follow': FieldValue.arrayRemove([widget.name])
+      'following': FieldValue.arrayRemove([widget.name])
     });
   }
 
@@ -114,8 +114,18 @@ class _UserInfoMiniState extends State<UserInfoMini>
                         }
 
                         final userFriendsDoc = snapshot.data!;
-                        var follow = userFriendsDoc.get('follow');
-                        var following = userFriendsDoc.get('following');
+
+                        var userFriendsDocData = userFriendsDoc.data();
+
+                        var follow = userFriendsDocData != null &&
+                                userFriendsDocData.containsKey('follow')
+                            ? userFriendsDocData['follow']
+                            : [];
+
+                        var following = userFriendsDocData != null &&
+                                userFriendsDocData.containsKey('following')
+                            ? userFriendsDocData['following']
+                            : [];
 
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,8 +250,13 @@ class _UserInfoMiniState extends State<UserInfoMini>
                       );
                     }
 
-                    final userFriendsDoc = snapshot.data;
-                    var userFollowing = userFriendsDoc!.get('follow');
+                    final userFriendsDoc = snapshot.data!;
+                    var userFriendsDocData = userFriendsDoc.data();
+
+                    var following = userFriendsDocData != null &&
+                            userFriendsDocData.containsKey('following')
+                        ? userFriendsDocData['following']
+                        : [];
 
                     return MenuAnchor(
                       builder: (BuildContext context, MenuController controller,
@@ -270,7 +285,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                           backgroundColor: Colors.black,
                           child: IconButton(
                             onPressed: () async {
-                              if (userFollowing.contains(widget.name)) {
+                              if (following.contains(widget.name)) {
                                 return await unFollow();
                               } else {
                                 await follow();
@@ -278,7 +293,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                             },
                             icon: Icon(
                               Icons.local_fire_department,
-                              color: userFollowing.contains(widget.name)
+                              color: following.contains(widget.name)
                                   ? Colors.red
                                   : Colors.grey,
                             ),
@@ -286,7 +301,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                         ),
                         height10,
                         Text(
-                          userFollowing.contains(widget.name) ? '팔로잉' : '팔로우',
+                          following.contains(widget.name) ? '팔로잉' : '팔로우',
                           style: const TextStyle(color: Colors.grey),
                         ),
                       ],
