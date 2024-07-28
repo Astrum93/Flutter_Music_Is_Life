@@ -23,7 +23,12 @@ class _FollowerTabBarViewState extends State<FollowerTabBarView>
           );
         }
         final userFriendsDoc = snapshot.data!;
-        var follower = userFriendsDoc.get('follower') ?? [];
+        var userFriendsDocData = userFriendsDoc.data() as Map<String, dynamic>?;
+
+        var follower = userFriendsDocData != null &&
+                userFriendsDocData.containsKey('follower')
+            ? userFriendsDocData['follower']
+            : [];
 
         return ListView.builder(
           itemCount: follower.length,
@@ -87,7 +92,7 @@ class _FollowerTabBarViewState extends State<FollowerTabBarView>
                     ),
                   );
                 } else {
-                  return Text('error');
+                  return const Text('error');
                 }
               },
             );
