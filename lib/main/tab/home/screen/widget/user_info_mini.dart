@@ -103,7 +103,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                   StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('UserFriends')
-                          .doc(displayName)
+                          .doc(widget.name)
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -117,14 +117,14 @@ class _UserInfoMiniState extends State<UserInfoMini>
 
                         var userFriendsDocData = userFriendsDoc.data();
 
-                        var follow = userFriendsDocData != null &&
-                                userFriendsDocData.containsKey('follow')
-                            ? userFriendsDocData['follow']
-                            : [];
-
                         var following = userFriendsDocData != null &&
                                 userFriendsDocData.containsKey('following')
                             ? userFriendsDocData['following']
+                            : [];
+
+                        var follower = userFriendsDocData != null &&
+                                userFriendsDocData.containsKey('follower')
+                            ? userFriendsDocData['follower']
                             : [];
 
                         return Row(
@@ -178,7 +178,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                                 ),
                                 height10,
                                 Text(
-                                  '${follow.length}',
+                                  '${following.length}',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
                                       fontWeight: FontWeight.bold,
@@ -200,7 +200,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                                 ),
                                 height10,
                                 Text(
-                                  '${following.length}',
+                                  '${follower.length}',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
                                       fontWeight: FontWeight.bold,
