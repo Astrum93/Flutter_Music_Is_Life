@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen>
                 children: [
                   SizedBox(height: 10),
                   Text(
-                    'Hot Contents🔥',
+                    'Top 10 🔥',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

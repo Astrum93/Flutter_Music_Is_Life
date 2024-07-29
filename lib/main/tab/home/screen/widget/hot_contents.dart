@@ -141,6 +141,7 @@ class _HotContentsState extends State<HotContents>
                                           fit: BoxFit.fill,
                                         ).animate().fade(duration: 3.seconds)
                                       : Image.network(
+                                          filterQuality: FilterQuality.high,
                                           contentsImage,
                                           fit: BoxFit.fill,
                                         ),

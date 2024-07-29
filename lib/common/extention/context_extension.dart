@@ -33,3 +33,9 @@ extension ContextExtension on BuildContext {
     return MediaQuery.of(this).platformBrightness;
   }
 }
+
+extension ImageExtension on num {
+  int cacheSize(BuildContext context) {
+    return (this * MediaQuery.of(context).devicePixelRatio).round();
+  }
+}

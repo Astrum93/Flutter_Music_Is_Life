@@ -27,8 +27,7 @@ class SliderItem extends StatelessWidget {
   }
 }
 
-const Widget music1 = SliderItem('assets/image/planet.png', text: 'All');
-const Widget music2 =
-    SliderItem('assets/image/pink_planet.png', text: 'Current');
+const Widget music1 = SliderItem('assets/image/planet.png', text: '전체 게시물');
+const Widget music2 = SliderItem('assets/image/pink_planet.png', text: '내 게시물');
 
 List<Widget> sliderItems = [music1, music2];
