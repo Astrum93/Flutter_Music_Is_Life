@@ -76,7 +76,7 @@ class _UserInfoMiniState extends State<UserInfoMini>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 50,
+                    radius: 40,
                     backgroundColor: Colors.black,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
@@ -90,223 +90,245 @@ class _UserInfoMiniState extends State<UserInfoMini>
                     widget.name,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
               ),
               const Width(20),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('UserFriends')
-                          .doc(widget.name)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        final userFriendsDoc = snapshot.data!;
-
-                        var userFriendsDocData = userFriendsDoc.data();
-
-                        var following = userFriendsDocData != null &&
-                                userFriendsDocData.containsKey('following')
-                            ? userFriendsDocData['following']
-                            : [];
-
-                        var follower = userFriendsDocData != null &&
-                                userFriendsDocData.containsKey('follower')
-                            ? userFriendsDocData['follower']
-                            : [];
-
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            /// 게시글 수
-                            Column(
-                              children: [
-                                const Text(
-                                  '게시글 수',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                                height10,
-                                StreamBuilder(
-                                  stream: userContentsCollection
-                                      .where("name", isEqualTo: widget.name)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return const CircularProgressIndicator();
-                                    }
-
-                                    /// 로그인한 유저의 게시물 문서
-                                    final collectionDocs = snapshot.data!.docs;
-                                    return Text(
-                                      collectionDocs.length.toString(),
-                                      style: TextStyle(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                            width30,
-
-                            /// 팔로잉
-                            Column(
-                              children: [
-                                const Text(
-                                  '팔로잉',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                                height10,
-                                Text(
-                                  '${following.length}',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                            width30,
-
-                            /// 팔로워
-                            Column(
-                              children: [
-                                const Text(
-                                  '팔로워',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                                height10,
-                                Text(
-                                  '${follower.length}',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
-                  height20,
-
-                  /// 유저 프로필 소개
-                  Expanded(
-                    child: Container(
-                      width: 220,
-                      height: 90,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: Center(
-                        child: Text(
-                          widget.userProfileInfo,
-                          textAlign: TextAlign.center,
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const Width(20),
-              StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('UserFriends')
-                      .doc(displayName)
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    final userFriendsDoc = snapshot.data!;
-                    var userFriendsDocData = userFriendsDoc.data();
-
-                    var following = userFriendsDocData != null &&
-                            userFriendsDocData.containsKey('following')
-                        ? userFriendsDocData['following']
-                        : [];
-
-                    return MenuAnchor(
-                      builder: (BuildContext context, MenuController controller,
-                              Widget? child) =>
-                          IconButton(
-                        onPressed: () {
-                          if (controller.isOpen) {
-                            controller.close();
-                          } else {
-                            controller.open();
+              Expanded(
+                child: SizedBox(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('UserFriends')
+                            .doc(widget.name)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
                           }
+
+                          final userFriendsDoc = snapshot.data!;
+
+                          var userFriendsDocData = userFriendsDoc.data();
+
+                          var following = userFriendsDocData != null &&
+                                  userFriendsDocData.containsKey('following')
+                              ? userFriendsDocData['following']
+                              : [];
+
+                          var follower = userFriendsDocData != null &&
+                                  userFriendsDocData.containsKey('follower')
+                              ? userFriendsDocData['follower']
+                              : [];
+
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              /// 게시글 수
+                              Column(
+                                children: [
+                                  const Text(
+                                    '게시글',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  height10,
+                                  StreamBuilder(
+                                    stream: userContentsCollection
+                                        .where("name", isEqualTo: widget.name)
+                                        .snapshots(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const CircularProgressIndicator();
+                                      }
+
+                                      /// 로그인한 유저의 게시물 문서
+                                      final collectionDocs =
+                                          snapshot.data!.docs;
+                                      return Text(
+                                        collectionDocs.length.toString(),
+                                        style: TextStyle(
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                              width30,
+
+                              /// 팔로잉
+                              Column(
+                                children: [
+                                  const Text(
+                                    '팔로잉',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  height10,
+                                  Text(
+                                    '${following.length}',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                              width30,
+
+                              /// 팔로워
+                              Column(
+                                children: [
+                                  const Text(
+                                    '팔로워',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                  height10,
+                                  Text(
+                                    '${follower.length}',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              ),
+                              const Width(30),
+
+                              /// 팔로우 버튼
+                              StreamBuilder(
+                                stream: FirebaseFirestore.instance
+                                    .collection('UserFriends')
+                                    .doc(displayName)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+
+                                  final userFriendsDoc = snapshot.data!;
+                                  var userFriendsDocData =
+                                      userFriendsDoc.data();
+
+                                  var following = userFriendsDocData != null &&
+                                          userFriendsDocData
+                                              .containsKey('following')
+                                      ? userFriendsDocData['following']
+                                      : [];
+
+                                  return MenuAnchor(
+                                    builder: (BuildContext context,
+                                            MenuController controller,
+                                            Widget? child) =>
+                                        IconButton(
+                                      onPressed: () {
+                                        if (controller.isOpen) {
+                                          controller.close();
+                                        } else {
+                                          controller.open();
+                                        }
+                                      },
+                                      icon: const Icon(Icons.more_horiz),
+                                    ),
+                                    style: const MenuStyle(
+                                      padding: WidgetStatePropertyAll<
+                                          EdgeInsetsGeometry>(
+                                        EdgeInsets.all(4),
+                                      ),
+                                      backgroundColor:
+                                          WidgetStatePropertyAll<Color>(
+                                              Colors.transparent),
+                                      shadowColor:
+                                          WidgetStatePropertyAll<Color>(
+                                              Colors.transparent),
+                                    ),
+                                    menuChildren: [
+                                      CircleAvatar(
+                                        backgroundColor: Colors.black,
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            if (following
+                                                .contains(widget.name)) {
+                                              return await unFollow();
+                                            } else {
+                                              await follow();
+                                            }
+                                          },
+                                          icon: Icon(
+                                            Icons.local_fire_department,
+                                            color:
+                                                following.contains(widget.name)
+                                                    ? Colors.red
+                                                    : Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                      height10,
+                                      Text(
+                                        following.contains(widget.name)
+                                            ? '팔로잉'
+                                            : '팔로우',
+                                        style:
+                                            const TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ],
+                          );
                         },
-                        icon: const Icon(Icons.more_horiz),
                       ),
-                      style: const MenuStyle(
-                        padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
-                          EdgeInsets.all(4),
-                        ),
-                        backgroundColor:
-                            WidgetStatePropertyAll<Color>(Colors.transparent),
-                        shadowColor:
-                            WidgetStatePropertyAll<Color>(Colors.transparent),
-                      ),
-                      menuChildren: [
-                        CircleAvatar(
-                          backgroundColor: Colors.black,
-                          child: IconButton(
-                            onPressed: () async {
-                              if (following.contains(widget.name)) {
-                                return await unFollow();
-                              } else {
-                                await follow();
-                              }
-                            },
-                            icon: Icon(
-                              Icons.local_fire_department,
-                              color: following.contains(widget.name)
-                                  ? Colors.red
-                                  : Colors.grey,
+                      height20,
+
+                      /// 유저 프로필 소개
+                      Expanded(
+                        child: Container(
+                          width: 220,
+                          height: 90,
+                          decoration: const BoxDecoration(
+                              color: Colors.black,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Center(
+                            child: Text(
+                              widget.userProfileInfo,
+                              textAlign: TextAlign.center,
+                              maxLines: 5,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
                             ),
                           ),
                         ),
-                        height10,
-                        Text(
-                          following.contains(widget.name) ? '팔로잉' : '팔로우',
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    );
-                  }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
