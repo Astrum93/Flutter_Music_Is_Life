@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music_is_life/common/constant/app_colors.dart';
+import 'package:music_is_life/common/extention/context_extension.dart';
 import 'package:music_is_life/common/widget/button/hash_tag_text_button.dart';
 import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
@@ -141,9 +142,12 @@ class _HotContentsState extends State<HotContents>
                                           fit: BoxFit.fill,
                                         ).animate().fade(duration: 3.seconds)
                                       : Image.network(
-                                          filterQuality: FilterQuality.high,
                                           contentsImage,
-                                          fit: BoxFit.fill,
+                                          width: 300,
+                                          height: 300,
+                                          cacheWidth: 300.cacheSize(context),
+                                          cacheHeight: 300.cacheSize(context),
+                                          fit: BoxFit.cover,
                                         ),
                             ),
                           ),
