@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:spotify_sdk/spotify_sdk.dart';
 
 abstract mixin class SpotifyWebApiService {
   final String clientId = dotenv.env['CLIENT_ID'] ?? '';
@@ -24,5 +26,16 @@ abstract mixin class SpotifyWebApiService {
     } else {
       throw Exception('Failed to get access token');
     }
+  }
+
+  /// 기기에 Spotify 앱이 설치 되어 있어야 사용 가능
+  playTrack(String trackId) async {
+    var res = await SpotifySdk.connectToSpotifyRemote(
+        clientId: clientId,
+        redirectUrl: "music_is_life://",
+        scope:
+            "app-remote-control,user-modify-playback-state,playlist-read-private");
+    debugPrint(res.toString());
+    SpotifySdk.play(spotifyUri: "spotify:track:$trackId");
   }
 }
