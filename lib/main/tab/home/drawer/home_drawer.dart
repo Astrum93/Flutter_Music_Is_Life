@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
+import 'package:music_is_life/spotify/service/spotify_sdk_service.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({super.key});
@@ -41,30 +42,19 @@ class _HomeDrawerState extends State<HomeDrawer>
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                const SizedBox(height: 30),
-                const Row(
+                const Height(30),
+                Row(
                   children: [
                     Text(
-                      'Welcome',
-                      style: TextStyle(
+                      'Welcome\n$name',
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 50),
+                const Height(50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -73,7 +63,7 @@ class _HomeDrawerState extends State<HomeDrawer>
                       children: [
                         Container(
                           width: 250,
-                          height: 250,
+                          height: 350,
                           decoration: const BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(
@@ -82,7 +72,7 @@ class _HomeDrawerState extends State<HomeDrawer>
                           ),
                         ),
 
-                        /// User image
+                        /// Profile Image
                         Positioned(
                           top: -20,
                           left: -20,
@@ -96,7 +86,7 @@ class _HomeDrawerState extends State<HomeDrawer>
                           ),
                         ),
 
-                        /// User ID UI
+                        /// Profile Name
                         Positioned(
                           top: 20,
                           left: 90,
@@ -144,172 +134,169 @@ class _HomeDrawerState extends State<HomeDrawer>
 
                         /// 게시글, Liked, Like
                         StreamBuilder(
-                            stream: userContentsCollection
-                                .where("name", isEqualTo: displayName)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
+                          stream: userContentsCollection
+                              .where("name", isEqualTo: displayName)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
 
-                              if (!snapshot.hasData || snapshot.data == null) {
-                                return const Text(
-                                  'No data available',
-                                  style: TextStyle(color: Colors.red),
-                                );
-                              }
+                            if (!snapshot.hasData || snapshot.data == null) {
+                              return const Text(
+                                'No data available',
+                                style: TextStyle(color: Colors.red),
+                              );
+                            }
 
-                              /// 컬렉션의 로그인한 유저의 게시물 문서
-                              final collectionDocs = snapshot.data!.docs;
+                            /// 컬렉션의 로그인한 유저의 게시물 문서
+                            final collectionDocs = snapshot.data!.docs;
 
-                              List allLikedMembers = [];
-                              for (var doc in collectionDocs) {
-                                var allLikedMember = doc.get('likedMember');
-                                allLikedMembers.addAll(allLikedMember);
-                              }
+                            List allLikedMembers = [];
+                            for (var doc in collectionDocs) {
+                              var allLikedMember = doc.get('likedMember');
+                              allLikedMembers.addAll(allLikedMember);
+                            }
 
-                              return Positioned(
-                                top: 90,
-                                left: 10,
-                                child: Container(
+                            return Positioned(
+                              top: 90,
+                              left: 10,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4),
+                                width: 240,
+                                height: 100,
+                                margin: const EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      blurRadius: 7,
+                                    )
+                                  ],
+                                ),
+                                child: Padding(
                                   padding:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  width: 240,
-                                  height: 100,
-                                  margin: const EdgeInsets.only(bottom: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.7),
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        blurRadius: 7,
-                                      )
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        // 게시글
-                                        Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                debugPrint(
-                                                    allLikedMembers.toString());
-                                              },
-                                              child: const Text(
-                                                '게시글',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              collectionDocs.length.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-
-                                        const SizedBox(width: 30),
-
-                                        /// 좋아하는 사람
-                                        Column(
-                                          children: [
-                                            const Text(
-                                              'Liked',
+                                      const EdgeInsets.symmetric(vertical: 20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      // 게시글
+                                      Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              debugPrint(
+                                                  allLikedMembers.toString());
+                                            },
+                                            child: const Text(
+                                              '게시글',
                                               style: TextStyle(
                                                 color: Colors.white,
+                                                fontSize: 11,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            const SizedBox(height: 10),
-                                            Text(
-                                              "${allLikedMembers.length}",
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            collectionDocs.length.toString(),
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(width: 30),
+                                          ),
+                                        ],
+                                      ),
 
-                                        /// 팔로워
-                                        StreamBuilder(
-                                            stream: userFriendsCollection
-                                                .doc(displayName)
-                                                .snapshots(),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.connectionState ==
-                                                  ConnectionState.waiting) {
-                                                return const Center(
-                                                    child:
-                                                        CircularProgressIndicator());
-                                              }
+                                      const SizedBox(width: 30),
 
-                                              if (!snapshot.hasData ||
-                                                  snapshot.data == null) {
-                                                return const Text(
-                                                  'No data available',
-                                                  style: TextStyle(
-                                                      color: Colors.red),
-                                                );
-                                              }
+                                      /// 좋아하는 사람
+                                      Column(
+                                        children: [
+                                          const Text(
+                                            'Liked',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "${allLikedMembers.length}",
+                                            style: const TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 30),
 
-                                              final userFriendsDoc =
-                                                  snapshot.data!;
-                                              var userFriendsDocData =
-                                                  userFriendsDoc.data()
-                                                      as Map<String, dynamic>;
+                                      /// 팔로워
+                                      StreamBuilder(
+                                          stream: userFriendsCollection
+                                              .doc(displayName)
+                                              .snapshots(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+                                            }
 
-                                              var follower = userFriendsDocData
-                                                      .containsKey('follower')
-                                                  ? userFriendsDocData[
-                                                      'follower']
-                                                  : [];
-
-                                              return Column(
-                                                children: [
-                                                  const Text(
-                                                    '팔로워',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  height10,
-                                                  Text(
-                                                    "${follower.length}",
-                                                    style: const TextStyle(
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
+                                            if (!snapshot.hasData ||
+                                                snapshot.data == null) {
+                                              return const Text(
+                                                'No data available',
+                                                style: TextStyle(
+                                                    color: Colors.red),
                                               );
-                                            }),
-                                      ],
-                                    ),
+                                            }
+
+                                            final userFriendsDoc =
+                                                snapshot.data!;
+                                            var userFriendsDocData =
+                                                userFriendsDoc.data()
+                                                    as Map<String, dynamic>;
+
+                                            var follower = userFriendsDocData
+                                                    .containsKey('follower')
+                                                ? userFriendsDocData['follower']
+                                                : [];
+
+                                            return Column(
+                                              children: [
+                                                const Text(
+                                                  '팔로워',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                height10,
+                                                Text(
+                                                  "${follower.length}",
+                                                  style: const TextStyle(
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          }),
+                                    ],
                                   ),
                                 ),
-                              );
-                            }),
+                              ),
+                            );
+                          },
+                        ),
 
                         // 로그아웃 버튼
                         Positioned(
@@ -334,6 +321,30 @@ class _HomeDrawerState extends State<HomeDrawer>
                                       Colors.grey.withOpacity(0.8)),
                               icon: const Icon(Icons.logout_rounded),
                               label: const Text('Logout'),
+                            ),
+                          ),
+                        ),
+                        height20,
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: 50,
+                          child: Center(
+                            child: TextButton.icon(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SpotifySdkService()));
+                              },
+                              style: TextButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  minimumSize: const Size(120, 40),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  backgroundColor: Colors.green),
+                              icon: const Icon(Icons.multitrack_audio),
+                              label: const Text('SpotifySdkService'),
                             ),
                           ),
                         ),

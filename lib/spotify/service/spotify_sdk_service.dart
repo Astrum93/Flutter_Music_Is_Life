@@ -39,7 +39,7 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
     ),
   );
 
-  CrossfadeState? crossfadeState;
+  CrossfadeState? crossFadeState;
   late ImageUri? currentTrackImageUri;
 
   @override
@@ -203,9 +203,9 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
               ),
             ),
             // ignore: prefer_single_quotes
-            Text("Is enabled: ${crossfadeState?.isEnabled}"),
+            Text("Is enabled: ${crossFadeState?.isEnabled}"),
             // ignore: prefer_single_quotes
-            Text("Duration: ${crossfadeState?.duration}"),
+            Text("Duration: ${crossFadeState?.duration}"),
           ],
         ),
         _loading
@@ -474,7 +474,7 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
     try {
       var crossfadeStateValue = await SpotifySdk.getCrossFadeState();
       setState(() {
-        crossfadeState = crossfadeStateValue;
+        crossFadeState = crossfadeStateValue;
       });
     } on PlatformException catch (e) {
       setStatus(e.code, message: e.message);
