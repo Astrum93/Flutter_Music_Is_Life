@@ -114,22 +114,24 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                               CrossAxisAlignment.end,
                                           children: [
                                             trackName.length > 20
-                                                ? SizedBox(
-                                                    width: trackName.length *
-                                                        11.toDouble(),
-                                                    height: 50,
-                                                    child: Marquee(
-                                                      text: trackName,
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 20,
-                                                        color: Colors.white,
+                                                ? Expanded(
+                                                    child: SizedBox(
+                                                      width: trackName.length *
+                                                          11.toDouble(),
+                                                      height: 50,
+                                                      child: Marquee(
+                                                        text: trackName,
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                          color: Colors.white,
+                                                        ),
+                                                        scrollAxis:
+                                                            Axis.horizontal,
+                                                        velocity: 30,
+                                                        blankSpace: 40,
                                                       ),
-                                                      scrollAxis:
-                                                          Axis.horizontal,
-                                                      velocity: 30,
-                                                      blankSpace: 40,
                                                     ),
                                                   )
                                                 : Text(
@@ -145,23 +147,26 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                                         TextOverflow.ellipsis,
                                                   ),
                                             artistsName.length > 15
-                                                ? SizedBox(
-                                                    width: artistsName.length *
-                                                        11.toDouble(),
-                                                    height: 50,
-                                                    child: Marquee(
-                                                      text: artistsName,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15,
-                                                        color: Colors
-                                                            .grey.shade600,
+                                                ? Expanded(
+                                                    child: SizedBox(
+                                                      width:
+                                                          artistsName.length *
+                                                              11.toDouble(),
+                                                      height: 50,
+                                                      child: Marquee(
+                                                        text: artistsName,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15,
+                                                          color: Colors
+                                                              .grey.shade600,
+                                                        ),
+                                                        scrollAxis:
+                                                            Axis.horizontal,
+                                                        velocity: 30,
+                                                        blankSpace: 40,
                                                       ),
-                                                      scrollAxis:
-                                                          Axis.horizontal,
-                                                      velocity: 30,
-                                                      blankSpace: 40,
                                                     ),
                                                   )
                                                 : Text(
@@ -175,23 +180,15 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                                     ),
                                                   ),
                                             height20,
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    saveFireStore(
-                                                        trackName,
-                                                        trackImage,
-                                                        artistsName);
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.add,
-                                                    color: Colors.greenAccent,
-                                                  ),
-                                                )
-                                              ],
+                                            GestureDetector(
+                                              onTap: () async {
+                                                saveFireStore(trackName,
+                                                    trackImage, artistsName);
+                                              },
+                                              child: const Icon(
+                                                Icons.add,
+                                                color: Colors.greenAccent,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -200,7 +197,7 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                   ],
                                 ),
                               ),
-                              height10,
+                              height20,
                             ],
                           );
                         },
