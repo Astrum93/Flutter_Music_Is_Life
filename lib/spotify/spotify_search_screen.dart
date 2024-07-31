@@ -33,12 +33,13 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
     super.dispose();
   }
 
-  void saveFireStore(trackName, trackImage, artistsName) async {
+  void saveFireStore(trackName, trackImage, artistsName, trackId) async {
     try {
       if (user!.displayName!.isNotEmpty &&
           trackName != null &&
           trackImage != null &&
-          artistsName != null) {
+          artistsName != null &&
+          trackId != null) {
         await FirebaseFirestore.instance
             .collection('UserInfo')
             .doc(user!.displayName)
@@ -48,6 +49,7 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
           'trackName': trackName,
           'trackImage': trackImage,
           'artistsName': artistsName,
+          'trackId': trackId,
           'time': DateTime.now(),
         });
         if (mounted) {
@@ -84,6 +86,7 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                               track['trackImage'] ?? baseProfileImage;
                           var trackName = track['trackName'] ?? '';
                           var artistsName = track['artistsName'] ?? '';
+                          var trackId = track['trackId'] ?? '';
                           return Column(
                             children: [
                               Container(
@@ -182,8 +185,11 @@ class _SpotifySearchScreenState extends State<SpotifySearchScreen>
                                             height20,
                                             GestureDetector(
                                               onTap: () async {
-                                                saveFireStore(trackName,
-                                                    trackImage, artistsName);
+                                                saveFireStore(
+                                                    trackName,
+                                                    trackImage,
+                                                    artistsName,
+                                                    trackId);
                                               },
                                               child: const Icon(
                                                 Icons.add,
