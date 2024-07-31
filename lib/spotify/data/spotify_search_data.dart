@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:music_is_life/spotify/service/spotify_web_api_service.dart';
@@ -29,13 +30,15 @@ class SpotifySearchData extends GetxController with SpotifyWebApiService {
         final String trackImage = item['album']['images'][0]['url'];
         final String trackName = item['name'];
         final String artistsName = item['artists'][0]['name'];
+        final String trackId = item['artists'][0]['id'];
 
         Map<dynamic, dynamic> trackInfo = {
           'trackImage': trackImage,
           'trackName': trackName,
           'artistsName': artistsName,
+          'trackId': trackId,
         };
-
+        debugPrint(trackInfo.toString());
         searchResult.add(trackInfo);
       }
       return searchResult;
