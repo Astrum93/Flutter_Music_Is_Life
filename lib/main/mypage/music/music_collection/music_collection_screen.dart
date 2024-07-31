@@ -29,8 +29,8 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
     setState(() {});
   }
 
-  Future<void> addProfileTrack(
-      String trackImage, String trackName, String artistsName) async {
+  Future<void> addProfileTrack(String trackImage, String trackName,
+      String artistsName, String trackId) async {
     await FirebaseFirestore.instance
         .collection('UserInfo')
         .doc(FirebaseAuth.instance.currentUser!.displayName)
@@ -38,6 +38,7 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
       'userProfileTrackImage': trackImage,
       'userProfileTrackName': trackName,
       'userProfileTrackArtistsName': artistsName,
+      'userProfileTrackId': trackId,
     });
 
     setState(() {});
@@ -85,6 +86,7 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
                   var trackImage = track['trackImage'] ?? baseProfileImage;
                   var trackName = track['trackName'] ?? '';
                   var artistsName = track['artistsName'] ?? '';
+                  var trackId = track['trackId'] ?? '';
                   return Column(
                     children: [
                       Dismissible(
@@ -166,8 +168,11 @@ class _MusicCollectionScreenState extends State<MusicCollectionScreen>
                                           icon: Icons.check,
                                           iconColor: Colors.greenAccent,
                                           onTap: () async {
-                                            await addProfileTrack(trackImage,
-                                                trackName, artistsName);
+                                            await addProfileTrack(
+                                                trackImage,
+                                                trackName,
+                                                artistsName,
+                                                trackId);
                                           },
                                         ),
                                       ],
