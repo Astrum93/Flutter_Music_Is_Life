@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:music_is_life/common/widget/button/sized_icon_button.dart';
+import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
 import 'package:spotify_sdk/models/connection_status.dart';
 import 'package:spotify_sdk/models/crossfade_state.dart';
 import 'package:spotify_sdk/models/image_uri.dart';
@@ -44,8 +45,8 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StreamBuilder<ConnectionStatus>(
+    return Scaffold(
+      body: StreamBuilder<ConnectionStatus>(
         stream: SpotifySdk.subscribeConnectionStatus(),
         builder: (context, snapshot) {
           _connected = false;
@@ -219,8 +220,19 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
                   if (connectState) {
                     debugPrint('Connected!!!!!!!!');
                   }
-                } catch (e) {
+                } on Exception {
+                  if (mounted) {
+                    CustomSnackBar.buildTopRoundedSnackBar(
+                      context,
+                      'Spotify 앱이 설치 되어있지 않습니다.',
+                      Colors.redAccent,
+                      Colors.black,
+                      3,
+                    );
+                  }
                   debugPrint('Not Connected!!!!!!!!');
+                } catch (e) {
+                  debugPrint(e.toString());
                 }
               },
               child: const Text(
