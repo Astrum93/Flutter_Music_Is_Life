@@ -230,7 +230,6 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
                       3,
                     );
                   }
-                  debugPrint('Not Connected!!!!!!!!');
                 } catch (e) {
                   debugPrint(e.toString());
                 }

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:music_is_life/common/widget/button/mini_button.dart';
+import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
@@ -13,6 +15,7 @@ import 'package:music_is_life/main/mypage/profile/edit/edit_profile_introduce.da
 import 'package:music_is_life/main/tab/home/home_fragment.dart';
 import 'package:music_is_life/main/tab/messenger/messenger_fragment.dart';
 import 'package:music_is_life/spotify/service/spotify_web_api_service.dart';
+import 'package:spotify_sdk/spotify_sdk.dart';
 
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
@@ -401,8 +404,31 @@ class _MyScreenState extends State<MyScreen>
                                     ],
                                   ),
                                   IconButton(
-                                    onPressed: () {
-                                      playTrack(userProfileTrackId);
+                                    onPressed: () async {
+                                      try {
+                                        var connectState = await SpotifySdk
+                                            .connectToSpotifyRemote(
+                                                clientId:
+                                                    dotenv.env['CLIENT_ID'] ??
+                                                        '',
+                                                redirectUrl: 'redirectUrl');
+                                        if (connectState) {
+                                          debugPrint('Connected!!!!!!!!');
+                                        }
+                                      } on Exception {
+                                        if (context.mounted) {
+                                          CustomSnackBar
+                                              .buildTopRoundedSnackBar(
+                                            context,
+                                            'Spotify 앱이 설치 되어있지 않습니다.',
+                                            Colors.redAccent,
+                                            Colors.black,
+                                            3,
+                                          );
+                                        }
+                                      } catch (e) {
+                                        debugPrint(e.toString());
+                                      }
                                     },
                                     icon: const Icon(
                                       Icons.play_circle_outline_rounded,
