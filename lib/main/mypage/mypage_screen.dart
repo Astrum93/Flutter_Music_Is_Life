@@ -12,6 +12,7 @@ import 'package:music_is_life/main/mypage/profile/edit/edit_profile_image.dart';
 import 'package:music_is_life/main/mypage/profile/edit/edit_profile_introduce.dart';
 import 'package:music_is_life/main/tab/home/home_fragment.dart';
 import 'package:music_is_life/main/tab/messenger/messenger_fragment.dart';
+import 'package:music_is_life/spotify/service/spotify_web_api_service.dart';
 
 import 'contents/create/create_screen.dart';
 import 'contents/user_cotents_screen.dart';
@@ -28,7 +29,8 @@ class _MyScreenState extends State<MyScreen>
     with
         TickerProviderStateMixin,
         FirebaseAuthUser,
-        FirebaseCollectionReference {
+        FirebaseCollectionReference,
+        SpotifyWebApiService {
   // 컨텐츠 담을 변수
   List allContents = [];
 
@@ -110,6 +112,7 @@ class _MyScreenState extends State<MyScreen>
             var userProfileTrackName = collectionDoc['userProfileTrackName'];
             var userProfileTrackArtistsName =
                 collectionDoc['userProfileTrackArtistsName'];
+            var userProfileTrackId = collectionDoc['userProfileTrackId'];
 
             return SingleChildScrollView(
               child: Center(
@@ -398,7 +401,9 @@ class _MyScreenState extends State<MyScreen>
                                     ],
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      playTrack(userProfileTrackId);
+                                    },
                                     icon: const Icon(
                                       Icons.play_circle_outline_rounded,
                                       color: Colors.grey,

@@ -206,6 +206,27 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
             Text("Is enabled: ${crossFadeState?.isEnabled}"),
             // ignore: prefer_single_quotes
             Text("Duration: ${crossFadeState?.duration}"),
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor:
+                    WidgetStatePropertyAll<Color>(Colors.amberAccent),
+              ),
+              onPressed: () async {
+                try {
+                  var connectState = await SpotifySdk.connectToSpotifyRemote(
+                      clientId: dotenv.env['CLIENT_ID'] ?? '',
+                      redirectUrl: 'redirectUrl');
+                  if (connectState) {
+                    debugPrint('Connected!!!!!!!!');
+                  }
+                } catch (e) {
+                  debugPrint('Not Connected!!!!!!!!');
+                }
+              },
+              child: const Text(
+                'try connect check',
+              ),
+            ),
           ],
         ),
         _loading
