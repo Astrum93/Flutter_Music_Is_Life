@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:music_is_life/common/widget/button/mini_button.dart';
-import 'package:music_is_life/common/widget/scaffold/custom_snackbar.dart';
 import 'package:music_is_life/common/widget/width_height_widget.dart';
 import 'package:music_is_life/data/memory/firebase/firebase_auth/firebase_auth_user.dart';
 import 'package:music_is_life/data/memory/firebase/firestore/firebase_collection_reference.dart';
@@ -15,6 +13,7 @@ import 'package:music_is_life/main/mypage/profile/edit/edit_profile_introduce.da
 import 'package:music_is_life/main/tab/home/home_fragment.dart';
 import 'package:music_is_life/main/tab/messenger/messenger_fragment.dart';
 import 'package:music_is_life/spotify/service/spotify_web_api_service.dart';
+import 'package:spotify_sdk/models/connection_status.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 import 'contents/create/create_screen.dart';
@@ -356,90 +355,78 @@ class _MyScreenState extends State<MyScreen>
                             style: TextStyle(color: Colors.grey),
                           ),
                           height20,
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.white.withOpacity(0.2),
-                                  blurRadius: 7,
-                                )
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 40,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child:
-                                          Image.network(userProfileTrackImage),
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        userProfileTrackName,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Text(
-                                        userProfileTrackArtistsName,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
+
+                          /// 음악 플레이어
+                          StreamBuilder<ConnectionStatus>(
+                              stream: SpotifySdk.subscribeConnectionStatus(),
+                              builder: (context, snapshot) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white.withOpacity(0.2),
+                                        blurRadius: 7,
+                                      )
                                     ],
                                   ),
-                                  IconButton(
-                                    onPressed: () async {
-                                      try {
-                                        var connectState = await SpotifySdk
-                                            .connectToSpotifyRemote(
-                                                clientId:
-                                                    dotenv.env['CLIENT_ID'] ??
-                                                        '',
-                                                redirectUrl: 'redirectUrl');
-                                        if (connectState) {
-                                          debugPrint('Connected!!!!!!!!');
-                                        }
-                                      } on Exception {
-                                        if (context.mounted) {
-                                          CustomSnackBar
-                                              .buildTopRoundedSnackBar(
-                                            context,
-                                            'Spotify 앱이 설치 되어있지 않습니다.',
-                                            Colors.redAccent,
-                                            Colors.black,
-                                            3,
-                                          );
-                                        }
-                                      } catch (e) {
-                                        debugPrint(e.toString());
-                                      }
-                                    },
-                                    icon: const Icon(
-                                      Icons.play_circle_outline_rounded,
-                                      color: Colors.grey,
-                                      size: 45,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        /// 앨범 사진
+                                        CircleAvatar(
+                                          radius: 40,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            child: Image.network(
+                                                userProfileTrackImage),
+                                          ),
+                                        ),
+
+                                        /// 음악 제목, 가수 이름
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              userProfileTrackName,
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              userProfileTrackArtistsName,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey.shade600,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        IconButton(
+                                          onPressed: () async {
+                                            await getAccessToken();
+                                            connectToSpotifyRemote();
+                                          },
+                                          icon: const Icon(
+                                            Icons.play_circle_outline_rounded,
+                                            color: Colors.grey,
+                                            size: 45,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
+                                );
+                              }),
                         ],
                       ),
                     ),
