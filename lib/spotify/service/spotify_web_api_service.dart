@@ -1,15 +1,27 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 abstract mixin class SpotifyWebApiService {
   final String clientId = dotenv.env['CLIENT_ID'] ?? '';
   final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
 
-  Future<String> getAccessToken() async {
+  final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 2,
+      errorMethodCount: 8,
+      lineLength: 120,
+      colors: true,
+      printEmojis: true,
+      printTime: true,
+    ),
+  );
+
+  Future<String> getAccessWebApiToken() async {
     final response = await http.post(
       Uri.parse('https://accounts.spotify.com/api/token'),
       headers: {
@@ -28,14 +40,53 @@ abstract mixin class SpotifyWebApiService {
     }
   }
 
+  Future<String> getAccessToken() async {
+    try {
+      var authenticationToken = await SpotifySdk.getAccessToken(
+          clientId: clientId,
+          redirectUrl: 'http://localhost:8080/callback',
+          scope: 'app-remote-control, '
+              'user-modify-playback-state, '
+              'playlist-read-private, '
+              'playlist-modify-public,user-read-currently-playing');
+      setStatus('Got a token: $authenticationToken');
+      return authenticationToken;
+    } on PlatformException catch (e) {
+      setStatus(e.code, message: e.message);
+      return Future.error('$e.code: $e.message');
+    } on MissingPluginException {
+      setStatus('not implemented');
+      return Future.error('not implemented');
+    }
+  }
+
+  Future<void> connectToSpotifyRemote() async {
+    try {
+      var result = await SpotifySdk.connectToSpotifyRemote(
+          clientId: dotenv.env['CLIENT_ID'].toString(),
+          redirectUrl: dotenv.env['REDIRECT_URL'].toString());
+      setStatus(result
+          ? 'connect to spotify successful'
+          : 'connect to spotify failed');
+    } on PlatformException catch (e) {
+      setStatus(e.code, message: e.message);
+    } on MissingPluginException {
+      setStatus('not implemented');
+    }
+  }
+
   /// 기기에 Spotify 앱이 설치 되어 있어야 사용 가능
   playTrack(String trackId) async {
-    var res = await SpotifySdk.connectToSpotifyRemote(
+    await SpotifySdk.connectToSpotifyRemote(
         clientId: clientId,
         redirectUrl: "music_is_life://",
         scope:
             "app-remote-control,user-modify-playback-state,playlist-read-private");
-    debugPrint(res.toString());
     SpotifySdk.play(spotifyUri: "spotify:track:$trackId");
+  }
+
+  void setStatus(String code, {String? message}) {
+    var text = message ?? '';
+    _logger.i('$code$text');
   }
 }

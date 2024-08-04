@@ -15,7 +15,7 @@ class SpotifySearchData extends GetxController with SpotifyWebApiService {
   final RxList selectTrack = [].obs;
 
   Future searchMusic(String query) async {
-    final token = await getAccessToken();
+    final token = await getAccessWebApiToken();
     final response = await http.get(
       Uri.parse('https://api.spotify.com/v1/search?q=$query&type=track'),
       headers: {
