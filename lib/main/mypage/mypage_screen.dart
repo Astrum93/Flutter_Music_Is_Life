@@ -413,8 +413,10 @@ class _MyScreenState extends State<MyScreen>
                                         ),
                                         IconButton(
                                           onPressed: () async {
-                                            await getAccessToken();
-                                            connectToSpotifyRemote();
+                                            await SpotifyWebApiService
+                                                .remoteService();
+                                            //await getAccessToken();
+                                            // connectToSpotifyRemote();
                                           },
                                           icon: const Icon(
                                             Icons.play_circle_outline_rounded,

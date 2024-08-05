@@ -4,11 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:oauth2_client/access_token_response.dart';
+import 'package:oauth2_client/spotify_oauth2_client.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
 
 abstract mixin class SpotifyWebApiService {
   final String clientId = dotenv.env['CLIENT_ID'] ?? '';
   final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
+  final String redirectUri = dotenv.env['REDIRECT_URI'] ?? '';
 
   final Logger _logger = Logger(
     printer: PrettyPrinter(
@@ -44,7 +47,7 @@ abstract mixin class SpotifyWebApiService {
     try {
       var authenticationToken = await SpotifySdk.getAccessToken(
           clientId: clientId,
-          redirectUrl: 'http://localhost:8080/callback',
+          redirectUrl: redirectUri,
           scope: 'app-remote-control, '
               'user-modify-playback-state, '
               'playlist-read-private, '
@@ -58,6 +61,37 @@ abstract mixin class SpotifyWebApiService {
       setStatus('not implemented');
       return Future.error('not implemented');
     }
+  }
+
+  static Future<void> remoteService() async {
+    final String clientId = dotenv.env['CLIENT_ID'] ?? '';
+    final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
+    final String redirectUri = dotenv.env['REDIRECT_URI'] ?? '';
+    AccessTokenResponse? accessToken;
+    SpotifyOAuth2Client client = SpotifyOAuth2Client(
+      customUriScheme: 'music.is.life.app',
+      redirectUri: redirectUri,
+    );
+    var authResp =
+        await client.requestAuthorization(clientId: clientId, customParams: {
+      'show_dialog': 'true'
+    }, scopes: [
+      'user-read-private',
+      'user-read-playback-state',
+      'user-modify-playback-state',
+      'user-read-currently-playing',
+      'user-read-email'
+    ]);
+    var authCode = authResp.code;
+
+    accessToken = await client.requestAccessToken(
+        code: authCode.toString(),
+        clientId: clientId,
+        clientSecret: clientSecret);
+
+    // Global variables
+    String? Access_Token = accessToken.accessToken;
+    String? Refresh_Token = accessToken.refreshToken;
   }
 
   Future<void> connectToSpotifyRemote() async {
