@@ -53,7 +53,7 @@ android {
         manifestPlaceholders = [
                 redirectHostName  : "com.example.naspace",
                 redirectSchemeName: "https",
-                applicationName   : "android.app.Application"
+                applicationName   : "android.app.Application",
         ]
     }
 
