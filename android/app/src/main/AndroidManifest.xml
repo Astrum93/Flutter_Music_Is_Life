@@ -30,5 +30,15 @@
             android:name="flutterEmbedding"
             android:value="2"
             />
+
+        <activity android:name="com.linusu.flutter_web_auth.CallbackActivity" android:exported="true">
+            <intent-filter android:label="flutter_web_auth">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="music.is.life.app" android:host="callback"/>
+                <!-- This must correspond to the custom scheme used for instantiatng the client... See below -->
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
