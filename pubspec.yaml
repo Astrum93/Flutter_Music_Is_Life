@@ -57,6 +57,7 @@ dependencies:
   intl: ^0.18.1
   flutter_animate: ^4.5.0
   flutter_chat_bubble: ^2.0.2
+  flutter_native_splash: ^2.4.0
 
   # network
   http: ^1.1.0
@@ -66,14 +67,14 @@ dependencies:
 
   # api
   spotify_sdk: ^2.3.1
+  flutter_web_auth_2: ^3.1.2
+  oauth2_client: ^3.3.0
 
   # env
   flutter_dotenv: ^5.1.0
-  flutter_native_splash: ^2.4.0
 
   # log
   logger: ^1.4.0
-  flutter_web_auth_2: ^3.1.2
 
 dependency_overrides:
   fading_edge_scrollview: ^4.1.1
