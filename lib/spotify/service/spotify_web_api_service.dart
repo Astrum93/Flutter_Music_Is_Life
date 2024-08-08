@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:music_is_life/main/tab/home/home_fragment.dart';
 import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/spotify_oauth2_client.dart';
 import 'package:spotify_sdk/spotify_sdk.dart';
@@ -63,7 +65,7 @@ abstract mixin class SpotifyWebApiService {
     }
   }
 
-  static Future<void> remoteService() async {
+  static Future<void> remoteService(BuildContext context) async {
     final String clientId = dotenv.env['CLIENT_ID'] ?? '';
     final String clientSecret = dotenv.env['CLIENT_SECRET'] ?? '';
     final String redirectUri = dotenv.env['REDIRECT_URI'] ?? '';
@@ -88,10 +90,17 @@ abstract mixin class SpotifyWebApiService {
         code: authCode.toString(),
         clientId: clientId,
         clientSecret: clientSecret);
-
+    debugPrint('accessToken : $accessToken');
     // Global variables
     String? Access_Token = accessToken.accessToken;
     String? Refresh_Token = accessToken.refreshToken;
+
+    debugPrint('Access_Token : $Access_Token');
+    debugPrint('Refresh_Token : $Refresh_Token');
+    if (context.mounted) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => HomeFragment()));
+    }
   }
 
   Future<void> connectToSpotifyRemote() async {
