@@ -92,14 +92,14 @@ abstract mixin class SpotifyWebApiService {
         clientSecret: clientSecret);
     debugPrint('accessToken : $accessToken');
     // Global variables
-    String? Access_Token = accessToken.accessToken;
-    String? Refresh_Token = accessToken.refreshToken;
+    String? remoteAccessToken = accessToken.accessToken;
+    String? remoteRefreshToken = accessToken.refreshToken;
 
-    debugPrint('Access_Token : $Access_Token');
-    debugPrint('Refresh_Token : $Refresh_Token');
+    debugPrint('Access_Token : $remoteAccessToken');
+    debugPrint('Refresh_Token : $remoteRefreshToken');
     if (context.mounted) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => HomeFragment()));
+          .push(MaterialPageRoute(builder: (context) => const HomeFragment()));
     }
   }
 
