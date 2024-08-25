@@ -658,8 +658,9 @@ class _SpotifySdkServiceState extends State<SpotifySdkService> {
           content: Text(isActive
               ? 'Spotify app connection is active (currently playing)'
               : 'Spotify app connection is not active (currently not playing)'));
-
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     } on PlatformException catch (e) {
       setStatus(e.code, message: e.message);
     } on MissingPluginException {
